@@ -1,6 +1,7 @@
 node_modules
 jspm_packages
 /config.js
+/local
 
 /lib
 /public/js
