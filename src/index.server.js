@@ -11,6 +11,9 @@ const config = require('../config.js');
 
 import { ConsoleLogger, LogLevel } from 'nightingale';
 
+// actions
+import { default as indexAction } from './server/actions/index';
+
 const logger = new ConsoleLogger('instantcal', LogLevel.ALL);
 const port = argv.port || 3015;
 
@@ -35,9 +38,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.get('/', function(req, res) {
-
-});
+app.get('/', indexAction);
 
 app.listen(port, () => {
     logger.info('listening', { port: port });

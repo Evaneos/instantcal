@@ -6,20 +6,18 @@ var babel = require('gulp-babel');
 var changed = require('gulp-changed');
 var clip = require('gulp-clip-empty-files');
 var rename = require('gulp-rename');
-var stylus = require('gulp-stylus');
+var sass = require('gulp-sass');
 var grep = require('gulp-grep');
 var browserSync = require('browser-sync');
 var bs;
 
-gulp.task('stylus', function() {
+gulp.task('sass', function() {
     if (bs) {
         bs.notify("Compiling, please wait!");
     }
-    var stream = gulp.src('styles/*.styl')
+    var stream = gulp.src('styles/*.scss')
         .pipe(sourcemaps.init())
-        .pipe(stylus({
-            paths: [__dirname + '/node_modules']
-        }))
+        .pipe(sass())
         .pipe(sourcemaps.write('.', {sourceRoot: '/'}))
         .pipe(gulp.dest('public/'))
         .pipe(grep('**/*.css', {read: false, dot: true}));
@@ -84,11 +82,11 @@ gulp.task('js-browser', function() {
 });
 
 
-gulp.task('all', gulp.parallel('stylus', 'js', 'js-browser'));
+gulp.task('all', gulp.parallel('sass', 'js', 'js-browser'));
 gulp.task('build', gulp.series('all'));
 
 gulp.task('watch:styles', function() {
-    gulp.watch('styles/**/*.styl', gulp.series('stylus'));
+    gulp.watch('styles/**/*.styl', gulp.series('sass'));
 });
 
 gulp.task('watch:js', function() {
