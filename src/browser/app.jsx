@@ -19,7 +19,8 @@ class App extends Component {
     }
 }
 
+const app = ReactDOM.render(<App />, document.getElementById('app'));
+
 export function update(state) {
-    console.log('in');
     app.setState(state);
 }
