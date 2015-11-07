@@ -6,12 +6,9 @@ class App extends Component {
 
     constructor() {
         super();
-        this.state = {}
-    }
-
-    componentDidMount() {
-        const roomStatus = window.roomStatus;
-        this.state.isBusy = roomStatus;
+        this.state = {
+            isBusy : window.roomStatus
+        }
     }
 
     render() {

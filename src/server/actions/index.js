@@ -42,8 +42,8 @@ export default async function index(req, res, next) {
             onPageNotFound: () => statusCode = 404,
         };
 
-        const isBusy = await checkRoomBusy();
-
+        const isBusy = checkRoomBusy();
+        console.log('test', isBusy);
         const { state, component } = router.dispatch({ path: req.path, context, isBusy });
         data.body = ReactDOM.renderToString(component);
         data.css = css.join('');
