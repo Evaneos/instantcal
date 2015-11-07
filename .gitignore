@@ -2,6 +2,7 @@ node_modules
 jspm_packages
 /config.js
 /local
+/fabfile.py
 
 /lib
 /public/js

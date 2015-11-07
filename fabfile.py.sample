@@ -1,0 +1,274 @@
+# coding=UTF-8
+from fabric.api import task, env, run, hide, cd, settings, local, put, lcd, prompt
+from fabric.colors import blue, cyan, green, magenta, red, white, yellow
+from fabric.contrib import files
+import time
+import string
+import re
+import collections
+import json
+import os
+
+pkg = json.load(open('package.json', 'r'), object_pairs_hook=collections.OrderedDict)
+
+# How many versions do we keep
+env.keepReleases = 5
+# Forward ssh keys from deployer (no need to have a deploy key and enforce security for deploying)
+env.forward_agent = 'True'
+# Default host
+env.hosts         = ''
+# Default directory
+env.directory     = ''
+# Repository
+env.repository    = 'git@github.com:evaneos/instantcal.git'
+
+
+env.branch        = ''
+env.hash          = ''
+env.environment   = 'prod'
+env.supervisor    = ''
+
+env.use_ssh_config = True
+
+env.allowTagging = True
+env.allowDeployBranch = True
+env.checkCommitIsInBranch = ''
+env.checkHasCommitFromBranch = ''
+
+env.shared_paths = [
+    'config.js',
+    'local/instantcal.json'
+]
+
+@task
+def preprod():
+    env.environment   = 'preprod'
+    env.hosts     = ''
+    env.directory = '.../instantcal/preprod'
+    env.supervisor    = 'instantcal-preprod:'
+    env.siteUrl = 'https://instantcal/'
+    env.allowTagging = False
+    env.allowDeployBranch = False
+    env.checkHasCommitFromBranch = 'master'
+
+@task
+def prod():
+    env.environment   = 'prod'
+    env.hosts     = ''
+    env.directory = '.../instantcal/prod'
+    env.supervisor    = 'instantcal:'
+    env.siteUrl = 'https://instantcal'
+    env.allowTagging = False
+    env.allowDeployBranch = False
+    env.checkHasCommitFromBranch = 'master'
+    env.checkCommitIsInBranch = 'master'
+
+@task
+def setup():
+    run("mkdir -p %s" % env.directory)
+    run("mkdir -p %s/releases" % env.directory)
+    run("mkdir -p %s/logs" % env.directory)
+    run("mkdir -p %s/shared/local" % env.directory)
+
+    if (files.exists('%s/repository' % env.directory)):
+        with cd('%s/repository' % env.directory):
+            run('git remote update')
+    else:
+        run('git clone --mirror %s %s/repository' % (env.repository, env.directory))
+
+@task
+def deploy():
+    print "Fetching tags..."
+    local('git fetch --tags')
+    version = ''
+    branch = ''
+    tag = ''
+
+    with hide('running', 'stdout'):
+        currentBranch = local('git rev-parse --abbrev-ref HEAD', True)
+
+    if env.allowTagging:
+        createTag = prompt('Tag this release? [Y/n] ').lower()
+        if (createTag != 'n') and (createTag != 'no'):
+            # Test if the local branch has the last commit of master
+            if env.checkHasCommitFromBranch != '':
+                masterLastCommitHash = local('git rev-parse origin/%s' % env.checkHasCommitFromBranch, True)
+                result = local('git branch %s --no-color --contains %s' % (currentBranch, masterLastCommitHash), True).strip().lstrip('*').lstrip()
+                if result != currentBranch:
+                    raise Exception("This branch doesn\'t contains the last commit of %(branch)s ! (Solution: \"git pull origin %(branch)s\")" % { 'branch': env.checkHasCommitFromBranch })
+
+            # Test if the origin's last commit is the same the local branch commit
+            originLastCommitHash = local('git rev-parse origin/%s' % currentBranch, True)
+            thisBranchLastCommitHash = local('git rev-parse %s' % currentBranch, True)
+            if originLastCommitHash != thisBranchLastCommitHash:
+                result = local('git branch %s --no-color --contains origin/%s' % (currentBranch, originLastCommitHash), True).strip().lstrip('*').lstrip()
+                if result != currentBranch:
+                    raise Exception("The origin branch doesn\'t contains the last commit of this branch ! (Solution: \"git push origin %(branch)s\")" % { 'branch': currentBranch })
+                else:
+                    raise Exception("This branch doesn\'t contains the last commit of %(branch)s ! (Solution: \"git pull origin %(branch)s\")" % { 'branch': env.checkHasCommitFromBranch })
+
+            print "Showing latest tags for reference"
+            local('git tag -l -n1 | sort -n -t. -k1,1 -k2,2 -k3,3 -k4,4 | tail -5')
+            version = prompt('New version (in format x.x.x)? [%s]' % pkg['version']).lstrip('v')
+            if (version == False) or (version == ''):
+                version = pkg['version']
+            else:
+                pkg['version'] = version
+                f = open('package.json', 'w')
+                json.dump(pkg, f, sort_keys=False, indent=2)
+                f.close()
+                local('git commit package.json -m "v%(version)s"' % { 'version': version })
+                local('git push origin %s' % currentBranch)
+
+            notes = ''
+            while notes == '':
+                notes = prompt('Release notes ?').strip()
+            local('git tag v%(version)s -m "%(version)s: %(notes)s"' % { 'version': version, 'notes': notes })
+            local('git push origin v%s' % version)
+
+    if (version == ''):
+        # An existing tag can be specified
+        if env.allowDeployBranch:
+            useTag = prompt('Use a tag for deploy? [y/N] ').lower()
+        else:
+            useTag = 'y'
+
+        if (useTag == 'y') or (useTag == 'yes'):
+            print "Showing latest tags for reference"
+            local('git tag -n1 | sort -n -t. -k1,1 -k2,2 -k3,3 -k4,4 | tail -5')
+            version = prompt('Choose version (format x.x.x): ').lstrip('v')
+        else:
+            branch = prompt('What branch do you wanna use? [%s] ' % currentBranch).lower()
+            if (branch == ''):
+                branch = currentBranch
+
+    if (branch != ''):
+        # Check this branch is valid
+        local('git rev-parse %s' % branch)
+    else:
+        tag = 'v%s' % version
+        # Check this tag is valid
+        local('git tag | grep "^%s$"' % tag)
+
+    with cd('%s/repository' % env.directory):
+        run('git remote update')
+
+        if branch != '':
+            hash = run('git rev-parse %s' % branch)
+            version = '%s-%s' % (hash[:8], branch)
+        else:
+            hash = run('git rev-parse %s' % tag)
+            if run('ls %s/releases/ | grep "\-%s$"' % (env.directory, version), quiet=True).strip() != '':
+                keepGoing = prompt('This tag was already deployed ! Do you want to continue ? [y/N] ').lower()
+                if keepGoing != 'y':
+                    raise Exception("This tag was already deployed !")
+            if env.checkCommitIsInBranch:
+                local('git fetch origin %s' % env.checkCommitIsInBranch)
+                result = local('git branch --no-color -r origin/%s --contains %s' % (env.checkCommitIsInBranch, hash), True).strip()
+                if result != 'origin/%s' % env.checkCommitIsInBranch:
+                    raise Exception("The tag\'s commit is not in the history of %s ! (Solution: Merge you PR)" % env.checkCommitIsInBranch)
+
+
+    serverTime = run('date -u +\'%Y%m%d%H%M%S\'')
+    release = '%s-%s' % (serverTime, version)
+
+    run('mkdir -p %s/releases/%s' % (env.directory, release))
+
+    try:
+        print(cyan('STARTING DEPLOYMENT'))
+        doDeploy(release, version, hash)
+        print(green('END OF DEPLOYMENT - STATUS OK'))
+    except:
+        print(red('END OF DEPLOYMENT - STATUS KO'))
+        removeRelease = prompt('Do you want to remove the release? [Y/n] ').lower()
+        if removeRelease != 'n':
+            run('rm -rf %s/releases/%s' % (env.directory, release))
+        raise
+    else:
+        print(cyan('MAKE RELEASE'))
+
+        try:
+            doRelease(release, version, branch, hash, tag)
+        except:
+            previousRelease = getLastRelease()
+            # TODO could not be the last version
+            doRelease(previousRelease, '', '', '', '')
+        else:
+            print(cyan('CLEAN VERSIONS'))
+            cleanReleases()
+
+def doDeploy(release, version, hash):
+    with cd('%s/repository' % env.directory):
+        run('git archive %s | tar -x -C %s/releases/%s' % (hash, env.directory, release))
+
+    with cd('%s/releases/%s' % (env.directory, release)):
+        with settings(warn_only=True):
+            run('rsync -a %s/current/node_modules/ web/node_modules/' % env.directory)
+            run('rsync -a %s/current/jspm_packages/ web/jspm_packages/' % env.directory)
+
+        for path in env.shared_paths:
+            with settings(warn_only=True):
+                run("rm -rf %s" % path)
+            run("ln -s %s/shared/%s %s" % (env.directory, path, path))
+
+        with cd('%s/releases/%s' % (env.directory, release)):
+            run('npm prune && npm install')
+            run('jspm clean ; jspm install')
+            run('make build')
+
+def cleanReleases():
+    with hide('running', 'stdout'):
+        releases     = run('ls -t %s/releases' % env.directory)
+        listReleases = releases.split()
+
+    i = 0
+    for release in listReleases:
+        i = i + 1
+
+        if i > env.keepReleases:
+            run('rm -rf %s/releases/%s' % (env.directory, release))
+
+def getLastRelease():
+    with hide('running', 'stdout'):
+        releases     = run("ls -r %s/releases | tr '\n' '\t'" % env.directory)
+        listReleases = releases.split()
+        return listReleases[0]
+
+def getRollbackRelease():
+    with hide('running', 'stdout'):
+        releases     = run("ls -r %s/releases | tr '\n' '\t'" % env.directory)
+        listReleases = releases.split()
+        return listReleases[1]
+
+def doRelease(release, version, branch, hash, tag):
+    run('rm %s/current ; ln -s %s/releases/%s %s/current' % (env.directory, env.directory, release, env.directory))
+    #run('make migrate')
+
+    run('supervisorctl restart %s' % env.supervisor)
+
+    # TODO check if 200
+
+    # log
+    with settings(warn_only=True):
+        user = local('git config --get user.email', True)
+
+        if branch != '':
+            line = '[%s] Branch %s (at %s) deployed as release %s by %s' % (version, branch, hash, release, user)
+        else:
+            line = '[%s] Tag %s (at %s) deployed as release %s by %s' % (version, tag, hash, release, user)
+
+        revisionFile = '%s/revisions.log' % env.directory
+        files.append(revisionFile, line, use_sudo=False, partial=True, shell=True)
+
+@task
+def rollback():
+    # TODO choose among available versions
+    rollbackRelease = getRollbackRelease()
+
+    # run('rm -rf %s/releases/%s' % (env.directory, rollbackRelease))
+    doRelease(rollbackRelease, '', '', '', '')
+
+@task
+def releaseLast():
+    lastRelease = getLastRelease()
+    doRelease(lastRelease, '', '', '', '')
