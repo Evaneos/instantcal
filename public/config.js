@@ -1,18 +1,17 @@
 System.config({
-  "baseURL": "/",
-  "defaultJSExtensions": true,
-  "transpiler": "none",
-  "paths": {
+  baseURL: "/",
+  defaultJSExtensions: true,
+  transpiler: "none",
+  paths: {
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
-  }
-});
+  },
 
-System.config({
-  "map": {
+  map: {
     "babel-runtime": "npm:babel-runtime@5.8.20",
     "core-js": "npm:core-js@1.2.5",
     "react": "npm:react@0.14.2",
+    "react-countdown-timer": "npm:react-countdown-timer@1.0.2",
     "react-dom": "npm:react-dom@0.14.2",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -163,4 +162,3 @@ System.config({
     }
   }
 });
-
