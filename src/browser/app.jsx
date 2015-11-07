@@ -18,7 +18,6 @@ class App extends Component {
         return <IndexPage isBusy={this.state.isBusy}/>;
     }
 }
-const app = ReactDOM.render(<App />, document.getElementById('app'));
 
 export function update(state) {
     console.log('in');
