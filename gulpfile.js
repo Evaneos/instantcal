@@ -121,7 +121,7 @@ gulp.task('watch:js', function() {
     gulp.watch('src/**/*.{js,jsx}', gulp.parallel('js', 'js-browser'));
 });
 
-var daemon = require('springbokjs-daemon').node([ 'lib/index.js' ]);
+var daemon = require('springbokjs-daemon').node(['--es_staging', 'lib/index.js' ]);
 process.on('exit', function(code) {
     daemon.stop();
 });

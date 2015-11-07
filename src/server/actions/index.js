@@ -1,12 +1,13 @@
-import React, {PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom/server';
 //import Router from 'react-routing/src/Router';
-import indexPage from '../../components/indexpage';
-import Html from '../../components/Html';
-import withContext from './withContext';
+import IndexPage from '../../components/IndexPage/IndexPage';
+import Html from '../../components/Html/Html';
+import withContext from '../../decorators/withContext';
+import { isBusy } from '../googleCalendar';
 
 @withContext
-class App extends React.Component {
+class App extends Component {
     static propTypes = {
         children: PropTypes.element.isRequired,
     };
@@ -15,6 +16,7 @@ class App extends React.Component {
         return this.props.children;
     }
 }
+
 //
 //const router = new Router(on => {
 //    on('*', async (state, next) => {
@@ -24,14 +26,14 @@ class App extends React.Component {
 //});
 
 const router = {
-    dispatch({ context }) {
+    dispatch({ context, availability }) {
         return {
-            component: <App context={context}><IndexPage /></App>
+            component: <App context={context}><IndexPage available={availability} /></App>
         }
     }
 };
 
-export default function index(req, res, next) {
+export default async function index(req, res, next) {
     try {
         let statusCode = 200;
         const data = {title: '', description: '', css: '', body: ''};
@@ -43,11 +45,15 @@ export default function index(req, res, next) {
             onPageNotFound: () => statusCode = 404,
         };
 
-        const { state, component } = router.dispatch({ path: req.path, context });
+        //const events = await getEvents();
+        const availability = !await isBusy();
+        //console.log(availability);
+        //const availability = true;
+        const { state, component } = router.dispatch({ path: req.path, context, availability });
         data.body = ReactDOM.renderToString(component);
         data.css = css.join('');
 
-        const html = ReactDom.renderToStaticMarkup(<Html {...data} />);
+        const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
         res.status(statusCode).send('<!doctype html>\n' + html);
     } catch (err) {
         next(err);

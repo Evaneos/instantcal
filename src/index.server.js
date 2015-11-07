@@ -8,7 +8,6 @@ const errorsParser = require('alouette');
 import ErrorHtmlRenderer from 'alouette/lib/HtmlRenderer';
 const errorHtmlRenderer = new ErrorHtmlRenderer();
 const config = require('../config.js');
-import getEvents from './googleCalendar';
 
 import { ConsoleLogger, LogLevel } from 'nightingale';
 
@@ -37,7 +36,6 @@ app.use(function(err, req, res, next) {
         res.status(500).send(errorHtmlRenderer.render(err));
     }
 });
-
 
 app.get('/', indexAction);
 

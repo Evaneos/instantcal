@@ -22,6 +22,7 @@
     "nightingale": "^1.1.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
+    "react-routing": "0.0.5",
     "socket.io": "^1.3.7"
   },
   "devDependencies": {
