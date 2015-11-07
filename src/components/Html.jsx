@@ -35,12 +35,14 @@ export default class Html extends Component {
                 <meta name="description" content={this.props.description} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+                <link rel="stylesheet" href="style.css" />
                 <style id="css" dangerouslySetInnerHTML={{__html: this.props.css}} />
             </head>
             <body>
             <div id="app" dangerouslySetInnerHTML={{__html: this.props.body}} />
             <script src="/jspm_packages/system.js"></script>
             <script src="/config.js"></script>
+            <script dangerouslySetInnerHTML={{__html: "window.roomStatus ="+ this.props.roomStatus}}></script>
             <script dangerouslySetInnerHTML={{__html: "window.webSocketPort ="+ this.props.webSocketPort}}></script>
             <div dangerouslySetInnerHTML={{__html: '<script src="//'+this.props.hostname+':'+this.props.webSocketPort+'/socket.io/socket.io.js"></script>'  }} />
             <script dangerouslySetInnerHTML={{__html: "System.import('js/main.js')"}}></script>

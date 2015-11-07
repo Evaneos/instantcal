@@ -18,18 +18,9 @@ class App extends Component {
 
 
     render() {
-        this.context.onInsertCss('.red { content:"red";background-color : red} .green {content:"green";background-color : green}');
         return this.props.children;
     }
 }
-
-//
-//const router = new Router(on => {
-//    on('*', async (state, next) => {
-//        const component = await next();
-//        return component && <App context={state.context}>{component}</App>;
-//    });
-//});
 
 const router = {
     dispatch({ context, isBusy }) {
@@ -57,6 +48,7 @@ export default async function index(req, res, next) {
         data.body = ReactDOM.renderToString(component);
         data.css = css.join('');
         data.hostname = req.hostname;
+        data.roomStatus = isBusy;
         data.webSocketPort = webSocketPort;
         const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
         res.status(statusCode).send('<!doctype html>\n' + html);

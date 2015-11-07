@@ -15,7 +15,7 @@ gulp.task('sass', function() {
     if (bs) {
         bs.notify("Compiling, please wait!");
     }
-    var stream = gulp.src('styles/*.scss')
+    var stream = gulp.src('src/style/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(sourcemaps.write('.', {sourceRoot: '/'}))
@@ -114,7 +114,7 @@ gulp.task('all', gulp.parallel('sass', 'js', 'js-browser'));
 gulp.task('build', gulp.series('all'));
 
 gulp.task('watch:styles', function() {
-    gulp.watch('styles/**/*.styl', gulp.series('sass'));
+    gulp.watch('src/style/**/*.scss', gulp.series('sass'));
 });
 
 gulp.task('watch:js', function() {

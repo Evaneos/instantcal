@@ -4,16 +4,23 @@ import IndexPage from '../components/IndexPage';
 
 class App extends Component {
 
-    static propTypes = {
-        children: PropTypes.element.isRequired,
-    };
+    constructor() {
+        super();
+        this.state = {}
+    }
+
+    componentDidMount() {
+        const roomStatus = window.roomStatus;
+        this.state.isBusy = roomStatus;
+    }
 
     render() {
-        return this.props.children;
+        return <IndexPage isBusy={this.state.isBusy}/>;
     }
 }
+const app = ReactDOM.render(<App />, document.getElementById('app'));
 
-
-const indexPage = <IndexPage isBusy={false} />;
-const app = ReactDOM.render(<App>{ indexPage }</App>, document.getElementById('app'));
-console.log(app.setState);
+export function update(state) {
+    console.log('in');
+    app.setState(state);
+}

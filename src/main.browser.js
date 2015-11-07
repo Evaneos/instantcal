@@ -1,2 +1,5 @@
 import { create } from './browser/webSocket';
-import './browser/app';
+import { update } from './browser/app';
+
+create();
+update({isBusy : true});
