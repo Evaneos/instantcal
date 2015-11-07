@@ -17,3 +17,7 @@ class App extends Component {
 const indexPage = <IndexPage isBusy={false} />;
 const app = ReactDOM.render(<App>{ indexPage }</App>, document.getElementById('app'));
 console.log(app.setState);
+
+export function updateState() {
+
+}
