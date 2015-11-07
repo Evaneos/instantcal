@@ -25,8 +25,6 @@ export default class Room {
             }
         }
 
-        console.log(_currentEvent && _currentEvent.id, this._currentEvent && this._currentEvent.id);
-        console.log(_nextEvent && _nextEvent.id, this._nextEvent && this._nextEvent.id);
         if (!(!_currentEvent && !this._currentEvent)) {
             if (_currentEvent && this._currentEvent) {
                 if (_currentEvent.id !== this._currentEvent.id) {

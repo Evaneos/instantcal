@@ -12,7 +12,7 @@ import { watch as watchForNewEvents } from './server/rooms';
 import { ConsoleLogger, LogLevel } from 'nightingale';
 
 // actions
-import { default as indexAction } from './server/actions/index';
+import * as indexAction from './server/actions/index';
 
 const logger = new ConsoleLogger('app', LogLevel.ALL);
 const port = argv.port || 3015;
@@ -40,7 +40,7 @@ app.use(function(err, req, res, next) {
     }
 });
 
-app.get('/', indexAction);
+app.get(indexAction.route, indexAction.action);
 
 app.listen(port, () => {
     logger.info('listening', { port: port });

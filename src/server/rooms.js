@@ -34,10 +34,14 @@ export function watch() {
     });
 }
 
+export function hasRoom(name) {
+    return rooms.has(name);
+}
+
 export function getRoom(name) {
     return rooms.get(name);
 }
 
-export function checkRoomBusy() {
-    return rooms.get('Delhi').isBusy;
+export function checkRoomBusy(roomName) {
+    return rooms.get(roomName).isBusy;
 }

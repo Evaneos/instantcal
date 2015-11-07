@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/server';
 import IndexPage from '../../components/IndexPage';
 import Html from '../../components/Html';
 import withContext from '../../decorators/withContext';
-import { checkRoomBusy } from '../rooms';
+import { hasRoom, checkRoomBusy } from '../rooms';
 import { webSocketPort } from '../webSocket'
 
 @withContext
@@ -30,8 +30,18 @@ const router = {
     }
 };
 
-export default async function index(req, res, next) {
+
+export const route = '/:room';
+
+export async function action(req, res, next) {
     try {
+        const roomName = req.params.room;
+
+        if (!hasRoom(roomName)) {
+            res.end('room not found');
+            return;
+        }
+
         let statusCode = 200;
         const data = {title: '', description: '', css: '', body: ''};
         const css = [];
@@ -42,8 +52,7 @@ export default async function index(req, res, next) {
             onPageNotFound: () => statusCode = 404,
         };
 
-        const isBusy = checkRoomBusy();
-        console.log('test', isBusy);
+        const isBusy = checkRoomBusy(roomName);
         const { state, component } = router.dispatch({ path: req.path, context, isBusy });
         data.body = ReactDOM.renderToString(component);
         data.css = css.join('');
