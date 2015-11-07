@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { googleAnalyticsId } from '../../config';
 
 export default class Html extends Component {
-
     static propTypes = {
         title: PropTypes.string,
         description: PropTypes.string,

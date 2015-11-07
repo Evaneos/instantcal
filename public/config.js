@@ -1,13 +1,15 @@
 System.config({
-  baseURL: "/",
-  defaultJSExtensions: true,
-  transpiler: "none",
-  paths: {
+  "baseURL": "/",
+  "defaultJSExtensions": true,
+  "transpiler": "none",
+  "paths": {
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
-  },
+  }
+});
 
-  map: {
+System.config({
+  "map": {
     "babel-runtime": "npm:babel-runtime@5.8.20",
     "core-js": "npm:core-js@1.2.5",
     "react": "npm:react@0.14.2",
@@ -161,3 +163,4 @@ System.config({
     }
   }
 });
+

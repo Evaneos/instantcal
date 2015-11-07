@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/server';
 import IndexPage from '../../components/IndexPage';
 import Html from '../../components/Html';
 import withContext from '../../decorators/withContext';
-import { checkRoomBusy } from '../googleCalendar';
+import { checkRoomBusy } from '../rooms';
 import { webSocketPort } from '../webSocket'
 
 @withContext
@@ -12,8 +12,13 @@ class App extends Component {
     static propTypes = {
         children: PropTypes.element.isRequired,
     };
+    static contextTypes = {
+        onInsertCss: PropTypes.func
+    };
+
 
     render() {
+        this.context.onInsertCss('.red { content:"red";background-color : red} .green {content:"green";background-color : green}');
         return this.props.children;
     }
 }
