@@ -7,7 +7,7 @@ jspm_packages
 /lib
 /local
 /public/js
-/public/index.css*
+/public/style.css*
 
 /.settings
 .project

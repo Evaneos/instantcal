@@ -31,14 +31,6 @@ body {
         }
 
         .emoticone {
-            display: none;
-        }
-    }
-
-    .red {
-        background-color : red;
-
-        .emoticone {
             display: block;
             font-size: 2em;;
             color: white;
@@ -46,6 +38,10 @@ body {
             height: 20px;
             text-align: center;
         }
+    }
+
+    .red {
+        background-color : red;
     }
     .green {
         background-color : green
