@@ -4,10 +4,9 @@ import Room from '../Room';
 
 export function ready() {
     on('roomUpdated', (json) => {
-        /*
         const room = new Room();
         room._fromJson(json);
-        update({ isBusy: room.isBusy });*/
+        update({ isBusy: room.isBusy });
         console.log(json);
     });
 }
