@@ -7,7 +7,7 @@ export default class Html extends Component {
         description: PropTypes.string,
         css: PropTypes.string,
         body: PropTypes.string.isRequired,
-        roomStatus: PropTypes.boolean,
+        room: PropTypes.object,
     };
 
     static defaultProps = {
@@ -43,7 +43,7 @@ export default class Html extends Component {
             <div id="app" dangerouslySetInnerHTML={{__html: this.props.body}} />
             <script src="/jspm_packages/system.js"></script>
             <script src="/config.js"></script>
-            <script dangerouslySetInnerHTML={{__html: "window.roomStatus ="+ this.props.roomStatus}}></script>
+            <script dangerouslySetInnerHTML={{__html: "window.room ="+ JSON.stringify(this.props.room._toJson())}}></script>
             <script dangerouslySetInnerHTML={{__html: "window.webSocketPort ="+ this.props.webSocketPort}}></script>
             <div dangerouslySetInnerHTML={{__html: '<script src="//'+this.props.hostname+':'+this.props.webSocketPort+'/socket.io/socket.io.js"></script>'  }} />
             <script dangerouslySetInnerHTML={{__html: "System.import('js/main.js')"}}></script>

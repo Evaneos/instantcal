@@ -41,7 +41,3 @@ export function hasRoom(name) {
 export function getRoom(name) {
     return rooms.get(name);
 }
-
-export function checkRoomBusy(roomName) {
-    return rooms.get(roomName).isBusy;
-}

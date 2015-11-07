@@ -4,14 +4,14 @@ import Calendar from './Calendar/Calendar';
 export default class IndexPage extends Component {
 
     static propTypes = {
-        isBusy: PropTypes.boolean,
+        room: PropTypes.object,
     };
 
 
     render() {
         const title = 'Calendar Checker';
         return (
-            <Calendar isBusy={this.props.isBusy} />
+            <Calendar isBusy={this.props.room.isBusy} />
         );
     }
 }

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/server';
 import IndexPage from '../../components/IndexPage';
 import Html from '../../components/Html';
 import withContext from '../../decorators/withContext';
-import { hasRoom, checkRoomBusy } from '../rooms';
+import { hasRoom, getRoom } from '../rooms';
 import { webSocketPort } from '../webSocket'
 
 @withContext
@@ -23,9 +23,9 @@ class App extends Component {
 }
 
 const router = {
-    dispatch({ context, isBusy }) {
+    dispatch({ context, room }) {
         return {
-            component: <App context={context}><IndexPage isBusy={isBusy} /></App>
+            component: <App context={context}><IndexPage room={room} /></App>
         }
     }
 };
@@ -52,12 +52,12 @@ export async function action(req, res, next) {
             onPageNotFound: () => statusCode = 404,
         };
 
-        const isBusy = checkRoomBusy(roomName);
-        const { state, component } = router.dispatch({ path: req.path, context, isBusy });
+        const room = getRoom(roomName);
+        const { state, component } = router.dispatch({ path: req.path, context, room });
         data.body = ReactDOM.renderToString(component);
         data.css = css.join('');
         data.hostname = req.hostname;
-        data.roomStatus = isBusy;
+        data.room = room;
         data.webSocketPort = webSocketPort;
         const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
         res.status(statusCode).send('<!doctype html>\n' + html);
