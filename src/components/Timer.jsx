@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class TimerReact extends Component {
-
     static propTypes = {
         initialTimeRemaining: PropTypes.number,
     };
@@ -10,32 +9,31 @@ export default class TimerReact extends Component {
         super(props);
         this.state = {
             timeRemaining: this.props.initialTimeRemaining
-        }
+        };
     }
 
     componentDidMount(){
-        this.timer = setInterval(this.tick.bind(this), 1000);
+        this._timer = setInterval(() => this.tick(), 1000);
     }
 
     componentWillUnmount(){
-
-        clearInterval(this.timer);
+        clearInterval(this._timer);
     }
 
-    tick(){
-
+    tick() {
         let now = this.state.timeRemaining - 1000;
-        this.setState({timeRemaining: now});
+        this.setState({ timeRemaining: now });
     }
 
     render() {
+        const readableTime = new Date(this.state.timeRemaining);
+        const hours = readableTime.getHours();
+        const minutes = readableTime.getMinutes();
 
-
-        let readableTime = new Date(this.state.timeRemaining);
-
-        return <div className="timeRemaining">
-            <span className="hours">{readableTime.getHours()} Heures</span>
-            <span className="minutes">{readableTime.getMinutes()} Minutes</span>
-        </div>;
+        return <span className="timeRemaining">
+            { hours ? <span className="hours">{hours} {hours === 1 ? 'heure' : 'heures'}</span> : null }
+            { hours === 0 && minutes !== 0 ? <span className="minutes">{minutes} {minutes === 1 ? 'minute' : 'minutes'}</span> : null }
+            { minutes === 0 ? <span className="less-than-a-minute">dans moins d'une minute</span> : null }
+        </span>;
     }
 }

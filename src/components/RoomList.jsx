@@ -9,7 +9,7 @@ export default class RoomList extends Component {
 
     render() {
         return (<ul className="room-list">
-            { this.props.rooms.map(room => <li><RoomPreview room={room} /></li>) }
+            { this.props.rooms.map(room => <li key={room.name}><RoomPreview room={room} /></li>) }
         </ul>)
     }
 }

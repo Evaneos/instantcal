@@ -3,16 +3,16 @@ import CalendarCurrentEvent from './CalendarCurrentEvent'
 import CalendarNextEvent from './CalendarNextEvent'
 
 export default class Room extends Component {
-
     static propTypes = {
         room: PropTypes.object,
     };
 
-
     render() {
         const room = this.props.room;
-        let status = room.isBusy ? 'est occupée' : 'est libre';
+        let status = room.isBusy ? 'est occupée' : (room.isBusySoon ? 'bientot occupée' : 'est libre');
         let emoticon = room.isBusy ? '¯\\_(ツ)_/¯' : '\\（＾ ＾）/';
+
+        console.log('room.nextEvent', room.nextEvent);
         return (<div className="room">
             <div className="room-info">
                 <div className="name">{room.name}</div>
@@ -20,7 +20,7 @@ export default class Room extends Component {
                 <div className="emoticon">{emoticon}</div>
             </div>
             <CalendarCurrentEvent currentEvent={room.currentEvent} />
-            <CalendarNextEvent nextEvent={room.nextEvent} />
+            <CalendarNextEvent currentEvent={room.currentEvent} nextEvent={room.nextEvent} />
         </div>)
     }
 }

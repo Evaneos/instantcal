@@ -38,7 +38,7 @@ export default class Room {
                 this._currentEvent = null;
                 this._nextEvent = events[0];
                 this._busy = false;
-                this._busySoon = this._nextEvent && this._nextEvent.startDate.getTime() < (Date.now() + 10000);
+                this._busySoon = this._nextEvent && this._nextEvent.startDate.getTime() < (Date.now() + 600000);
             }
         }
 
@@ -80,7 +80,7 @@ export default class Room {
     }
 
     get nextEvent() {
-        return this._currentEvent;
+        return this._nextEvent;
     }
 
     get isBusy() {

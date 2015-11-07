@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import IndexPage from '../components/IndexPage';
 
 class App extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -30,6 +29,12 @@ const app = ReactDOM.render(<App />, document.getElementById('app'));
 
 export function update({ room }) {
     if (app.state.room.name === room.name) {
+        console.log('new main room: ', room);
         app.setState({ room });
+    } else {
+        const otherRooms = app.state.otherRooms.map(otherRoom => {
+            return otherRoom.name === room.name ? room : otherRoom;
+        });
+        app.setState({ otherRooms });
     }
 }
