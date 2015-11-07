@@ -1,5 +1,7 @@
 import './browser/app';
-import './browser/rooms';
+import { ready as readyRoom } from './browser/rooms';
 import { create } from './browser/webSocket';
 
-create();
+create().then(() => {
+    readyRoom();
+});
