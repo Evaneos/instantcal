@@ -53,20 +53,27 @@ export function getEvents(calendarId) {
         calendarId: calendarId,
         timeMin: (new Date()).toISOString(),
         maxResults: 2,
+        maxAttendees: 5,
         singleEvents: true,
         orderBy: 'startTime',
     })
     .then(({ items }) => {
+        // console.log(items);
         return items.map(item => ({
             id: item.id,
+            summary: item.summary,
+            description: item.description,
             status: item.status,
             startDate: new Date(item.start.dateTime),
             endDate: new Date(item.end.dateTime),
+            updatedDate: new Date(item.updated),
         }));
     });
     //.then((items) => console.log(items))
     //.catch((err) => console.log(err.stack));
 };
+
+const eventMap = new WeakMap();
 
 // https://developers.google.com/google-apps/calendar/v3/push
 export function registerWatch(calendar) {

@@ -23,9 +23,9 @@ class App extends Component {
 }
 
 const router = {
-    dispatch({ context, room }) {
+    dispatch({ context, room, otherRooms }) {
         return {
-            component: <App context={context}><IndexPage room={room} /></App>
+            component: <App context={context}><IndexPage room={room} otherRooms={otherRooms} /></App>
         }
     }
 };

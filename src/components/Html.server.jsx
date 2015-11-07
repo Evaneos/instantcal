@@ -9,6 +9,7 @@ export default class Html extends Component {
         css: PropTypes.string,
         body: PropTypes.string.isRequired,
         room: PropTypes.object,
+        otherRooms: PropTypes.array,
     };
 
     static defaultProps = {

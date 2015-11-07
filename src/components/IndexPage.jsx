@@ -1,18 +1,27 @@
 import React, { Component, PropTypes } from 'react';
-import Calendar from './Calendar/Calendar';
+import Room from './Room/Room';
+import RoomList from './RoomList';
 
 export default class IndexPage extends Component {
-
     static propTypes = {
-        room: PropTypes.object,
-        otherRooms: PropTypes.object,
+        room: PropTypes.object.isRequired,
+        otherRooms: PropTypes.array.isRequired,
     };
 
-
     render() {
-        const title = 'Calendar Checker';
+        console.log(this.props.otherRooms);
+        const title = 'Room';
+        const mainRoom = this.props.room;
+        let mainRoomStatus = mainRoom.isBusy ? 'busy' : (mainRoom.isBusySoon ? 'busy-soon' : 'available');
         return (
-            <Calendar room={this.props.room} otherRooms={this.props.otherRooms}/>
+            <div className={ mainRoomStatus + ' page-container'}>
+                <div className="mainRoom-container">
+                    <Room room={this.props.room} />
+                </div>
+                <div className="otherRooms-container">
+                    <RoomList rooms={this.props.otherRooms} />
+                </div>
+            </div>
         );
     }
 }

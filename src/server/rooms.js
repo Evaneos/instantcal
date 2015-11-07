@@ -43,5 +43,5 @@ export function getRoom(name) {
 }
 
 export function getAllRoomsExcept(room) {
-    return Array.from(rooms.values()).filter(r => room.id !== r.id);
+    return Array.from(rooms.values()).filter(r => room.name !== r.name);
 }

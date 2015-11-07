@@ -4,11 +4,7 @@ function checkIsDifferent(event1, event2) {
             return true;
         }
 
-        if (event1.startDate.getTime() !== event2.startDate.getTime()) {
-            return true;
-        }
-
-        if (event1.endDate.getTime() !== event2.endDate.getTime()) {
+        if (event1.updatedDate.getTime() !== event2.updatedDate.getTime()) {
             return true;
         }
     } else if (!(!event1 && !event2)) {

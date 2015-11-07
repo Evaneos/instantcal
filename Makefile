@@ -1,5 +1,9 @@
 .PHONY: all watch default
 
+install:
+	npm install
+	node_modules/.bin/jspm install
+
 default:
 	@node_modules/.bin/gulp
 watch:
