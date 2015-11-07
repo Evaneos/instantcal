@@ -203,8 +203,8 @@ def doDeploy(release, version, hash):
 
     with cd('%s/releases/%s' % (env.directory, release)):
         with settings(warn_only=True):
-            run('rsync -a %s/current/node_modules/ web/node_modules/' % env.directory)
-            run('rsync -a %s/current/jspm_packages/ web/jspm_packages/' % env.directory)
+            run('rsync -a %s/current/node_modules/ node_modules/' % env.directory)
+            run('rsync -a %s/current/jspm_packages/ jspm_packages/' % env.directory)
 
         for path in env.shared_paths:
             with settings(warn_only=True):
