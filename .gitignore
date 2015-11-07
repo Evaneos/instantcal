@@ -8,6 +8,7 @@ jspm_packages
 /local
 /public/js
 /public/style.css*
+/public/main-sfx.js*
 
 /.settings
 .project
