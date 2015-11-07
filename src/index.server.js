@@ -16,6 +16,7 @@ import { default as indexAction } from './server/actions/index';
 
 const logger = new ConsoleLogger('instantcal', LogLevel.ALL);
 const port = argv.port || 3015;
+const webSocketPort = argv.webSocketPort || 3006;
 
 process.on('uncaughtException', function(err) {
     try {

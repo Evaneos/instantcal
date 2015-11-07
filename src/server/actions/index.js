@@ -5,6 +5,7 @@ import IndexPage from '../../components/IndexPage';
 import Html from '../../components/Html';
 import withContext from '../../decorators/withContext';
 import { checkRoomBusy } from '../googleCalendar';
+import { webSocketPort } from '../webSocket'
 
 @withContext
 class App extends Component {
@@ -50,7 +51,8 @@ export default async function index(req, res, next) {
         const { state, component } = router.dispatch({ path: req.path, context, isBusy });
         data.body = ReactDOM.renderToString(component);
         data.css = css.join('');
-
+        data.hostname = req.hostname;
+        data.webSocketPort = webSocketPort;
         const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
         res.status(statusCode).send('<!doctype html>\n' + html);
     } catch (err) {
