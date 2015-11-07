@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { googleAnalyticsId } from '../../../config';
+import { googleAnalyticsId } from '../../config';
 
 export default class Html extends Component {
 

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Calendar from '../Calendar/Calendar';
+import Calendar from './Calendar/Calendar';
 
 export default class IndexPage extends Component {
     static contextTypes = {
@@ -10,7 +10,7 @@ export default class IndexPage extends Component {
         const title = 'Calendar Checker';
         this.context.onSetTitle(title);
         return (
-            <Calendar available={this.props.isBusy} />
+            <Calendar isBusy={this.props.isBusy} />
         );
     }
 }

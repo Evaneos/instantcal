@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom/server';
 //import Router from 'react-routing/src/Router';
-import IndexPage from '../../components/IndexPage/IndexPage';
-import Html from '../../components/Html/Html';
+import IndexPage from '../../components/IndexPage';
+import Html from '../../components/Html';
 import withContext from '../../decorators/withContext';
-import { isBusy } from '../googleCalendar';
+import { checkRoomBusy } from '../googleCalendar';
 
 @withContext
 class App extends Component {
@@ -26,9 +26,9 @@ class App extends Component {
 //});
 
 const router = {
-    dispatch({ context, availability }) {
+    dispatch({ context, isBusy }) {
         return {
-            component: <App context={context}><IndexPage available={availability} /></App>
+            component: <App context={context}><IndexPage isBusy={isBusy} /></App>
         }
     }
 };
@@ -45,11 +45,9 @@ export default async function index(req, res, next) {
             onPageNotFound: () => statusCode = 404,
         };
 
-        //const events = await getEvents();
-        const availability = !await isBusy();
-        //console.log(availability);
-        //const availability = true;
-        const { state, component } = router.dispatch({ path: req.path, context, availability });
+        const isBusy = await checkRoomBusy();
+
+        const { state, component } = router.dispatch({ path: req.path, context, isBusy });
         data.body = ReactDOM.renderToString(component);
         data.css = css.join('');
 

@@ -47,7 +47,7 @@ function ask(method, params, retryCount = 2) {
     });
 }
 
-export async function isBusy() {
+export async function checkRoomBusy() {
     const events = await getEvents();
     return events && events.length && events[0].startDate.getTime() < Date.now() || false;
 }

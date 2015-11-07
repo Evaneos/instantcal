@@ -6,9 +6,9 @@ export default class Calendar extends Component {
     };
 
     render() {
-        let availability = this.props.available ? "green" : "red";
-        this.context.onInsertCss('body { background-color : ' + availability + '}');
-        return (<div className={availability}>
+        let isBusy = this.props.isBusy ? "red" : "green";
+        this.context.onInsertCss('body { background-color : ' + isBusy + '}');
+        return (<div className={isBusy}>
         </div>)
     }
 }
