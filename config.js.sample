@@ -1,0 +1,16 @@
+module.exports = {
+    rooms: [
+        {
+            name: "Delhi",
+            calendarId: ".....calendar.google.com"
+        },
+        {
+            name: "Pekin",
+            calendarId: ".....calendar.google.com"
+        },
+        {
+            name: "Lisbonne",
+            calendarId: ".....calendar.google.com"
+        }
+    ]
+};

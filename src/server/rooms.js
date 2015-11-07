@@ -41,3 +41,7 @@ export function hasRoom(name) {
 export function getRoom(name) {
     return rooms.get(name);
 }
+
+export function getAllRoomsExcept(room) {
+    return Array.from(rooms.values()).filter(r => room.id !== r.id);
+}

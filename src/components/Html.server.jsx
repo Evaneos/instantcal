@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { googleAnalyticsId } from '../../config';
+import { production } from '../server/argv';
 
 export default class Html extends Component {
     static propTypes = {
@@ -42,13 +43,14 @@ export default class Html extends Component {
             </head>
             <body>
             <div id="app" dangerouslySetInnerHTML={{__html: this.props.body}} />
-            <script src="/jspm_packages/system.js"></script>
-            <script src="/config.js"></script>
             <script dangerouslySetInnerHTML={{__html: "window.room ="+ JSON.stringify(this.props.room._toJson())}}></script>
+            <script dangerouslySetInnerHTML={{__html: "window.otherRooms ="+ JSON.stringify(this.props.otherRooms.map(r => r._toJson()))}}></script>
             <script dangerouslySetInnerHTML={{__html: "window.webSocketPort ="+ this.props.webSocketPort}}></script>
             <div dangerouslySetInnerHTML={{__html: '<script src="//'+this.props.hostname+':'+this.props.webSocketPort+'/socket.io/socket.io.js"></script>'  }} />
-            <script dangerouslySetInnerHTML={{__html: "System.import('js/main.js')"}}></script>
-            <script dangerouslySetInnerHTML={this.trackingCode()} />
+            <div dangerouslySetInnerHTML={{__html: production ? '<script src="/main-sfx.js"></script>' :
+                `<script src="/jspm_packages/system.js"></script>
+                <script src="/config.js"></script>
+                <script>System.import('js/main.js')</script>` }}></div>
             </body>
             </html>
         );

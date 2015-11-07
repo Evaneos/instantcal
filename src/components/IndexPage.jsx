@@ -5,13 +5,14 @@ export default class IndexPage extends Component {
 
     static propTypes = {
         room: PropTypes.object,
+        otherRooms: PropTypes.object,
     };
 
 
     render() {
         const title = 'Calendar Checker';
         return (
-            <Calendar room={this.props.room} />
+            <Calendar room={this.props.room} otherRooms={this.props.otherRooms}/>
         );
     }
 }

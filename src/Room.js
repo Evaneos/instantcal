@@ -1,3 +1,24 @@
+function checkIsDifferent(event1, event2) {
+    if (event1 && event2) {
+        if (event1.id !== event2.id) {
+            return true;
+        }
+
+        if (event1.startDate.getTime() !== event2.startDate.getTime()) {
+            return true;
+        }
+
+        if (event1.endDate.getTime() !== event2.endDate.getTime()) {
+            return true;
+        }
+    } else if (!(!event1 && !event2)) {
+        return true;
+    }
+
+    return false;
+}
+
+
 export default class Room {
     constructor(name, calendarId) {
         this._name = name;
@@ -25,25 +46,11 @@ export default class Room {
             }
         }
 
-        if (!(!_currentEvent && !this._currentEvent)) {
-            if (_currentEvent && this._currentEvent) {
-                if (_currentEvent.id !== this._currentEvent.id) {
-                    return true;
-                }
-            } else {
-                return true;
-            }
+        if (checkIsDifferent(_currentEvent, this._currentEvent)) {
+            return true;
         }
 
-        if (!_nextEvent && !this._nextEvent) {
-            return false;
-        }
-
-        if (_nextEvent && this._nextEvent) {
-            if (_nextEvent.id !== this._nextEvent.id) {
-                return true;
-            }
-        } else {
+        if (checkIsDifferent(_nextEvent, this._nextEvent)) {
             return true;
         }
 
