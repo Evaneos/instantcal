@@ -8,7 +8,7 @@ const errorsParser = require('alouette');
 import ErrorHtmlRenderer from 'alouette/lib/HtmlRenderer';
 const errorHtmlRenderer = new ErrorHtmlRenderer();
 const config = require('../config.js');
-
+import { watch as watchForNewEvents } from './server/rooms';
 import { ConsoleLogger, LogLevel } from 'nightingale';
 
 // actions
@@ -26,6 +26,8 @@ process.on('uncaughtException', function(err) {
         console.error(err2.stack);
     }
 });
+
+watchForNewEvents();
 
 app.use(express.static(__dirname + '/../public'));
 

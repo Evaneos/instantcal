@@ -1,11 +1,13 @@
 /* Doc here: https://developers.google.com/google-apps/calendar/quickstart/nodejs */
-import { googleCalendar as googleCalendarConfig } from '../../config';
+import { calendars } from '../../config';
+const calendarId = calendars[0].calendarId;
 
 import { calendar as googleCalendar, auth as googleAuth } from 'googleapis';
 
 const scopes = [
     'https://www.googleapis.com/auth/calendar.readonly',
 ];
+
 
 const key = require('../../local/instantcal.json');
 const jwtClient = new googleAuth.JWT(key.client_email, null, key.private_key, scopes, null);
@@ -47,14 +49,9 @@ function ask(method, params, retryCount = 2) {
     });
 }
 
-export async function checkRoomBusy() {
-    const events = await getEvents();
-    return events && events.length && events[0].startDate.getTime() < Date.now() || false;
-}
-
 export function getEvents() {
     return ask(calendarApi.events.list, {
-        calendarId: 'evaneos.com_cl7v6mtsfuh4lq7r4vrgt0faqs@group.calendar.google.com',
+        calendarId: calendarId,
         timeMin: (new Date()).toISOString(),
         maxResults: 2,
         singleEvents: true,
@@ -72,4 +69,12 @@ export function getEvents() {
     //.catch((err) => console.log(err.stack));
 };
 
-
+// https://developers.google.com/google-apps/calendar/v3/push
+export function registerWatch(calendar) {
+    return ask(calendarApi.events.watch, {
+        // id:
+        calendarId: calendarId,
+        type: 'web_hook',
+        address: '',
+    });
+}
