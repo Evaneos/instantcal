@@ -37,6 +37,7 @@ export function send() {
 }
 
 export function create() {
+    console.log('create', webSocketPort);
     return new Promise((resolve, reject) => {
         socket = io(
             'http://' + window.location.hostname + ':' + webSocketPort,
@@ -51,5 +52,11 @@ export function create() {
         socket.on('connect', function() {
             resolve();
         });
+
+        socket.on('hello', function() {
+            console.log('hi');
+        });
+
+        socket.on('error', (err) => console.log(err.stack || err.message || err));
     });
 }

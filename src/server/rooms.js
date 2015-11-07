@@ -1,55 +1,43 @@
 import { getEvents } from './googleCalendar';
+import { emit } from './webSocket';
+import Room from '../Room';
+import { ConsoleLogger } from 'nightingale';
 
-let nextEvents;
+import { rooms as roomsConfig } from '../../config';
+
 let rooms = new Map();
+const logger = new ConsoleLogger('app.rooms');
 
-class Room {
-    constructor(name) {
-        this.name = name;
-    }
-
-    _updateEvents(events) {
-        if (!events.length) {
-            this._busy = false;
-            this._busySoon = false;
-            return;
-        }
-
-        if (nextEvents[0].startDate.getTime() < Date.now()) {
-            this._currentEvent = events[0];
-            this._nextEvent = events[1];
-            this._busySoon = null;
-        } else {
-            this._currentEvent = null;
-            this._nextEvent = events[0];
-            this._busySoon = this._nextEvent && this._nextEvent.startDate.getTime() < (Date.now() + 10000);
-        }
-    }
-
-    get isBusy() {
-        return this._busy;
-    }
-
-    get isBusySoon() {
-        return this._busySoon;
-    }
-}
-
+roomsConfig.forEach(room => rooms.set(room.name, new Room(room.name, room.calendarId)));
 
 export function watch() {
     if (watch.running) {
         return;
     }
 
-    watch.running = setInterval(async function () {
-        const events = await getEvents();
-        const mustUpdate = !nextEvents || events.length !== nextEvents.length ||
-                           !nextEvents.every((event, index) => events[index].id === event.id);
-        console.log(mustUpdate);//, nextEvents && nextEvents.map(e => e.id).join(','), events.map(e => e.id).join(','));
-        nextEvents = events;
-    }, 1000)
+    logger.debug('watch');
+    watch.running = Array.from(rooms.values()).map(room => {
+        return setInterval(async function () {
+            logger.debug('updating', { roomName: room.name, calendarId: room.calendarId });
+            try {
+                const events = await getEvents(room.calendarId);
+
+                if (room._updateEvents(events)) {
+                    logger.success('room updated !', { roomName: room.name });
+                    console.log(room.name);//, nextEvents && nextEvents.map(e => e.id).join(','), events.map(e => e.id).join(','));
+                    emit('roomUpdated', room._toJson());
+                }
+            } catch (err) {
+                logger.error(err);
+            }
+        }, 2000 * roomsConfig.length);
+    });
 }
 
-export async function checkRoomBusy() {
-    return nextEvents && nextEvents.length && nextEvents[0].startDate.getTime() < Date.now() || false;
+export function getRoom(name) {
+    return rooms.get(name);
+}
+
+export function checkRoomBusy() {
+    return rooms.get('Delhi').isBusy;
 }

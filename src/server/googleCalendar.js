@@ -1,6 +1,5 @@
 /* Doc here: https://developers.google.com/google-apps/calendar/quickstart/nodejs */
 import { calendars } from '../../config';
-const calendarId = calendars[0].calendarId;
 
 import { calendar as googleCalendar, auth as googleAuth } from 'googleapis';
 
@@ -49,7 +48,7 @@ function ask(method, params, retryCount = 2) {
     });
 }
 
-export function getEvents() {
+export function getEvents(calendarId) {
     return ask(calendarApi.events.list, {
         calendarId: calendarId,
         timeMin: (new Date()).toISOString(),
