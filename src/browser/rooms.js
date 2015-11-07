@@ -6,7 +6,7 @@ export function ready() {
     on('roomUpdated', (json) => {
         const room = new Room();
         room._fromJson(json);
-        update({ isBusy: room.isBusy });
+        update({ room: room });
         console.log(json);
     });
 }

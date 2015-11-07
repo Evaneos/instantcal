@@ -10,7 +10,8 @@ class App extends Component {
         this.state = {
             room: (() => {
                 const room = new Room();
-                room._fromJson(JSON.parse(window.room));
+                room._fromJson(window.room);
+                return room;
             })()
         }
     }
