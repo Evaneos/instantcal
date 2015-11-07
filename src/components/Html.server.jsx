@@ -43,7 +43,7 @@ export default class Html extends Component {
             <body>
             <div id="app" dangerouslySetInnerHTML={{__html: this.props.body}} />
             <script dangerouslySetInnerHTML={{__html: "window.room ="+ JSON.stringify(this.props.room._toJson())}}></script>
-            <script dangerouslySetInnerHTML={{__html: "window.room ="+ JSON.stringify(this.props.room._toJson())}}></script>
+            <script dangerouslySetInnerHTML={{__html: "window.otherRooms ="+ JSON.stringify(this.props.otherRooms.map(r => r._toJson()))}}></script>
             <script dangerouslySetInnerHTML={{__html: "window.webSocketPort ="+ this.props.webSocketPort}}></script>
             <div dangerouslySetInnerHTML={{__html: '<script src="//'+this.props.hostname+':'+this.props.webSocketPort+'/socket.io/socket.io.js"></script>'  }} />
             <div dangerouslySetInnerHTML={{__html: production ? '<script src="/main-sfx.js"></script>' :

@@ -12,17 +12,24 @@ class App extends Component {
                 const room = new Room();
                 room._fromJson(window.room);
                 return room;
-            })()
+            })(),
+            otherRooms: window.otherRooms.map(r => {
+                const room = new Room();
+                room._fromJson(r);
+                return room;
+            })
         }
     }
 
     render() {
-        return <IndexPage room={this.state.room}/>;
+        return <IndexPage room={this.state.room} otherRooms={this.state.otherRooms} />;
     }
 }
 
 const app = ReactDOM.render(<App />, document.getElementById('app'));
 
-export function update(state) {
-    app.setState(state);
+export function update({ room }) {
+    if (app.state.room.name === room.name) {
+        app.setState({ room });
+    }
 }

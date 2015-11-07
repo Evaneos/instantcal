@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/server';
 import IndexPage from '../../components/IndexPage';
 import Html from '../../components/Html';
 import withContext from '../../decorators/withContext';
-import { hasRoom, getRoom } from '../rooms';
+import { getRoom, getAllRoomsExcept } from '../rooms';
 import { webSocketPort } from '../webSocket'
 
 @withContext
@@ -36,14 +36,28 @@ export const route = '/:room';
 export async function action(req, res, next) {
     try {
         const roomName = req.params.room;
+        const room = getRoom(roomName);
 
-        if (!hasRoom(roomName)) {
+        if (!room) {
             res.end('room not found');
             return;
         }
 
+        const otherRooms = getAllRoomsExcept(room);
+
         let statusCode = 200;
-        const data = {title: '', description: '', css: '', body: ''};
+        const data = {
+            title: '',
+            description: '',
+            css: '',
+            body: '',
+
+            hostname: req.hostname,
+            webSocketPort: webSocketPort,
+            room: room,
+            otherRooms: otherRooms,
+        };
+
         const css = [];
         const context = {
             onInsertCss: value => css.push(value),
@@ -52,13 +66,9 @@ export async function action(req, res, next) {
             onPageNotFound: () => statusCode = 404,
         };
 
-        const room = getRoom(roomName);
-        const { state, component } = router.dispatch({ path: req.path, context, room });
+        const { state, component } = router.dispatch({ path: req.path, context, room, otherRooms });
         data.body = ReactDOM.renderToString(component);
         data.css = css.join('');
-        data.hostname = req.hostname;
-        data.room = room;
-        data.webSocketPort = webSocketPort;
         const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
         res.status(statusCode).send('<!doctype html>\n' + html);
     } catch (err) {

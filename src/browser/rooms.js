@@ -7,7 +7,6 @@ export function ready() {
         const room = new Room();
         room._fromJson(json);
         update({ room: room });
-        console.log(json);
     });
 }
 
