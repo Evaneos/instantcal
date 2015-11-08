@@ -93,8 +93,10 @@ html, body {
 
 .room-preview-container {
     height: 90%;
-    width: 12em;
-    margin: 5%;
+    // width: 12em;
+    width: 190px;
+    margin-top: 10px;
+    margin-left: 15px;
 
     .name {
         font-size: 1.3em;
