@@ -26,14 +26,16 @@ export default class TimerReact extends Component {
     }
 
     render() {
-        const readableTime = new Date(this.state.timeRemaining);
-        const hours = readableTime.getHours();
-        const minutes = readableTime.getMinutes();
+        console.log(this.state.timeRemaining);
+        const readableTime = new Date();
+        readableTime.setTime(this.state.timeRemaining);
+        const hours = readableTime.getUTCHours();
+        const minutes = readableTime.getUTCMinutes();
 
         return <span className="timeRemaining">
             { hours ? <span className="hours">{hours} {hours === 1 ? 'heure' : 'heures'}</span> : null }
-            { hours === 0 && minutes !== 0 ? <span className="minutes">{minutes} {minutes === 1 ? 'minute' : 'minutes'}</span> : null }
-            { minutes === 0 ? <span className="less-than-a-minute">dans moins d'une minute</span> : null }
+            { hours < 3 && minutes !== 0 ? <span className="minutes">{hours ? ' et ' : null }{minutes} {minutes === 1 ? 'minute' : 'minutes'}</span> : null }
+            { hours === 0 && minutes === 0 ? <span className="less-than-a-minute">dans moins d'une minute</span> : null }
         </span>;
     }
 }

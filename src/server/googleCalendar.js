@@ -58,7 +58,6 @@ export function getEvents(calendarId) {
         orderBy: 'startTime',
     })
     .then(({ items }) => {
-        // console.log(items);
         return items.map(item => ({
             id: item.id,
             summary: item.summary,

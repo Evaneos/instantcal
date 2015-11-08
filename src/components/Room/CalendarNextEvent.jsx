@@ -16,9 +16,10 @@ export default class CalendarNextEvent extends Component {
             return null;
         }
 
-        let startDate = new Date(nextEvent.startDate).getTime();
-        let today = Date.now() + 3600000;
-        let timeRemaining = new Date(startDate - today).getTime();
+        let startDate = nextEvent.startDate instanceof Date ? nextEvent.startDate : Date.parse(nextEvent.startDate);
+        let startTime = startDate.getTime();
+        let timeRemaining = startTime - Date.now();
+
         return <div className="next-event">
             Prochaine réservation dans <TimerReact initialTimeRemaining={timeRemaining} />
         </div>

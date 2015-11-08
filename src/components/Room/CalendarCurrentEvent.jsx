@@ -13,9 +13,9 @@ export default class CalendarCurrentEvent extends Component {
             return null;
         }
 
-        let endDate = new Date(currentEvent.endDate).getTime();
-        let today = Date.now() + 3600000;
-        let timeRemaining = new Date(endDate - today).getTime();
+        let endDate = nextEvent.endDate instanceof Date ? nextEvent.endDate : Date.parse(nextEvent.endDate);
+        let endTime = endDate.getTime();
+        let timeRemaining = endTime - Date.now();
         return <div className="current-event">
             Libre dans <TimerReact initialTimeRemaining={timeRemaining} />
         </div>;
