@@ -12,7 +12,6 @@ export default class Room extends Component {
         let status = room.isBusy ? 'est occupée' : (room.isBusySoon ? 'bientot occupée' : 'est libre');
         let emoticon = room.isBusy ? '¯\\_(ツ)_/¯' : '\\（＾ ＾）/';
 
-        console.log('room.nextEvent', room.nextEvent);
         return (<div className="room">
             <div className="room-info">
                 <div className="name">{room.name}</div>
