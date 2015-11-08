@@ -16,7 +16,7 @@ export default class CalendarNextEvent extends Component {
             return null;
         }
 
-        let startDate = nextEvent.startDate instanceof Date ? nextEvent.startDate : Date.parse(nextEvent.startDate);
+        let startDate = nextEvent.startDate instanceof Date ? nextEvent.startDate : new Date(nextEvent.startDate);
         let startTime = startDate.getTime();
         let timeRemaining = startTime - Date.now();
 

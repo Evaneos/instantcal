@@ -26,7 +26,6 @@ export default class TimerReact extends Component {
     }
 
     render() {
-        console.log(this.state.timeRemaining);
         const readableTime = new Date();
         readableTime.setTime(this.state.timeRemaining);
         const hours = readableTime.getUTCHours();

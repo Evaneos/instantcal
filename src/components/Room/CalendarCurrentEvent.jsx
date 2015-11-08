@@ -13,7 +13,7 @@ export default class CalendarCurrentEvent extends Component {
             return null;
         }
 
-        let endDate = nextEvent.endDate instanceof Date ? nextEvent.endDate : Date.parse(nextEvent.endDate);
+        let endDate = currentEvent.endDate instanceof Date ? currentEvent.endDate : new Date(currentEvent.endDate);
         let endTime = endDate.getTime();
         let timeRemaining = endTime - Date.now();
         return <div className="current-event">
