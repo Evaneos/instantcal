@@ -28,11 +28,9 @@ export default class TimerReact extends Component {
     render() {
         const readableTime = new Date();
         readableTime.setTime(this.state.timeRemaining);
-        const days = readableTime.getUTCDate();
+        const days = readableTime.getUTCDate() - 1;
         const hours = readableTime.getUTCHours();
         const minutes = readableTime.getUTCMinutes();
-
-        console.log(days, hours, minutes);
 
         return <span className="timeRemaining">
             { days ? <span className="days">{days} {days === 1 ? 'jour' : 'jours'}</span> : null }
