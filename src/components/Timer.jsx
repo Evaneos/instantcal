@@ -26,6 +26,10 @@ export default class TimerReact extends Component {
     }
 
     render() {
+        if (this.state.timeRemaining < 0) {
+            return <span className="timeRemaining">-</span>;
+        }
+
         const readableTime = new Date();
         readableTime.setTime(this.state.timeRemaining);
         const days = readableTime.getUTCDate() - 1;
