@@ -1,8 +1,7 @@
-import express from 'express';
+import Koa from 'koa';
+import serve from 'koa-static';
+import convert from 'koa-convert';
 import errorParser from 'alouette';
-const app = express();
-const basicAuth = require('basic-auth');
-const cookieParser = require('cookie-parser');
 import argv from './server/argv';
 const errorsParser = require('alouette');
 import ErrorHtmlRenderer from 'alouette/lib/HtmlRenderer';
@@ -11,12 +10,19 @@ const config = require('../config.js');
 import { watch as watchForNewEvents } from './server/rooms';
 import { ConsoleLogger, LogLevel } from 'nightingale';
 
+const app = new Koa();
+app.experimental = true;
+
+app.on('error', function(err) {
+    errorsParser.log(err);
+});
+
 // actions
-import * as indexAction from './server/actions/index';
+import indexAction from './server/actions/index';
 
 const logger = new ConsoleLogger('app', LogLevel.ALL);
 const port = argv.port || 3015;
-const webSocketPort = argv.webSocketPort || 3006;
+const webSocketPort = argv.webSocketPort || 3016;
 
 process.on('uncaughtException', function(err) {
     try {
@@ -29,18 +35,23 @@ process.on('uncaughtException', function(err) {
 
 watchForNewEvents();
 
-app.use(express.static(__dirname + '/../public'));
+app.use(convert(serve(__dirname + '/../public')));
 
-app.use(function(err, req, res, next) {
-    errorsParser.log(err);
-    if (argv.production) {
-        res.status(500).send('Error: ' + err.message);
-    } else {
-        res.status(500).send(errorHtmlRenderer.render(err));
+app.use(async function(ctx, next) {
+    try {
+        await next();
+    } catch (err) {
+        ctx.status = 500;
+        errorsParser.log(err);
+        if (argv.production) {
+            ctx.body = 'Error: ' + err.message;
+        } else {
+            ctx.body = errorHtmlRenderer.render(err);
+        }
     }
 });
 
-app.get(indexAction.route, indexAction.action);
+app.use(indexAction);
 
 app.listen(port, () => {
     logger.info('listening', { port: port });

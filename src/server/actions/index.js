@@ -31,47 +31,43 @@ const router = {
 };
 
 
-export const route = '/:room';
+export default async function action(ctx) {
+    const roomName = ctx.path.trim().replace(/^\/+/, '');
+    const room = getRoom(roomName);
 
-export async function action(req, res, next) {
-    try {
-        const roomName = req.params.room;
-        const room = getRoom(roomName);
-
-        if (!room) {
-            res.end('room not found');
-            return;
-        }
-
-        const otherRooms = getAllRoomsExcept(room);
-
-        let statusCode = 200;
-        const data = {
-            title: '',
-            description: '',
-            css: '',
-            body: '',
-
-            hostname: req.hostname,
-            webSocketPort: webSocketPort,
-            room: room,
-            otherRooms: otherRooms,
-        };
-
-        const css = [];
-        const context = {
-            onInsertCss: value => css.push(value),
-            onSetTitle: value => data.title = value,
-            onSetMeta: (key, value) => data[key] = value,
-            onPageNotFound: () => statusCode = 404,
-        };
-
-        const { state, component } = router.dispatch({ path: req.path, context, room, otherRooms });
-        data.body = ReactDOM.renderToString(component);
-        data.css = css.join('');
-        const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
-        res.status(statusCode).send('<!doctype html>\n' + html);
-    } catch (err) {
-        next(err);
+    if (!room) {
+        ctx.body = 'room not found';
+        ctx.status = 404;
+        return;
     }
+
+    const otherRooms = getAllRoomsExcept(room);
+
+    let statusCode = 200;
+    const data = {
+        title: '',
+        description: '',
+        css: '',
+        body: '',
+
+        hostname: ctx.hostname,
+        webSocketPort: webSocketPort,
+        room: room,
+        otherRooms: otherRooms,
+    };
+
+    const css = [];
+    const context = {
+        onInsertCss: value => css.push(value),
+        onSetTitle: value => data.title = value,
+        onSetMeta: (key, value) => data[key] = value,
+        onPageNotFound: () => statusCode = 404,
+    };
+
+    const { state, component } = router.dispatch({ context, room, otherRooms });
+    data.body = ReactDOM.renderToString(component);
+    data.css = css.join('');
+    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    ctx.status = statusCode;
+    ctx.body = '<!doctype html>\n' + html;
 }
