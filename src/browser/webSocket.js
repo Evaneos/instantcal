@@ -37,7 +37,6 @@ export function send() {
 }
 
 export function create() {
-    console.log('create', webSocketPort);
     return new Promise((resolve, reject) => {
         socket = io(
             'http://' + window.location.hostname + ':' + webSocketPort,

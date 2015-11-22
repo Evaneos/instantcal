@@ -51,6 +51,7 @@ export default class Html extends Component {
             <div dangerouslySetInnerHTML={{__html: production ? '<script src="/main-sfx.js"></script>' :
                 `<script src="/jspm_packages/system.js"></script>
                 <script src="/config.js"></script>
+                <script src="/js/common.js"></script>
                 <script>System.import('js/main.js')</script>` }}></div>
             </body>
             </html>

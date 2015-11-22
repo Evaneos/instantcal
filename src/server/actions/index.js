@@ -1,35 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom/server';
-//import Router from 'react-routing/src/Router';
+import render from '../renderHtml';
 import IndexPage from '../../components/IndexPage';
-import Html from '../../components/Html';
-import withContext from '../../decorators/withContext';
 import { getRoom, getAllRoomsExcept } from '../rooms';
-import { webSocketPort } from '../webSocket'
-
-@withContext
-class App extends Component {
-    static propTypes = {
-        children: PropTypes.element.isRequired,
-    };
-    static contextTypes = {
-        onInsertCss: PropTypes.func
-    };
-
-
-    render() {
-        return this.props.children;
-    }
-}
-
-const router = {
-    dispatch({ context, room, otherRooms }) {
-        return {
-            component: <App context={context}><IndexPage room={room} otherRooms={otherRooms} /></App>
-        }
-    }
-};
-
+import { webSocketPort } from '../webSocket';
 
 export default async function action(ctx) {
     const roomName = ctx.path.trim().replace(/^\/+/, '');
@@ -43,31 +15,14 @@ export default async function action(ctx) {
 
     const otherRooms = getAllRoomsExcept(room);
 
-    let statusCode = 200;
-    const data = {
-        title: '',
-        description: '',
-        css: '',
-        body: '',
-
-        hostname: ctx.hostname,
-        webSocketPort: webSocketPort,
-        room: room,
-        otherRooms: otherRooms,
-    };
-
-    const css = [];
-    const context = {
-        onInsertCss: value => css.push(value),
-        onSetTitle: value => data.title = value,
-        onSetMeta: (key, value) => data[key] = value,
-        onPageNotFound: () => statusCode = 404,
-    };
-
-    const { state, component } = router.dispatch({ context, room, otherRooms });
-    data.body = ReactDOM.renderToString(component);
-    data.css = css.join('');
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
-    ctx.status = statusCode;
-    ctx.body = '<!doctype html>\n' + html;
+    ctx.body = render({
+        Component: IndexPage,
+        data: { room, otherRooms },
+        htmlData: {
+            hostname: ctx.hostname,
+            webSocketPort,
+            room,
+            otherRooms,
+        }
+    });
 }

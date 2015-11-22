@@ -212,9 +212,9 @@ def doDeploy(release, version, hash):
             run("ln -s %s/shared/%s %s" % (env.directory, path, path))
 
         with cd('%s/releases/%s' % (env.directory, release)):
-            run('npm prune && npm install')
+            run('npm install ; npm prune')
             run('jspm clean ; jspm install')
-            run('make build')
+            run('make build bundle-prod')
 
 def cleanReleases():
     with hide('running', 'stdout'):
