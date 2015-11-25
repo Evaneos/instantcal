@@ -28,6 +28,7 @@ export function watch() {
                     emit('roomUpdated', room._toJson());
                 }
             } catch (err) {
+                logger.error('room update failed', { roomName: room.name });
                 logger.error(err);
             }
         }, 2000 * roomsConfig.length);
