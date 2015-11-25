@@ -36,7 +36,7 @@ export default class TimerReact extends Component {
         const hours = readableTime.getUTCHours();
         const minutes = readableTime.getUTCMinutes();
 
-        return <span className="timeRemaining">
+        return <span className="time-remaining">
             { days ? <span className="days">{days} {days === 1 ? 'jour' : 'jours'}</span> : null }
             { hours ? <span className="hours">{days ? ' et ' : null }{hours} {hours === 1 ? 'heure' : 'heures'}</span> : null }
             { !days && hours < 3 && minutes ? <span className="minutes">{hours ? ' et ' : null }{minutes} {minutes === 1 ? 'minute' : 'minutes'}</span> : null }
