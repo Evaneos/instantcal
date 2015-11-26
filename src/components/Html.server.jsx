@@ -8,8 +8,10 @@ export default class Html extends Component {
         description: PropTypes.string,
         css: PropTypes.string,
         body: PropTypes.string.isRequired,
-        room: PropTypes.object,
-        otherRooms: PropTypes.array,
+        hostname: PropTypes.string.isRequired,
+        webSocketPort: PropTypes.number.isRequired,
+        room: PropTypes.object.isRequired,
+        otherRooms: PropTypes.array.isRequired,
     };
 
     static defaultProps = {
@@ -30,7 +32,7 @@ export default class Html extends Component {
 
     render() {
         return (
-            <html className="no-js" lang="">
+            <html>
             <head>
                 <meta charSet="utf-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

@@ -30,6 +30,6 @@ export default function renderHtml({Component, data, htmlData}) {
 
 
     htmlData.body = ReactDOM.renderToString(<App context={context}><Component {...data} /></App>);
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    const html = ReactDOM.renderToStaticMarkup(<Html {...htmlData} />);
     return '<!doctype html>\n' + html;
 }
