@@ -13,7 +13,7 @@ export default class RoomList extends Component {
                 { this.props.rooms.map((room, index) =>
                     <li style={{ height: (length ===1 ? 100 : (index === 0 ? 40 : 60/(length-1)))+'%' }}
                         key={room.name}>
-                        <Room room={room} />
+                        <Room firstMainRoom={ index === 0 } room={room} />
                     </li>
                 ) }
             </ul>

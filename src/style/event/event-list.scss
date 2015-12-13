@@ -22,23 +22,31 @@
 .current-event {
     background-color: rgba(80, 80, 80, 0.3);
     padding: 5px 10px;
-    margin-bottom: 15px;
+    margin: 0 -10px 15px;
 
     .event {
-        margin-top: 10px;
+        margin-top: 5px;
         margin-bottom: 15px;
 
-        span {
+        .event-info > span {
             display: block;
         }
     }
 
     .summary {
-        font-size: 3em;
+        font-size: 2.2em;
+        line-height: 100%;
     }
 
     .attendees {
-        font-size: 1.2em;
+        margin-top: 5px;
+        font-size: 1.1em;
         float: none;
+    }
+}
+
+.room.first {
+    .summary {
+        font-size: 2.8em;
     }
 }

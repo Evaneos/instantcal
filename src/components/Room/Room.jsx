@@ -5,6 +5,7 @@ import CalendarNextEvents from './CalendarNextEvents'
 export default class Room extends Component {
     static propTypes = {
         room: PropTypes.object,
+        firstMainRoom: PropTypes.boolean,
     };
 
     render() {
@@ -13,7 +14,7 @@ export default class Room extends Component {
         let status = room.isBusy ? 'occupée' : (room.isBusySoon ? 'bientot occupée' : 'libre');
         // let emoticon = room.isBusy ? '¯\\_(ツ)_/¯' : '\\（＾ ＾）/';
 
-        return (<div className={'room ' + classStatus}>
+        return (<div className={'room ' + classStatus + (this.props.firstMainRoom ? ' first' : '') }>
             <div className="room-info">
                 <div className="name">{room.name}</div>
                 <div className="status">{status}</div>

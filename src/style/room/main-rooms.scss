@@ -23,8 +23,14 @@
         position: relative;
         overflow: hidden;
 
+        &.first {
+            .name {
+                font-size: 4em;
+            }
+        }
+
         .name {
-            font-size: 4em;
+            font-size: 3em;
             text-transform: uppercase;
         }
 
