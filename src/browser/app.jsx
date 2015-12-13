@@ -7,21 +7,21 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            room: (() => {
+            room: window.rooms.map(r => {
                 const room = new Room();
-                room._fromJson(window.room);
+                room._fromJson(r);
                 return room;
-            })(),
+            }),
             otherRooms: window.otherRooms.map(r => {
                 const room = new Room();
                 room._fromJson(r);
                 return room;
-            })
+            }),
         }
     }
 
     render() {
-        return <IndexPage room={this.state.room} otherRooms={this.state.otherRooms} />;
+        return <IndexPage rooms={this.state.rooms} otherRooms={this.state.otherRooms} />;
     }
 }
 

@@ -1,24 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import Room from './Room/Room';
 import RoomList from './RoomList';
+import RoomPreviewList from './RoomPreviewList';
 
 export default class IndexPage extends Component {
     static propTypes = {
-        room: PropTypes.object.isRequired,
+        rooms: PropTypes.array.isRequired,
         otherRooms: PropTypes.array.isRequired,
     };
 
     render() {
-        const title = 'Room';
-        const mainRoom = this.props.room;
-        let mainRoomStatus = mainRoom.isBusy ? 'busy' : (mainRoom.isBusySoon ? 'busy-soon' : 'available');
+        const mainRooms = this.props.rooms;
+        const title = `Room${mainRooms.length > 1 ? 's' : ''}`
+            + ` ${mainRooms.map(r => r.name).join(', ')}`;
         return (
-            <div className={ mainRoomStatus + ' page-container'}>
-                <div className="mainRoom-container">
-                    <Room room={this.props.room} />
+            <div className="page-container">
+                <div className="main-rooms-container">
+                    <RoomList rooms={mainRooms} />
                 </div>
-                <div className="otherRooms-container">
-                    <RoomList rooms={this.props.otherRooms} />
+                <div className="preview-rooms-container">
+                    <RoomPreviewList rooms={this.props.otherRooms} />
                 </div>
             </div>
         );

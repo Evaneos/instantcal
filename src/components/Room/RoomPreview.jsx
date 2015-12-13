@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import CalendarCurrentEvent from './CalendarCurrentEvent'
-import CalendarNextEvent from './CalendarNextEvent'
 
 export default class RoomPreview extends Component {
     static propTypes = {

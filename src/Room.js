@@ -7,7 +7,7 @@ function checkIsDifferent(event1, event2) {
         if (event1.updatedDate.getTime() !== event2.updatedDate.getTime()) {
             return true;
         }
-    } else if (!(!event1 && !event2)) {
+    } else if (event1 || event2) {
         return true;
     }
 
@@ -22,23 +22,23 @@ export default class Room {
     }
 
     _updateEvents(events) {
-        const _currentEvent = this._currentEvent, _nextEvent = this._nextEvent;
+        const _currentEvent = this._currentEvent, _nextEvents = this._nextEvents;
         if (!events.length) {
             this._busy = false;
             this._busySoon = false;
             this._currentEvent = null;
-            this._nextEvent = null;
+            this._nextEvents = null;
         } else {
             if (events[0].startDate.getTime() < Date.now()) {
                 this._currentEvent = events[0];
-                this._nextEvent = events[1];
+                this._nextEvents = events.slice(1);
                 this._busy = true;
                 this._busySoon = null;
             } else {
                 this._currentEvent = null;
-                this._nextEvent = events[0];
+                this._nextEvents = events;
                 this._busy = false;
-                this._busySoon = this._nextEvent && this._nextEvent.startDate.getTime() < (Date.now() + 600000);
+                this._busySoon = this.nextEvent && this.nextEvent.startDate.getTime() < (Date.now() + 600000);
             }
         }
 
@@ -46,7 +46,15 @@ export default class Room {
             return true;
         }
 
-        if (checkIsDifferent(_nextEvent, this._nextEvent)) {
+        if (_nextEvents && this._nextEvents) {
+            if (_nextEvents.length !== this._nextEvents.length) {
+                return true;
+            }
+
+            return _nextEvents.some((event, index) => {
+                return checkIsDifferent(event, this._nextEvents[index]);
+            });
+        } else if (_nextEvents || this._nextEvents) {
             return true;
         }
 
@@ -63,7 +71,7 @@ export default class Room {
             _busy: this._busy,
             _busySoon: this._busySoon,
             _currentEvent: this._currentEvent,
-            _nextEvent: this._nextEvent,
+            _nextEvents: this._nextEvents,
         }
     }
 
@@ -80,7 +88,11 @@ export default class Room {
     }
 
     get nextEvent() {
-        return this._nextEvent;
+        return this._nextEvents && this._nextEvents[0];
+    }
+
+    get nextEvents() {
+        return this._nextEvents;
     }
 
     get isBusy() {

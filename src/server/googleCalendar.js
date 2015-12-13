@@ -48,12 +48,16 @@ function ask(method, params, retryCount = 2) {
     });
 }
 
+function ucfirst(s) {
+    return s[0].toUpperCase() + s.substr(1);
+}
+
 export function getEvents(calendarId) {
     return ask(calendarApi.events.list, {
         calendarId: calendarId,
         timeMin: (new Date()).toISOString(),
-        maxResults: 2,
-        maxAttendees: 5,
+        maxResults: 4,
+        maxAttendees: 10,
         singleEvents: true,
         orderBy: 'startTime',
     })
@@ -62,13 +66,27 @@ export function getEvents(calendarId) {
             id: item.id,
             summary: item.summary,
             description: item.description,
+            attendees: item.attendees && item.attendees.map(a => ({
+                name: ucfirst(a.email.replace(/@evaneos.com$/, '')),
+                email: a.email,
+                responseStatus: a.responseStatus, // needsAction, accepted
+                symbol: (() => {
+                    switch (a.responseStatus) {
+                        case 'accepted':
+                            return '✔';
+                        case 'needsAction':
+                            return '?';
+                        default:
+                            return '✖';
+                    }
+                })(),
+            })),
             status: item.status,
             startDate: new Date(item.start.dateTime),
             endDate: new Date(item.end.dateTime),
             updatedDate: new Date(item.updated),
         }));
     });
-    //.then((items) => console.log(items))
     //.catch((err) => console.log(err.stack));
 };
 

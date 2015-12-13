@@ -4,24 +4,22 @@ import { getRoom, getAllRoomsExcept } from '../rooms';
 import { webSocketPort } from '../webSocket';
 
 export default async function action(ctx) {
-    const roomName = ctx.path.trim().replace(/^\/+/, '');
-    const room = getRoom(roomName);
+    const roomNames = ctx.path.trim().replace(/^\/+/, '').split(',');
+    const rooms = roomNames.map(roomName => {
+        const room = getRoom(roomName);
+        ctx.assert(room, 404, `room ${roomName} not found`);
+        return room;
+    });
 
-    if (!room) {
-        ctx.body = 'room not found';
-        ctx.status = 404;
-        return;
-    }
-
-    const otherRooms = getAllRoomsExcept(room);
+    const otherRooms = getAllRoomsExcept(roomNames);
 
     ctx.body = render({
         Component: IndexPage,
-        data: { room, otherRooms },
+        data: { rooms, otherRooms },
         htmlData: {
             hostname: ctx.hostname,
             webSocketPort,
-            room,
+            rooms,
             otherRooms,
         }
     });

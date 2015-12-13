@@ -17,22 +17,25 @@ export function watch() {
 
     logger.debug('watch');
     watch.running = Array.from(rooms.values()).map(room => {
-        return setInterval(async function () {
-            logger.debug('updating', { roomName: room.name, calendarId: room.calendarId });
-            try {
-                const events = await getEvents(room.calendarId);
-
-                if (room._updateEvents(events)) {
-                    logger.success('room updated !', { roomName: room.name });
-                    console.log(room.name);//, nextEvents && nextEvents.map(e => e.id).join(','), events.map(e => e.id).join(','));
-                    emit('roomUpdated', room._toJson());
-                }
-            } catch (err) {
-                logger.error('room update failed', { roomName: room.name });
-                logger.error(err);
-            }
-        }, 2000 * roomsConfig.length);
+        _updateRoom(room);
+        return setInterval(() => _updateRoom(room), 2000 * roomsConfig.length);
     });
+}
+
+async function _updateRoom(room) {
+    logger.debug('updating', { roomName: room.name, calendarId: room.calendarId });
+    try {
+        const events = await getEvents(room.calendarId);
+
+        if (room._updateEvents(events)) {
+            logger.success('room updated !', { roomName: room.name });
+            // console.log(room.name, nextEvents && nextEvents.map(e => e.id).join(','), events.map(e => e.id).join(','));
+            emit('roomUpdated', room._toJson());
+        }
+    } catch (err) {
+        logger.error('room update failed', { roomName: room.name });
+        logger.error(err);
+    }
 }
 
 export function hasRoom(name) {
@@ -43,6 +46,6 @@ export function getRoom(name) {
     return rooms.get(name);
 }
 
-export function getAllRoomsExcept(room) {
-    return Array.from(rooms.values()).filter(r => room.name !== r.name);
+export function getAllRoomsExcept(roomNames) {
+    return Array.from(rooms.values()).filter(r => roomNames.indexOf(r.name) === -1);
 }

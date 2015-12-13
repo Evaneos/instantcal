@@ -1,0 +1,28 @@
+.preview-rooms-container {
+    width: 60%;
+    background: #F4E8D8;
+
+    .room-list {
+        padding: .5%;
+    }
+
+    .room {
+    }
+}
+
+.room-preview-container {
+    height: 80px;
+    width: 45%;
+    margin: .5%;
+    padding: 2%;
+    float: left;
+
+    .name {
+        font-size: 2.5em;
+        text-align: center;
+    }
+
+    .status {
+        font-size: 5em;
+    }
+}

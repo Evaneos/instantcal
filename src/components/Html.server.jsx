@@ -10,7 +10,7 @@ export default class Html extends Component {
         body: PropTypes.string.isRequired,
         hostname: PropTypes.string.isRequired,
         webSocketPort: PropTypes.number.isRequired,
-        room: PropTypes.object.isRequired,
+        rooms: PropTypes.array.isRequired,
         otherRooms: PropTypes.array.isRequired,
     };
 
@@ -46,7 +46,7 @@ export default class Html extends Component {
             </head>
             <body>
             <div id="app" dangerouslySetInnerHTML={{__html: this.props.body}} />
-            <script dangerouslySetInnerHTML={{__html: "window.room ="+ JSON.stringify(this.props.room._toJson())}}></script>
+            <script dangerouslySetInnerHTML={{__html: "window.rooms ="+ JSON.stringify(this.props.rooms.map(r => r._toJson()))}}></script>
             <script dangerouslySetInnerHTML={{__html: "window.otherRooms ="+ JSON.stringify(this.props.otherRooms.map(r => r._toJson()))}}></script>
             <script dangerouslySetInnerHTML={{__html: "window.webSocketPort ="+ this.props.webSocketPort}}></script>
             <div dangerouslySetInnerHTML={{__html: '<script src="//'+this.props.hostname+':'+this.props.webSocketPort+'/socket.io/socket.io.js"></script>'  }} />

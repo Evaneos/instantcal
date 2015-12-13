@@ -39,7 +39,7 @@ export function send() {
 export function create() {
     return new Promise((resolve, reject) => {
         socket = io(
-            'http://' + window.location.hostname + ':' + webSocketPort,
+            '//' + window.location.hostname + ':' + webSocketPort,
             {
                 transports: ['websocket', 'polling', 'flashsocket'],
                 reconnectionDelay: 500,

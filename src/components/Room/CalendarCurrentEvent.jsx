@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import TimerReact from '../Timer';
+import RemainingTime from '../RemainingTime';
+import Event from '../Event';
 
 export default class CalendarCurrentEvent extends Component {
     static propTypes = {
@@ -17,7 +18,10 @@ export default class CalendarCurrentEvent extends Component {
         let endTime = endDate.getTime();
         let timeRemaining = endTime - Date.now();
         return <div className="current-event">
-            Libre dans <TimerReact initialTimeRemaining={timeRemaining} />
+            <Event event={currentEvent} />
+            <div>
+                Libre dans <RemainingTime initialTimeRemaining={timeRemaining} />
+            </div>
         </div>;
     }
 }

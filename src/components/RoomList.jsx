@@ -1,15 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import RoomPreview from './Room/RoomPreview';
+import Room from './Room/Room';
 
 export default class RoomList extends Component {
     static propTypes = {
         rooms: PropTypes.array.isRequired,
     };
 
-
     render() {
-        return (<ul className="room-list">
-            { this.props.rooms.map(room => <li key={room.name}><RoomPreview room={room} /></li>) }
-        </ul>)
+        const length = this.props.rooms.length;
+        return (<div className="room-list-container">
+            <ul className="room-list">
+                { this.props.rooms.map((room, index) =>
+                    <li style={{ height: (length ===1 ? 100 : (index === 0 ? 40 : 60/(length-1)))+'%' }}
+                        key={room.name}>
+                        <Room room={room} />
+                    </li>
+                ) }
+            </ul>
+        </div>)
     }
 }

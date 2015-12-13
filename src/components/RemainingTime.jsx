@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class TimerReact extends Component {
+export default class RemainingTimeComponent extends Component {
     static propTypes = {
         initialTimeRemaining: PropTypes.number,
     };

@@ -1,0 +1,44 @@
+.event-list {
+    .event {
+        clear: right;
+    }
+    .day {
+        background-color: rgba(80, 80, 80, 0.3);
+        padding: 1px 3px;
+    }
+    .start-hour {
+        font-size: 1.3em;
+        color: rgba(255,255,255,.8);
+    }
+    div {
+        display: inline;
+    }
+    .attendees {
+        font-size: .9em;
+        float: right;
+    }
+}
+
+.current-event {
+    background-color: rgba(80, 80, 80, 0.3);
+    padding: 5px 10px;
+    margin-bottom: 15px;
+
+    .event {
+        margin-top: 10px;
+        margin-bottom: 15px;
+
+        span {
+            display: block;
+        }
+    }
+
+    .summary {
+        font-size: 3em;
+    }
+
+    .attendees {
+        font-size: 1.2em;
+        float: none;
+    }
+}
