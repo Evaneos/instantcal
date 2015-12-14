@@ -4,11 +4,15 @@
     }
     .day {
         background-color: rgba(80, 80, 80, 0.3);
+        margin: 5px 0 1px;
         padding: 1px 3px;
     }
-    .start-hour {
-        font-size: 1.3em;
+    .start-hour, .end-hour {
+        font-size: 1.2em;
         color: rgba(255,255,255,.8);
+    }
+    .end-hour {
+        font-size: 1.1em;
     }
     div {
         display: inline;
@@ -46,7 +50,9 @@
 }
 
 .room.first {
-    .summary {
-        font-size: 2.8em;
+    .current-event {
+        .summary {
+            font-size: 2.8em;
+        }
     }
 }

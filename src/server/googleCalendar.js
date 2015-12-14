@@ -80,7 +80,7 @@ export function getEvents(calendarId) {
                             return '✖';
                     }
                 })(),
-            })),
+            })).sort((a, b) => a.name.localeCompare(b.name)),
             status: item.status,
             startDate: new Date(item.start.dateTime),
             endDate: new Date(item.end.dateTime),
