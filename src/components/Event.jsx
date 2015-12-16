@@ -22,7 +22,7 @@ export default class Event extends Component {
 
         return (<div className={'event'}>
             <div className="event-info">
-                <span class="start-end-hour">
+                <span className="start-end-hour">
                     <span className="start-hour">{ displayHour(startDate) } </span>
                     <span className="start-end-hour-separator"> - </span>
                     <span className="end-hour">{ displayHour(endDate) } </span>

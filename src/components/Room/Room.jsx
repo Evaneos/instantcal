@@ -5,7 +5,7 @@ import CalendarNextEvents from './CalendarNextEvents'
 export default class Room extends Component {
     static propTypes = {
         room: PropTypes.object,
-        firstMainRoom: PropTypes.boolean,
+        firstMainRoom: PropTypes.bool,
     };
 
     render() {

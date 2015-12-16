@@ -7,7 +7,7 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            room: window.rooms.map(r => {
+            rooms: window.rooms.map(r => {
                 const room = new Room();
                 room._fromJson(r);
                 return room;
@@ -28,13 +28,12 @@ class App extends Component {
 const app = ReactDOM.render(<App />, document.getElementById('app'));
 
 export function update({ room }) {
-    if (app.state.room.name === room.name) {
-        console.log('new main room: ', room);
-        app.setState({ room });
-    } else {
-        const otherRooms = app.state.otherRooms.map(otherRoom => {
-            return otherRoom.name === room.name ? room : otherRoom;
-        });
-        app.setState({ otherRooms });
-    }
+    const rooms = app.state.rooms.map(mainRoom => {
+        return mainRoom.name === room.name ? room : mainRoom;
+    });
+
+    const otherRooms = app.state.otherRooms.map(otherRoom => {
+        return otherRoom.name === room.name ? room : otherRoom;
+    });
+    app.setState({ rooms, otherRooms });
 }
