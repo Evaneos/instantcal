@@ -2,27 +2,178 @@
     width: 60%;
     background: #F4E8D8;
 
-    .room-list {
-        padding: .5%;
-    }
+    /*    .room-list {
+            padding: .5%;
+        }*/
 
     .room {
     }
 }
 
 .room-preview-container {
-    height: 80px;
-    width: 45%;
+    width: 100%;
     margin: .5%;
     padding: 2%;
-    float: left;
+    box-sizing: border-box;
 
     .name {
-        font-size: 4vw;
+        font-size: 2vw;
         text-align: center;
     }
 
     .status {
         font-size: 5em;
+    }
+}
+
+.map-container {
+    .map {
+        width: 80%;
+        height: 490px;
+        border: 1px solid black;
+        margin: 10%;
+        position: relative;
+        .center {
+            position: absolute;
+            width: 321px;
+            height: 260px;
+            border: 1px solid black;
+            top: 110px;
+            left: 200px;
+            background-color: rgba(127, 220, 216, 0.3);
+        }
+        .room-list {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            /*li {
+                position: absolute;
+            }
+
+            .stairs {
+                &:before, &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    width: 100%;
+                    height: 50%;
+                }
+                &:before {
+                    background: repeating-linear-gradient( 90deg, rgba(0,0,0,0), rgba(0,0,0,0) 10px, rgba(0,0,0,0.2) 10px, rgba(0,0,0,0.2) 20px);
+                    top: 0;
+                    border-top: 1px solid rgba(0,0,0,0.3);
+                }
+                &:after {
+                    bottom: 0;
+                    background: repeating-linear-gradient( 90deg, rgba(0,0,0,0) 10px, rgba(0,0,0,0) 20px, rgba(0,0,0,0.2) 10px, rgba(0,0,0,0.2) 30px);
+                }
+            }
+
+            .rio {
+                left: 105px;
+                top: 115px;
+                width: 95px;
+                height: 100px;
+                line-height: 90px;
+            }
+
+            .lisbonne {
+                left: 0;
+                bottom: 0;
+                width: 200px;
+                height: 118px;
+                line-height: 100px;
+            }
+
+            .buenos-aires {
+                left: 0;
+                top: 115px;
+                width: 100px;
+                height: 100px;
+                line-height: 45px;
+
+                .name {
+                    font-size: 1.6vw;
+                }
+            }
+
+            .delhi {
+                right: 0;
+                bottom: 80px;
+                width: 174px;
+                height: 100px;
+                line-height: 90px;
+            }
+
+            .pekin {
+                right: 0;
+                width: 174px;
+                top: 115px;
+                height: 100px;
+                line-height: 90px;
+            }
+
+            .loft {
+                left: 205px;
+                width: 217px;
+                height: 110px;
+                line-height: 100px;
+            }
+
+            .salle-detente {
+                width: 200px;
+                height: 110px;
+                line-height: 100px;
+            }
+
+            .pondichery {
+                bottom: 0;
+                right: 275px;
+                width: 90px;
+                height: 118px;
+                line-height: 108px;
+
+                .name {
+                    font-size: 1.2vw;
+                    transform: rotate(50deg);
+                }
+            }
+
+            .bangalore {
+                bottom: 0;
+                right: 180px;
+                font-size: 0.3vw;
+                height: 118px;
+                line-height: 108px;
+                width: 90px;
+
+                .name {
+                    font-size: 1.2vw;
+                    transform: rotate(50deg);
+                }
+            }
+
+            .antarctique {
+                right: 0;
+                top: 0;
+                height: 110px;
+                width: 175px;
+                line-height: 100px;
+            }
+
+            .tokyo {
+                right: 180px;
+                width: 90px;
+                height: 40px;
+                top: 0;
+                line-height: 40px;
+
+                .name {
+                    font-size: 1.3vw;
+                }
+            }*/
+        }
     }
 }

@@ -10,6 +10,7 @@ export default class IndexPage extends Component {
 
     render() {
         const mainRooms = this.props.rooms;
+        console.log(mainRooms);
         const title = `Room${mainRooms.length > 1 ? 's' : ''}`
             + ` ${mainRooms.map(r => r.name).join(', ')}`;
         return (
@@ -18,7 +19,7 @@ export default class IndexPage extends Component {
                     <RoomList rooms={mainRooms} />
                 </div>
                 <div className="preview-rooms-container">
-                    <RoomPreviewList rooms={this.props.otherRooms} />
+                    <RoomPreviewList rooms={this.props.otherRooms} mainRooms={mainRooms} />
                 </div>
             </div>
         );

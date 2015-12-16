@@ -17,7 +17,6 @@ export default class Room extends Component {
         return (<div className={'room ' + classStatus + (this.props.firstMainRoom ? ' first' : '') }>
             <div className="room-info">
                 <div className="name">{room.name}</div>
-                <div className="status">{status}</div>
             </div>
             <CalendarCurrentEvent currentEvent={room.currentEvent} />
             <CalendarNextEvents currentEvent={room.currentEvent} nextEvents={room.nextEvents} />

@@ -16,8 +16,9 @@ function checkIsDifferent(event1, event2) {
 
 
 export default class Room {
-    constructor(name, calendarId) {
+    constructor(name, slug, calendarId) {
         this._name = name;
+        this._slug = slug;
         this._calendarId = calendarId;
     }
 
@@ -68,6 +69,7 @@ export default class Room {
     _toJson() {
         return {
             _name: this._name,
+            _slug: this._slug,
             _busy: this._busy,
             _busySoon: this._busySoon,
             _currentEvent: this._currentEvent,
@@ -77,6 +79,10 @@ export default class Room {
 
     get name() {
         return this._name;
+    }
+
+    get slug() {
+        return this._slug;
     }
 
     get calendarId() {

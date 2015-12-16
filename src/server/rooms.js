@@ -8,7 +8,7 @@ import { rooms as roomsConfig } from '../../config';
 let rooms = new Map();
 const logger = new ConsoleLogger('app.rooms');
 
-roomsConfig.forEach(room => rooms.set(room.name, new Room(room.name, room.calendarId)));
+roomsConfig.forEach(room => rooms.set(room.name, new Room(room.name, room.slug, room.calendarId)));
 
 export function watch() {
     if (watch.running) {
@@ -44,6 +44,14 @@ export function hasRoom(name) {
 
 export function getRoom(name) {
     return rooms.get(name);
+}
+
+export function hasSlug(slug) {
+    return rooms.has(slug);
+}
+
+export function getSlug(slug) {
+    return rooms.get(slug);
 }
 
 export function getAllRoomsExcept(roomNames) {
