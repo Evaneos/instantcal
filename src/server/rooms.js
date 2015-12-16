@@ -2,13 +2,17 @@ import { getEvents } from './googleCalendar';
 import { emit } from './webSocket';
 import Room from '../Room';
 import { ConsoleLogger } from 'nightingale';
+import { slugify } from 'transliteration';
 
 import { rooms as roomsConfig } from '../../config';
 
 let rooms = new Map();
 const logger = new ConsoleLogger('app.rooms');
 
-roomsConfig.forEach(room => rooms.set(room.name, new Room(room.name, room.slug, room.calendarId)));
+roomsConfig.forEach(room => {
+    const slug = slugify(room.name);
+    rooms.set(room.name, new Room(room.name, slug, room.calendarId))
+});
 
 export function watch() {
     if (watch.running) {
