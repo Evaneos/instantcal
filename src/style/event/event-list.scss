@@ -1,58 +1,73 @@
 .event-list {
-    .event {
-        clear: right;
+  .event {
+    clear: right;
+
+    .event-info {
+      div {
+        display: inline-block;
+      }
+
+      .hour {
+        width: 25%;
+        .start-hour, .end-hour {
+          font-size: 1.3vw;
+          color: rgba(255,255,255,.8);
+        }
+      }
+
+      .summary {
+        width: 75%;
+        font-size: 1.2vw;
+        text-align: right;
+      }
+
     }
-    .day {
-        background-color: rgba(80, 80, 80, 0.3);
-        margin: 5px 0 1px;
-        padding: 1px 3px;
-    }
-    .start-hour, .end-hour {
-        font-size: 1.4vw;
-        color: rgba(255,255,255,.8);
-    }
-    .end-hour {
-        font-size: 1.4vw;
-    }
-    div {
-        display: inline;
-    }
+
     .attendees {
-        font-size: 1.1vw;
-        float: right;
+      font-size: 1.2vw;
+      text-align: center;
+      width: 100%;
+      margin: 10px 0;
     }
+  }
+  .day {
+    background-color: rgba(80, 80, 80, 0.3);
+    margin: 5px 0 1px;
+    padding: 1px 3px;
+    font-size: 1.2vw;
+  }
 }
 
 .current-event {
-    background-color: rgba(80, 80, 80, 0.3);
-    padding: 5px 10px;
-    margin: 0 -10px 15px;
+  background-color: rgba(80, 80, 80, 0.3);
+  padding: 5px 10px;
+  margin: 0 -10px 15px;
 
-    .event {
-        margin-top: 5px;
-        margin-bottom: 15px;
+  .event {
+    margin-top: 5px;
+    margin-bottom: 15px;
 
-        .event-info > span {
-            display: block;
-        }
+    .event-info > span {
+      display: block;
     }
+  }
 
-    .summary {
-        font-size: 2.2em;
-        line-height: 100%;
-    }
+  .summary {
+    font-size: 2.3vw;
+    line-height: 100%;
+  }
 
-    .attendees {
-        margin-top: 5px;
-        font-size: 1.1em;
-        float: none;
-    }
+  .attendees {
+    margin-top: 5px;
+    font-size: 1vw;
+    float: none;
+  }
 }
 
 .room.first {
-    .current-event {
-        .summary {
-            font-size: 2.8em;
-        }
+  .current-event {
+    .summary {
+      font-size: 2.8em;
     }
+  }
 }
