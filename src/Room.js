@@ -1,3 +1,5 @@
+var slugify = require('transliteration').slugify;
+
 function checkIsDifferent(event1, event2) {
     if (event1 && event2) {
         if (event1.id !== event2.id) {
@@ -18,7 +20,7 @@ function checkIsDifferent(event1, event2) {
 export default class Room {
     constructor(name, slug, calendarId) {
         this._name = name;
-        this._slug = slug;
+        this._slug = slugify(name);
         this._calendarId = calendarId;
     }
 

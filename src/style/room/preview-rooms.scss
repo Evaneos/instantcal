@@ -13,12 +13,11 @@
 .room-preview-container {
     width: 100%;
     height: 100%;
-    margin: .5%;
     padding: 2%;
     box-sizing: border-box;
 
     .name {
-        font-size: 2.5vmin;
+        font-size: 1.8vmax;
         text-align: center;
     }
 
@@ -36,11 +35,11 @@
         position: relative;
         .center {
             position: absolute;
-            width: 321px;
-            height: 260px;
+            width: 50%;
+            height: 50%;
             border: 1px solid black;
-            top: 110px;
-            left: 200px;
+            top: 25%;
+            left: 25%;
             background-color: rgba(127, 220, 216, 0.3);
         }
         .room-list {
@@ -72,107 +71,106 @@
             }
 
             .rio {
-                left: 105px;
-                top: 115px;
-                width: 95px;
-                height: 100px;
+                left: 12.75%;
+                top: 25.5%;
+                width: 12.25%;
+                height: 20%;
                 line-height: 90px;
             }
 
             .lisbonne {
                 left: 0;
                 bottom: 0;
-                width: 200px;
-                height: 118px;
+                width: 25%;
+                height: 25%;
                 line-height: 100px;
             }
 
             .buenos-aires {
                 left: 0;
-                top: 115px;
-                width: 100px;
-                height: 100px;
+                top: 25.5%;
+                width: 12.25%;
+                height: 20%;
                 line-height: 45px;
-/*
+
                 .name {
-                    font-size: 1.6vw;
-                }*/
+                    font-size: 2.2vmin;
+                }
             }
 
             .delhi {
                 right: 0;
-                bottom: 80px;
-                width: 174px;
-                height: 100px;
+                bottom: 15.5%;
+                width: 25%;
+                height: 20%;
                 line-height: 90px;
             }
 
             .pekin {
                 right: 0;
-                width: 174px;
-                top: 115px;
-                height: 100px;
+                width: 25%;
+                top: 25.5%;
+                height: 20%;
                 line-height: 90px;
             }
 
-            .loft {
-                left: 205px;
-                width: 217px;
-                height: 110px;
+            .le-loft {
+                left: 25.5%;
+                width: 38.5%;
+                height: 25%;
                 line-height: 100px;
             }
 
             .salle-detente {
-                width: 200px;
-                height: 110px;
+                width: 25%;
+                height: 25%;
                 line-height: 100px;
             }
 
             .pondichery {
                 bottom: 0;
-                right: 275px;
-                width: 90px;
-                height: 118px;
-                line-height: 108px;
+                right: 40.5%;
+                width: 15%;
+                height: 15.5%;
+                line-height: 78px;
 
                 .name {
                     font-size: 2vmin;
-                    transform: rotate(50deg);
+                    transform: rotate(30deg);
                 }
             }
 
             .bangalore {
                 bottom: 0;
-                right: 180px;
+                right: 25%;
                 font-size: 0.3vw;
-                height: 118px;
-                line-height: 108px;
-                width: 90px;
+                height: 15.5%;
+                line-height: 78px;
+                width: 15%;
 
                 .name {
                     font-size: 2vmin;
-                    transform: rotate(50deg);
+                    transform: rotate(30deg);
                 }
             }
 
             .antarctique {
                 right: 0;
                 top: 0;
-                height: 110px;
-                width: 175px;
+                width: 25%;
+                height: 25%;
                 line-height: 100px;
             }
 
             .tokyo {
-                right: 180px;
-                width: 90px;
-                height: 40px;
+                right: 25.5%;
+                width: 10%;
+                height: 12.5%;
                 top: 0;
                 line-height: 40px;
-/*
                 .name {
-                    font-size: 1.3vw;
-                }*/
+                    font-size: 1.3vmax;
+                }
             }
         }
     }
