@@ -12,12 +12,13 @@
 
 .room-preview-container {
     width: 100%;
+    height: 100%;
     margin: .5%;
     padding: 2%;
     box-sizing: border-box;
 
     .name {
-        font-size: 2vw;
+        font-size: 2.5vmin;
         text-align: center;
     }
 
@@ -46,10 +47,8 @@
             position: relative;
             height: 100%;
             width: 100%;
-            display: flex;
-            flex-direction: row;
 
-           /* li {
+            li {
                 position: absolute;
             }
 
@@ -94,10 +93,10 @@
                 width: 100px;
                 height: 100px;
                 line-height: 45px;
-
+/*
                 .name {
                     font-size: 1.6vw;
-                }
+                }*/
             }
 
             .delhi {
@@ -137,7 +136,7 @@
                 line-height: 108px;
 
                 .name {
-                    font-size: 1.2vw;
+                    font-size: 2vmin;
                     transform: rotate(50deg);
                 }
             }
@@ -151,7 +150,7 @@
                 width: 90px;
 
                 .name {
-                    font-size: 1.2vw;
+                    font-size: 2vmin;
                     transform: rotate(50deg);
                 }
             }
@@ -170,11 +169,11 @@
                 height: 40px;
                 top: 0;
                 line-height: 40px;
-
+/*
                 .name {
                     font-size: 1.3vw;
-                }
-            }*/
+                }*/
+            }
         }
     }
 }
