@@ -14,7 +14,6 @@ export default class RoomPreviewList extends Component {
                     <ul className="room-list">
                         { this.props.rooms.map(room => <li className={room.slug} key={room.name}><RoomPreview room={room} /></li>) }
                         { this.props.mainRooms.map (room => <li className={room.slug} key={room.name}><RoomPreview room={room} main={true} /></li>) }
-                        <li className="stairs"></li>
                         <li className="center"></li>
                     </ul>
                 </div>

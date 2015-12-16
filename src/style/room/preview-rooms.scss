@@ -37,15 +37,52 @@
             position: absolute;
             width: 50%;
             height: 50%;
-            border: 1px solid black;
             top: 25%;
             left: 25%;
-            background-color: rgba(127, 220, 216, 0.3);
+            box-sizing: border-box;
+            border-left: 5px solid black;
+            background: repeating-linear-gradient( -55deg, #c5ac93, #c5ac93 10px, transparent 10px, transparent 20px );
+            &:before {
+                content: '';
+                background-color: #F4E8D8;
+                border-radius: 50%;
+                display: block;
+                width: 150px;
+                height: 150px;
+                margin: auto;
+                position: relative;
+                top: 50%;
+                -webkit-transform: translateY(-50%);
+                -moz-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                -o-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+            &:after {
+                content: '';
+                background: url('./assets/icons/logo.png');
+                background-size: 100%;
+                display: block;
+                width: 200px;
+                height: 200px;
+                margin: auto;
+                position: relative;
+                top: -11%;
+                -webkit-transform: translateY(-50%);
+                -moz-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                -o-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
         }
         .room-list {
             position: relative;
             height: 100%;
             width: 100%;
+
+            > * {
+                box-sizing: border-box;
+            }
 
             li {
                 position: absolute;
@@ -79,11 +116,33 @@
             }
 
             .lisbonne {
-                left: 0;
+                left: 12.5%;
                 bottom: 0;
                 width: 25%;
                 height: 25%;
-                line-height: 100px;
+                line-height: 140px;
+
+                &:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    width:50%;
+                    height: 100%;
+                    border-left: 5px solid black;
+                    border-top: 5px solid black;
+                    box-sizing: border-box;
+                }
+                &:after {
+                    content: '';
+                    background: url('./assets/icons/stairs-down.png');
+                    background-size: 100%;
+                    display: block;
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    top:20%;
+                    left: 40%;
+                }
             }
 
             .buenos-aires {
@@ -101,21 +160,21 @@
             .delhi {
                 right: 0;
                 bottom: 15.5%;
-                width: 25%;
+                width: 15%;
                 height: 20%;
                 line-height: 90px;
             }
 
             .pekin {
                 right: 0;
-                width: 25%;
+                width: 15%;
                 top: 25.5%;
                 height: 20%;
                 line-height: 90px;
             }
 
             .le-loft {
-                left: 25.5%;
+                left: 35.5%;
                 width: 38.5%;
                 height: 25%;
                 line-height: 100px;
@@ -125,47 +184,88 @@
                 width: 25%;
                 height: 25%;
                 line-height: 100px;
+                border-bottom: 5px solid black;
             }
 
             .pondichery {
                 bottom: 0;
-                right: 40.5%;
+                right: 30.5%;
                 width: 15%;
                 height: 15.5%;
-                line-height: 78px;
+                line-height: 100px;
 
                 .name {
-                    font-size: 2vmin;
-                    transform: rotate(30deg);
+                    font-size: 1.8vmin;
+                }
+
+                &:after {
+                    content: '';
+                    background: url('./assets/icons/phone.png');
+                    background-size: 100%;
+                    display: block;
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    top:10%;
+                    left: 40%;
                 }
             }
 
             .bangalore {
                 bottom: 0;
-                right: 25%;
+                right: 15%;
                 font-size: 0.3vw;
                 height: 15.5%;
-                line-height: 78px;
+                line-height: 100px;
                 width: 15%;
 
+
                 .name {
-                    font-size: 2vmin;
-                    transform: rotate(30deg);
+                    font-size: 1.8vmin;
+                }
+
+                &:after {
+                    content: '';
+                    background: url('./assets/icons/phone.png');
+                    background-size: 100%;
+                    display: block;
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    top:10%;
+                    left: 40%;
                 }
             }
 
             .antarctique {
                 right: 0;
                 top: 0;
-                width: 25%;
+                width: 15%;
                 height: 25%;
                 line-height: 100px;
+
+                .name {
+                    font-size: 1.1vmax;
+                    line-height: 135px;
+
+                    &:after {
+                        content: '';
+                        background: url('./assets/icons/stairs-down.png');
+                        background-size: 100%;
+                        display: block;
+                        position: absolute;
+                        width: 30px;
+                        height: 30px;
+                        top:20%;
+                        left: 40%;
+                    }
+                }
             }
 
             .tokyo {
-                right: 25.5%;
+                right: 15.5%;
                 width: 10%;
-                height: 12.5%;
+                height: 9%;
                 top: 0;
                 line-height: 40px;
                 .name {
