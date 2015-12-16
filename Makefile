@@ -16,4 +16,4 @@ clean:
 	@node_modules/.bin/jspm bundle --minify --no-mangle react + react-dom + babel-runtime/core-js public/js/common.js
 
 bundle-prod:
-	@node_modules/.bin/jspm bundle-sfx --minify js/main.js public/main-sfx.js
+	@node_modules/.bin/jspm bundle-sfx --minify --no-mangle js/main.js public/main-sfx.js

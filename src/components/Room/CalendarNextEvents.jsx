@@ -26,7 +26,7 @@ export default class CalendarNextEvents extends Component {
         let lastDay;
         const today = new Date();
 
-        nextEvents.forEach(nextEvent => {
+        nextEvents.forEach((nextEvent, index) => {
             let startDate = new Date(nextEvent.startDate);
             const currentDay = `${startDate.getFullYear()}_${startDate.getMonth()}_${startDate.getDate()}`;
             if (lastDay != currentDay) {
@@ -34,14 +34,14 @@ export default class CalendarNextEvents extends Component {
                         || startDate.getMonth() != today.getMonth()
                         || startDate.getDate() != today.getDate()) {
                     eventList.push(
-                        <li className="day">{`${startDate.getDate()}/${startDate.getMonth()+1}/${startDate.getFullYear()}`}</li>
+                        <li key={ 'date' + startDate.getTime() } className="day">{`${startDate.getDate()}/${startDate.getMonth()+1}/${startDate.getFullYear()}`}</li>
                     );
                 }
                 lastDay = currentDay;
             }
 
             eventList.push(
-                <li className="event">
+                <li key={ 'nextEvent' + index } className="event">
                     <Event event={nextEvent} />
                 </li>
             )
