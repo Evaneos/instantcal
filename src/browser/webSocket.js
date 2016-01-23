@@ -48,11 +48,19 @@ export function create() {
             }
         );
 
-        socket.on('connect', function() {
+        socket.once('connect', () => {
             resolve();
         });
 
-        socket.on('hello', function() {
+        socket.on('connect', () => {
+            document.getElementById('disconnected').style.display = 'none';
+        });
+
+        socket.on('disconnect', () => {
+            document.getElementById('disconnected').style.display = 'block';
+        });
+
+        socket.on('hello', () => {
             console.log('hi');
         });
 

@@ -45,6 +45,7 @@ export default class Html extends Component {
                 <style id="css" dangerouslySetInnerHTML={{__html: this.props.css}} />
             </head>
             <body>
+            <div id="disconnected"><div>disconnected</div></div>
             <div id="app" dangerouslySetInnerHTML={{__html: this.props.body}} />
             <script dangerouslySetInnerHTML={{__html: "window.rooms ="+ JSON.stringify(this.props.rooms.map(r => r._toJson()))}}></script>
             <script dangerouslySetInnerHTML={{__html: "window.otherRooms ="+ JSON.stringify(this.props.otherRooms.map(r => r._toJson()))}}></script>
