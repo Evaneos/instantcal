@@ -107,13 +107,6 @@
                 }
             }
 
-            .rio {
-                left: 12.75%;
-                top: 25.5%;
-                width: 12.25%;
-                height: 20%;
-                line-height: 90px;
-            }
 
             .barcelone {
                 left: 12.5%;
@@ -149,11 +142,39 @@
                 left: 0;
                 top: 25.5%;
                 width: 12.25%;
-                height: 20%;
-                line-height: 45px;
+                height: 14%;
+                line-height: 30px;
 
                 .name {
                     font-size: 2.2vmin;
+                }
+            }
+
+            .san-francisco {
+                left: 0;
+                top: 40.5%;
+                width: 12.25%;
+                height: 31%;
+                line-height: 45px;
+            }
+
+            .rio {
+                left: 12.75%;
+                top: 35%;
+                width: 12.25%;
+                height: 18%;
+                line-height: 90px;
+            }
+
+            .havana {
+                left: 12.75%;
+                top: 53.5%;
+                width: 12.25%;
+                height: 18%;
+                line-height: 90px;
+
+                .name {
+                    font-size: 1.5vmax;
                 }
             }
 
