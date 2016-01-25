@@ -10,7 +10,6 @@ export default class IndexPage extends Component {
 
     render() {
         const mainRooms = this.props.rooms;
-        console.log(mainRooms);
         const title = `Room${mainRooms.length > 1 ? 's' : ''}`
             + ` ${mainRooms.map(r => r.name).join(', ')}`;
         return (
