@@ -184,7 +184,28 @@
                 width: 25%;
                 height: 25%;
                 line-height: 100px;
-                border-bottom: 5px solid black;
+
+                &:after {
+                    display: block;
+                    content: '';
+                    width: 50%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    border-bottom: 4px dashed black;
+                    top: 0;
+                }
+
+                &:before {
+                    display: block;
+                    content: '';
+                    width: 50%;
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    border-bottom: 4px solid black;
+                    top: 0;
+                }
             }
 
             .pondichery {
