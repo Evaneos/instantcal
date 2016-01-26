@@ -10,8 +10,7 @@ const scopes = [
 
 const key = require('../../local/instantcal.json');
 const jwtClient = new googleAuth.JWT(key.client_email, null, key.private_key, scopes, null);
-const calendarApi = googleCalendar('v3');
-
+export const calendarApi = googleCalendar('v3');
 
 let _authenticated = false;
 
@@ -27,13 +26,13 @@ function authenticate() {
                 return reject(err);
             }
 
-            console.log(tokens);
+            // console.log(tokens);
             resolve();
         });
     });
 }
 
-function ask(method, params, retryCount = 2) {
+export function ask(method, params, retryCount = 2) {
     return authenticate().then(() => {
         params.auth = jwtClient;
         return new Promise((resolve, reject) => {
@@ -52,6 +51,8 @@ function ucfirst(s) {
     return s[0].toUpperCase() + s.substr(1);
 }
 
+const isResourceRegexp = /@resource.calendar.google.com$/;
+
 export function getEvents(calendarId) {
     return ask(calendarApi.events.list, {
         calendarId: calendarId,
@@ -66,21 +67,24 @@ export function getEvents(calendarId) {
             id: item.id,
             summary: item.summary,
             description: item.description,
-            attendees: item.attendees && item.attendees.map(a => ({
-                name: ucfirst(a.email.replace(/@evaneos.com$/, '')),
-                email: a.email,
-                responseStatus: a.responseStatus, // needsAction, accepted
-                symbol: (() => {
-                    switch (a.responseStatus) {
-                        case 'accepted':
-                            return '✔';
-                        case 'needsAction':
-                            return '?';
-                        default:
-                            return '✖';
-                    }
-                })(),
-            })).sort((a, b) => a.name.localeCompare(b.name)),
+            attendees: item.attendees && item.attendees
+                .filter(a => !isResourceRegexp.test(a.email))
+                .map(a => ({
+                    name: ucfirst(a.email.replace(/@evaneos.com$/, '')),
+                    email: a.email,
+                    responseStatus: a.responseStatus, // needsAction, accepted
+                    symbol: (() => {
+                        switch (a.responseStatus) {
+                            case 'accepted':
+                                return '✔';
+                            case 'needsAction':
+                                return '?';
+                            default:
+                                return '✖';
+                        }
+                    })(),
+                }))
+                .sort((a, b) => a.name.localeCompare(b.name)),
             status: item.status,
             startDate: new Date(item.start.dateTime),
             endDate: new Date(item.end.dateTime),
