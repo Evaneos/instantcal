@@ -7,14 +7,7 @@ html, body, #app, .page-container {
 
 
 .page-container {
-    display: table;
     width: 100%;
-
-
-    > div {
-        display: table-cell;
-        height: 100%;
-    }
 }
 
 

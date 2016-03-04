@@ -11,9 +11,9 @@ export default class RoomList extends Component {
         return (<div className="room-list-container">
             <ul className="room-list">
                 { this.props.rooms.map((room, index) =>
-                    <li style={{ height: (length ===1 ? 100 : (index === 0 ? 40 : 60/(length-1)))+'%' }}
+                    <li style={{ width: (length === 1 ? 100 : (index === 0 ? 39 : (60/(length-1)) -1))+'%' }}
                         key={room.name}>
-                        <Room firstMainRoom={ index === 0 } room={room} />
+                        <Room firstMainRoom={index === 0} room={room} />
                     </li>
                 ) }
             </ul>

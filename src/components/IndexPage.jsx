@@ -14,11 +14,11 @@ export default class IndexPage extends Component {
             + ` ${mainRooms.map(r => r.name).join(', ')}`;
         return (
             <div className="page-container">
-                <div className="main-rooms-container">
-                    <RoomList rooms={mainRooms} />
-                </div>
                 <div className="preview-rooms-container">
                     <RoomPreviewList rooms={this.props.otherRooms} mainRooms={mainRooms} />
+                </div>
+                <div className="main-rooms-container">
+                    <RoomList rooms={mainRooms} />
                 </div>
             </div>
         );
