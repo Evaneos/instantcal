@@ -51,7 +51,9 @@
                 width: 150px;
                 height: 150px;
                 margin: auto;
-                position: relative;
+                position: absolute;
+                left: 0;
+                right: 0;
                 top: 50%;
                 -webkit-transform: translateY(-50%);
                 -moz-transform: translateY(-50%);
@@ -64,11 +66,13 @@
                 background: url('./assets/icons/logo.png');
                 background-size: 100%;
                 display: block;
-                width: 200px;
-                height: 200px;
+                width: 150px;
+                height: 150px;
                 margin: auto;
-                position: relative;
-                top: -11%;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 50%;
                 -webkit-transform: translateY(-50%);
                 -moz-transform: translateY(-50%);
                 -ms-transform: translateY(-50%);
