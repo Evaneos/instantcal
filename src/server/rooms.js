@@ -6,12 +6,15 @@ import { slugify } from 'transliteration';
 
 import { rooms as roomsConfig } from '../../config';
 
-let rooms = new Map();
+const rooms = new Map();
+const roomsBySlug = new Map();
 const logger = new ConsoleLogger('app.rooms');
 
 roomsConfig.forEach(room => {
     const slug = slugify(room.name);
-    rooms.set(room.name, new Room(room.name, slug, room.calendarId))
+    const roomObject = new Room(room.name, slug, room.calendarId);
+    rooms.set(room.name, roomObject);
+    roomsBySlug.set(slug, roomObject);
 });
 
 export function watch() {
@@ -42,20 +45,8 @@ async function _updateRoom(room) {
     }
 }
 
-export function hasRoom(name) {
-    return rooms.has(name);
-}
-
-export function getRoom(name) {
-    return rooms.get(name);
-}
-
-export function hasSlug(slug) {
-    return rooms.has(slug);
-}
-
-export function getSlug(slug) {
-    return rooms.get(slug);
+export function getByNameOrSlug(nameOrSlug) {
+    return rooms.get(nameOrSlug) || roomsBySlug.get(nameOrSlug);
 }
 
 export function getAllRoomsExcept(roomNames) {

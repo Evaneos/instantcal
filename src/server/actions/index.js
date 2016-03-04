@@ -1,12 +1,12 @@
 import render from '../renderHtml';
 import IndexPage from '../../components/IndexPage';
-import { getRoom, getAllRoomsExcept } from '../rooms';
+import { getByNameOrSlug, getAllRoomsExcept } from '../rooms';
 import { webSocketPort } from '../webSocket';
 
 export default async function action(ctx) {
     const roomNames = decodeURI(ctx.path).trim().replace(/^\/+/, '').split(',');
     const rooms = roomNames.map(roomName => {
-        const room = getRoom(roomName);
+        const room = getByNameOrSlug(roomName);
         ctx.assert(room, 404, `room ${roomName} not found`);
         return room;
     });
