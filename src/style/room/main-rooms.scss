@@ -3,6 +3,7 @@
     position: relative;
 
     > .room-list-container {
+        display: table;
         position: absolute;
         top: 0;
         bottom: 0;
@@ -12,10 +13,11 @@
         width: 100%;
 
         > .room-list {
+            display: table-row;
             height: 100%;
             width: 100%;
             > * {
-                display: inline-block;
+                display: table-cell;
                 margin-right: 1%;
 
                 &:last-child {
