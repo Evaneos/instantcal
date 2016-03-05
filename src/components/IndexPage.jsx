@@ -5,20 +5,20 @@ import RoomPreviewList from './RoomPreviewList';
 export default class IndexPage extends Component {
     static propTypes = {
         rooms: PropTypes.array.isRequired,
-        otherRooms: PropTypes.array.isRequired,
+        mainRoomName: PropTypes.string.isRequired,
+        otherRoomNames: PropTypes.array.isRequired,
     };
 
     render() {
-        const mainRooms = this.props.rooms;
-        const title = `Room${mainRooms.length > 1 ? 's' : ''}`
-            + ` ${mainRooms.map(r => r.name).join(', ')}`;
+        const {rooms, mainRoomName, otherRoomNames} = this.props;
+        const title = mainRoomName ? `Room ${mainRoomName}` : 'Rooms';
         return (
-            <div className="page-container">
+            <div className={`page-container${mainRoomName?'':' no-main-room'}${otherRoomNames.length?'':' no-other-rooms'}`}>
                 <div className="preview-rooms-container">
-                    <RoomPreviewList rooms={this.props.otherRooms} mainRooms={mainRooms} />
+                    <RoomPreviewList rooms={rooms} mainRoomName={mainRoomName} otherRoomNames={otherRoomNames} />
                 </div>
-                <div className="main-rooms-container">
-                    <RoomList rooms={mainRooms} />
+                <div className="highlighted-rooms-container">
+                    <RoomList rooms={rooms} mainRoomName={mainRoomName} otherRoomNames={otherRoomNames} />
                 </div>
             </div>
         );

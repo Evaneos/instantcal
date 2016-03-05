@@ -4,16 +4,21 @@ import RoomPreview from './Room/RoomPreview';
 export default class RoomPreviewList extends Component {
     static propTypes = {
         rooms: PropTypes.array.isRequired,
-        mainRooms : PropTypes.array.isRequired,
+        mainRoomName: PropTypes.string.isRequired,
+        otherRoomNames: PropTypes.array.isRequired,
     };
 
     render() {
+        const { rooms, mainRoomName, otherRoomNames} = this.props;
         return (
             <div className="map-container">
                 <div className="map">
                     <ul className="room-list">
-                        { this.props.rooms.map(room => <li className={room.slug} key={room.name}><RoomPreview room={room} /></li>) }
-                        { this.props.mainRooms.map (room => <li className={room.slug} key={room.name}><RoomPreview room={room} main={true} /></li>) }
+                        { rooms.map (room => (
+                            <li className={room.slug} key={room.name}>
+                                <RoomPreview room={room} main={room.name === mainRoomName} />
+                            </li>
+                        )) }
                         <li className="center"></li>
                     </ul>
                 </div>

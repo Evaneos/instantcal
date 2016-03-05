@@ -4,16 +4,33 @@ import Room from './Room/Room';
 export default class RoomList extends Component {
     static propTypes = {
         rooms: PropTypes.array.isRequired,
+        mainRoomName: PropTypes.string.isRequired,
+        otherRoomNames: PropTypes.array.isRequired,
     };
 
     render() {
-        const length = this.props.rooms.length;
+        const {rooms, mainRoomName, otherRoomNames} = this.props;
+        const mainRoom = rooms.find(r => r.name === mainRoomName);
+        const otherRooms = otherRoomNames.map(name => rooms.find(r => r.name === name));
+        const otherRoomsLength = otherRooms.length;
+
         return (<div className="room-list-container">
             <ul className="room-list">
-                { this.props.rooms.map((room, index) =>
-                    <li style={{ width: (length === 1 ? 100 : (index === 0 ? 39 : (60/(length-1)) -1))+'%' }}
+                { !mainRoom ? '' :
+                <li style={{ width: `${!otherRoomsLength ? 100 : (otherRoomsLength === 1 ? 59 : 39)}%` }}
+                    key={mainRoom.name}>
+                    <Room firstMainRoom={true} room={mainRoom} />
+                </li>}
+
+                { otherRooms.map((room, index) =>
+                    <li style={{ width: `${
+                        (otherRoomsLength === 1 && !mainRoom ? 100 :
+                            otherRoomsLength === 1 && mainRoom ? 49
+                            : (60/(otherRoomsLength-1)) -1
+                        )
+                    }%` }}
                         key={room.name}>
-                        <Room firstMainRoom={index === 0} room={room} />
+                        <Room firstMainRoom={false} room={room} />
                     </li>
                 ) }
             </ul>

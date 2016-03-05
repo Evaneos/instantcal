@@ -1,0 +1,28 @@
+.preview-rooms-container {
+    display: table;
+    width: 100%;
+    height: 60%;
+    background: #FFF;
+}
+
+.no-main-room.no-other-rooms {
+    .preview-rooms-container {
+        height: 100%;
+    }
+}
+
+.room-preview-container {
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    box-sizing: border-box;
+
+    .name {
+        font-size: 1.8vmax;
+        text-align: center;
+    }
+
+    .status {
+        font-size: 5em;
+    }
+}

@@ -1,0 +1,208 @@
+.map {
+    .barcelone {
+        left: 12.5%;
+        bottom: 0;
+        width: 25%;
+        height: 25%;
+        line-height: 140px;
+
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            width:50%;
+            height: 100%;
+            border-left: 5px solid black;
+            border-top: 5px solid black;
+            box-sizing: border-box;
+        }
+        &:after {
+            content: '';
+            background: url('./assets/icons/stairs-down.png');
+            background-size: 100%;
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top:20%;
+            left: 40%;
+        }
+    }
+
+    .buenos-aires {
+        left: 0;
+        top: 25.5%;
+        width: 12.25%;
+        height: 14%;
+        line-height: 30px;
+
+        .name {
+            font-size: 2.2vmin;
+        }
+    }
+
+    .san-francisco {
+        left: 0;
+        top: 40.5%;
+        width: 12.25%;
+        height: 31%;
+        line-height: 45px;
+    }
+
+    .rio {
+        left: 12.75%;
+        top: 35%;
+        width: 12.25%;
+        height: 18%;
+        line-height: 90px;
+    }
+
+    .cuzco {
+        left: 12.75%;
+        top: 53.5%;
+        width: 12.25%;
+        height: 18%;
+        line-height: 90px;
+
+        .name {
+            font-size: 1.5vmax;
+        }
+    }
+
+    .delhi {
+        right: 0;
+        bottom: 15.5%;
+        width: 15%;
+        height: 20%;
+        line-height: 90px;
+    }
+
+    .pekin {
+        right: 0;
+        width: 15%;
+        top: 25.5%;
+        height: 20%;
+        line-height: 90px;
+    }
+
+    .le-loft {
+        left: 35.5%;
+        width: 38.5%;
+        height: 25%;
+        line-height: 100px;
+    }
+
+    .salle-berbere {
+        width: 25%;
+        height: 25%;
+        line-height: 2;
+
+        &:after {
+            display: block;
+            content: '';
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            border-bottom: 4px dashed black;
+            top: 0;
+        }
+
+        &:before {
+            display: block;
+            content: '';
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            border-bottom: 4px solid black;
+            top: 0;
+        }
+    }
+
+    .pondichery {
+        bottom: 0;
+        right: 30.5%;
+        width: 15%;
+        height: 15.5%;
+        line-height: 100px;
+
+        .name {
+            font-size: 1.8vmin;
+        }
+
+        &:after {
+            content: '';
+            background: url('./assets/icons/phone.png');
+            background-size: 100%;
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top:10%;
+            left: 40%;
+        }
+    }
+
+    .bangalore {
+        bottom: 0;
+        right: 15%;
+        font-size: 0.3vw;
+        height: 15.5%;
+        line-height: 100px;
+        width: 15%;
+
+
+        .name {
+            font-size: 1.8vmin;
+        }
+
+        &:after {
+            content: '';
+            background: url('./assets/icons/phone.png');
+            background-size: 100%;
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top:10%;
+            left: 40%;
+        }
+    }
+
+    .antarctique {
+        right: 0;
+        top: 0;
+        width: 15%;
+        height: 25%;
+        line-height: 100px;
+
+        .name {
+            font-size: 1.1vmax;
+            line-height: 135px;
+
+            &:after {
+                content: '';
+                background: url('./assets/icons/stairs-down.png');
+                background-size: 100%;
+                display: block;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top:20%;
+                left: 40%;
+            }
+        }
+    }
+
+    .tokyo {
+        right: 15.5%;
+        width: 10%;
+        height: 9%;
+        top: 0;
+        line-height: 40px;
+        .name {
+            font-size: 1.3vmax;
+        }
+    }
+}

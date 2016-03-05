@@ -12,16 +12,17 @@ class App extends Component {
                 room._fromJson(r);
                 return room;
             }),
-            otherRooms: window.otherRooms.map(r => {
-                const room = new Room();
-                room._fromJson(r);
-                return room;
-            }),
+            mainRoomName: window.mainRoomName,
+            otherRoomNames: window.otherRoomNames,
         }
     }
 
     render() {
-        return <IndexPage rooms={this.state.rooms} otherRooms={this.state.otherRooms} />;
+        return <IndexPage
+            rooms={this.state.rooms}
+            mainRoomName={this.state.mainRoomName}
+            otherRoomNames={this.state.otherRoomNames}
+        />;
     }
 }
 
@@ -31,9 +32,5 @@ export function update({ room }) {
     const rooms = app.state.rooms.map(mainRoom => {
         return mainRoom.name === room.name ? room : mainRoom;
     });
-
-    const otherRooms = app.state.otherRooms.map(otherRoom => {
-        return otherRoom.name === room.name ? room : otherRoom;
-    });
-    app.setState({ rooms, otherRooms });
+    app.setState({ rooms });
 }

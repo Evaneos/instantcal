@@ -1,7 +1,7 @@
-@import "layout/layout";
+@import "layout/index";
 @import "room/room";
-@import "room/main-rooms";
-@import "room/preview-rooms";
+@import "room/highlighted-rooms";
+@import "map/index";
 @import "event/event-list";
 
 #disconnected {

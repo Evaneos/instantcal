@@ -49,6 +49,6 @@ export function getByNameOrSlug(nameOrSlug) {
     return rooms.get(nameOrSlug) || roomsBySlug.get(nameOrSlug);
 }
 
-export function getAllRoomsExcept(roomNames) {
-    return Array.from(rooms.values()).filter(r => roomNames.indexOf(r.name) === -1);
+export function getAll() {
+    return Array.from(rooms.values());
 }

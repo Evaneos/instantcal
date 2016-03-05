@@ -11,7 +11,8 @@ export default class Html extends Component {
         hostname: PropTypes.string.isRequired,
         webSocketPort: PropTypes.number.isRequired,
         rooms: PropTypes.array.isRequired,
-        otherRooms: PropTypes.array.isRequired,
+        mainRoomName: PropTypes.string.isRequired,
+        otherRoomNames: PropTypes.array.isRequired,
     };
 
     static defaultProps = {
@@ -47,9 +48,13 @@ export default class Html extends Component {
             <body>
             <div id="disconnected"><div>disconnected</div></div>
             <div id="app" dangerouslySetInnerHTML={{__html: this.props.body}} />
-            <script dangerouslySetInnerHTML={{__html: "window.rooms ="+ JSON.stringify(this.props.rooms.map(r => r._toJson()))}}></script>
-            <script dangerouslySetInnerHTML={{__html: "window.otherRooms ="+ JSON.stringify(this.props.otherRooms.map(r => r._toJson()))}}></script>
-            <script dangerouslySetInnerHTML={{__html: "window.webSocketPort ="+ this.props.webSocketPort}}></script>
+            <script dangerouslySetInnerHTML={{__html:
+                "window.rooms ="+ JSON.stringify(this.props.rooms.map(r => r._toJson())) + ";"
+                + "window.mainRoomName ="+ JSON.stringify(this.props.mainRoomName) + ";"
+                + "window.otherRoomNames ="+ JSON.stringify(this.props.otherRoomNames) + ";"
+                + "window.webSocketPort ="+ this.props.webSocketPort + ";"
+
+            }}></script>
             <div dangerouslySetInnerHTML={{__html: '<script src="//'+this.props.hostname+':'+this.props.webSocketPort+'/socket.io/socket.io.js"></script>'  }} />
             <div dangerouslySetInnerHTML={{__html: production ? '<script src="/main-sfx.js"></script>' :
                 `<script src="/jspm_packages/system.js"></script>
