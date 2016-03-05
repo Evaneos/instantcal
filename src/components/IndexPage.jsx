@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import RoomList from './RoomList';
 import RoomPreviewList from './RoomPreviewList';
+import classnames from 'classnames';
 
 export default class IndexPage extends Component {
     static propTypes = {
@@ -13,7 +14,10 @@ export default class IndexPage extends Component {
         const {rooms, mainRoomName, otherRoomNames} = this.props;
         const title = mainRoomName ? `Room ${mainRoomName}` : 'Rooms';
         return (
-            <div className={`page-container${mainRoomName?'':' no-main-room'}${otherRoomNames.length?'':' no-other-rooms'}`}>
+            <div className={classnames('page-container', {
+                'no-main-room': mainRoomName,
+                'no-other-rooms': otherRoomNames.length,
+            })}>
                 <div className="preview-rooms-container">
                     <RoomPreviewList rooms={rooms} mainRoomName={mainRoomName} otherRoomNames={otherRoomNames} />
                 </div>

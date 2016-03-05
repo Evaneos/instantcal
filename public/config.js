@@ -9,6 +9,7 @@ System.config({
 
   map: {
     "babel-runtime": "npm:babel-runtime@5.8.20",
+    "classnames": "npm:classnames@2.2.3",
     "core-js": "npm:core-js@1.2.5",
     "react": "npm:react@0.14.2",
     "react-countdown-timer": "npm:react-countdown-timer@1.0.2",
