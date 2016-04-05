@@ -11,7 +11,7 @@ export default class Html extends Component {
         hostname: PropTypes.string.isRequired,
         webSocketPort: PropTypes.number.isRequired,
         rooms: PropTypes.array.isRequired,
-        mainRoomName: PropTypes.string.isRequired,
+        mainRoomName: PropTypes.string,
         otherRoomNames: PropTypes.array.isRequired,
     };
 

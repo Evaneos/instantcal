@@ -4,7 +4,7 @@ import Room from './Room/Room';
 export default class RoomList extends Component {
     static propTypes = {
         rooms: PropTypes.array.isRequired,
-        mainRoomName: PropTypes.string.isRequired,
+        mainRoomName: PropTypes.string,
         otherRoomNames: PropTypes.array.isRequired,
     };
 

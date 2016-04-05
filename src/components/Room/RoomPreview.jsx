@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export default class RoomPreview extends Component {
     static propTypes = {
         room: PropTypes.object.isRequired,
-        main: PropTypes.boolean,
+        main: PropTypes.bool,
     };
 
     render() {
