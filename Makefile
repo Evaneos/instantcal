@@ -17,3 +17,5 @@ clean:
 
 bundle-prod:
 	@node_modules/.bin/jspm bundle-sfx --minify --no-mangle js/main.js public/main-sfx.js
+
+build-prod: install build bundle-prod

@@ -1,6 +1,5 @@
 import Koa from 'koa';
 import serve from 'koa-static';
-import convert from 'koa-convert';
 import errorParser from 'alouette';
 import argv from './server/argv';
 const errorsParser = require('alouette');
@@ -35,7 +34,7 @@ process.on('uncaughtException', function(err) {
 
 watchForNewEvents();
 
-app.use(convert(serve(__dirname + '/../public')));
+app.use(serve(__dirname + '/../public'));
 
 app.use(async function(ctx, next) {
     try {
