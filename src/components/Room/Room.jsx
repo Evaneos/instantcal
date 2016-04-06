@@ -18,7 +18,6 @@ export default class Room extends Component {
             <div className="room-info">
                 <div className="name">{room.name}</div>
             </div>
-            <CalendarCurrentEvent currentEvent={room.currentEvent} />
             <CalendarNextEvents currentEvent={room.currentEvent} nextEvents={room.nextEvents} />
         </div>)
     }

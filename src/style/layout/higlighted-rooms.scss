@@ -19,9 +19,38 @@
             > * {
                 display: table-cell;
                 margin-right: 1%;
+                background-color: #f4e8d8;
 
                 &:last-child {
                     margin-right: 0;
+                }
+
+                .busy {
+                    .name {
+                        color: #f34235;
+                    }
+                    .current-event {
+                        background-color: #f34235;
+                    }
+                }
+
+                .busy-soon {
+                    .name{
+                        color: #F79400;
+                    }
+                    .current-event {
+                        background-color: #F79400;
+                    }
+
+                }
+
+                .available {
+                    .current-event {
+                        background-color: #33cc99;
+                    }
+                    .name {
+                        color: #33cc99
+                    }
                 }
             }
         }

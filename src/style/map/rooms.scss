@@ -1,11 +1,37 @@
 .map {
+    .room-info {
+        position: relative;
+        height: 100%;
+    }
+    .name {
+        top: 50%;
+        position: relative;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
     .barcelone {
         left: 12.5%;
         bottom: 0;
         width: 25%;
         height: 25%;
-        line-height: 140px;
 
+        .name {
+            top: 40%;
+            &:after {
+                content: '';
+                background: url('./assets/icons/stairs-down.png');
+                background-size: 100%;
+                display: block;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                left: 40%;
+                margin-top: 10px;
+            }
+        }
         &:before {
             content: '';
             display: block;
@@ -16,28 +42,16 @@
             border-top: 5px solid black;
             box-sizing: border-box;
         }
-        &:after {
-            content: '';
-            background: url('./assets/icons/stairs-down.png');
-            background-size: 100%;
-            display: block;
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            top:20%;
-            left: 40%;
-        }
     }
 
-    .ouadadougou {
+    .ouagadougou {
         left: 0;
         top: 25.5%;
         width: 12.25%;
         height: 14%;
-        line-height: 30px;
 
         .name {
-            font-size: 2.2vmin;
+            font-size: 1.8vmin;
         }
     }
 
@@ -46,7 +60,6 @@
         top: 40.5%;
         width: 12.25%;
         height: 31%;
-        line-height: 45px;
     }
 
     .rio {
@@ -54,15 +67,13 @@
         top: 35%;
         width: 12.25%;
         height: 18%;
-        line-height: 90px;
     }
 
     .cuzco {
         left: 12.75%;
         top: 53.5%;
         width: 12.25%;
-        height: 18%;
-        line-height: 90px;
+        height: 21.5%;
 
         .name {
             font-size: 1.5vmax;
@@ -74,7 +85,6 @@
         bottom: 15.5%;
         width: 15%;
         height: 20%;
-        line-height: 90px;
     }
 
     .pekin {
@@ -82,20 +92,17 @@
         width: 15%;
         top: 25.5%;
         height: 20%;
-        line-height: 90px;
     }
 
     .le-loft {
         left: 35.5%;
-        width: 38.5%;
+        width: 39.5%;
         height: 25%;
-        line-height: 100px;
     }
 
     .salle-berbere {
         width: 25%;
         height: 25%;
-        line-height: 2;
 
         &:after {
             display: block;
@@ -122,26 +129,31 @@
 
     .pondichery {
         bottom: 0;
-        right: 30.5%;
-        width: 15%;
+        right: 25.5%;
+        width: 10%;
         height: 15.5%;
-        line-height: 100px;
 
         .name {
             font-size: 1.8vmin;
+            top: 50%;
+            position: relative;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            &:after {
+                content: '';
+                background: url('./assets/icons/phone.png');
+                background-size: 100%;
+                display: block;
+                width: 30px;
+                height: 30px;
+                margin: auto;
+                margin-top: 5px;
+            }
         }
 
-        &:after {
-            content: '';
-            background: url('./assets/icons/phone.png');
-            background-size: 100%;
-            display: block;
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            top:10%;
-            left: 40%;
-        }
     }
 
     .bangalore {
@@ -149,24 +161,28 @@
         right: 15%;
         font-size: 0.3vw;
         height: 15.5%;
-        line-height: 100px;
-        width: 15%;
-
+        width: 10%;
 
         .name {
             font-size: 1.8vmin;
-        }
-
-        &:after {
-            content: '';
-            background: url('./assets/icons/phone.png');
-            background-size: 100%;
-            display: block;
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            top:10%;
-            left: 40%;
+            top: 50%;
+            position: relative;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            &:after {
+                content: '';
+                background: url('./assets/icons/phone.png');
+                background-size: 100%;
+                display: block;
+                width: 30px;
+                height: 30px;
+                left: 35%;
+                margin: auto;
+                margin-top: 5px;
+            }
         }
     }
 
@@ -175,34 +191,53 @@
         top: 0;
         width: 15%;
         height: 25%;
-        line-height: 100px;
 
         .name {
             font-size: 1.1vmax;
-            line-height: 135px;
-
+            top: 50%;
+            position: relative;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
             &:after {
                 content: '';
                 background: url('./assets/icons/stairs-down.png');
                 background-size: 100%;
                 display: block;
-                position: absolute;
                 width: 30px;
                 height: 30px;
-                top:20%;
-                left: 40%;
+                margin: auto;
+                margin-top: 10px;
             }
         }
     }
 
     .tokyo {
         right: 15.5%;
-        width: 10%;
-        height: 9%;
+        width: 9%;
+        height: 13%;
         top: 0;
-        line-height: 40px;
         .name {
             font-size: 1.3vmax;
+            top: 50%;
+            position: relative;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            &:after {
+                content: '';
+                display: block;
+                background-size: 100%;
+                background-image: url('./assets/icons/sofa.png');
+                width: 60px;
+                height: 30px;
+                margin: auto;
+                margin-top: 5px;
+            }
         }
     }
 }

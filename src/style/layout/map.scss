@@ -3,6 +3,18 @@
     width: 100%;
     height: 60%;
     background: #FFF;
+
+    .busy {
+        background-color: #f34235;
+    }
+
+    .busy-soon {
+        background-color: #F79400;
+    }
+
+    .available {
+        background-color: #33cc99
+    }
 }
 
 .no-main-room.no-other-rooms {

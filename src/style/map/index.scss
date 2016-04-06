@@ -4,17 +4,23 @@
 .map-container {
     display: table-cell;
     height: 100%;
+    perspective: 250px;
 }
 
 .map {
     height: 92%;
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
     width: 80%;
     border: 1px solid rgba(0,0,0,0.3);
     margin: auto;
     box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+    transform: rotateX(5deg);
+    margin-top: -260px;
+
+    .room-list {
+        background-color: #F4E8D8;
+    }
 
     .center {
         position: absolute;
@@ -24,10 +30,10 @@
         left: 25%;
         box-sizing: border-box;
         border-left: 5px solid black;
-        background: repeating-linear-gradient( -55deg, #c5ac93, #c5ac93 10px, transparent 10px, transparent 20px );
+        background: repeating-linear-gradient( -55deg, #c5ac93, #c5ac93 10px, lighten(#F4E8D8, 5%) 10px, lighten(#F4E8D8, 5%) 20px );
         &:before {
             content: '';
-            background-color: #F4E8D8;
+            background-color: lighten(#F4E8D8, 5%);
             border-radius: 50%;
             display: block;
             width: 150px;
@@ -60,6 +66,89 @@
             -ms-transform: translateY(-50%);
             -o-transform: translateY(-50%);
             transform: translateY(-50%);
+        }
+    }
+    .toilet {
+        &:after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 40px;
+            top: 50%;
+            margin: auto;
+            background-size: 100%;
+            position: relative;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            background-image: url('./assets/icons/toilet.png');
+        }
+    }
+    .toilet1 {
+        width: 14%;
+        height: 16%;
+        right: 0;
+        bottom: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.3);
+        border-left: 1px solid rgba(0,0,0,0.3);
+    }
+    .toilet2 {
+        width: 5.9%;
+        height: 9%;
+        left: 12.8%;
+        top: 25%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        border-left: 1px solid rgba(0, 0, 0, 0.3);
+        border-right: 1px solid rgba(0,0,0,0.3);
+    }
+    .shower {
+        width: 5.9%;
+        height: 9%;
+        top: 25%;
+        left: 19%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        border-left: 1px solid rgba(0, 0, 0, 0.3);
+        &:after {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 30px;
+            top: 50%;
+            margin: auto;
+            background-size: 100%;
+            position: relative;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            background-image: url('./assets/icons/shower.png');
+        }
+    }
+    .kitchen {
+        width: 9%;
+        height: 25%;
+        border-left: 1px solid rgba(0,0,0,0.3);
+        border-right: 1px solid rgba(0,0,0,0.3);
+        left: 25.7%;
+
+        &:after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 40px;
+            top: 50%;
+            margin: auto;
+            background-size: 100%;
+            position: relative;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            background-image: url('./assets/icons/kitchen.png');
         }
     }
     .room-list {
