@@ -36,11 +36,11 @@ export default class RemainingTimeComponent extends Component {
         const hours = readableTime.getUTCHours();
         const minutes = readableTime.getUTCMinutes();
 
-        return <span className="time-remaining">
+        return <div className="time-remaining">
             { days ? <span className="days">{days} {days === 1 ? 'jour' : 'jours'}</span> : null }
-            { hours ? <span className="hours">{days ? ' et ' : null }{hours} {hours === 1 ? 'heure' : 'heures'}</span> : null }
-            { !days && hours < 3 && minutes ? <span className="minutes">{hours ? ' et ' : null }{minutes} {minutes === 1 ? 'minute' : 'minutes'}</span> : null }
-            { hours === 0 && minutes === 0 ? <span className="less-than-a-minute">moins d'une minute</span> : null }
-        </span>;
+            { hours ? <span className="hours">{days ? ' et ' : null }{hours}{'h'}</span> : null }
+            { !days && hours < 3 && minutes ? <span className="minutes">{minutes} {minutes === 1 ? 'minute' : 'minutes'}</span> : null }
+            { hours === 0 && minutes === 0 ? <span className="less-than-a-minute">{"< 1 min"}</span> : null }
+        </div>;
     }
 }

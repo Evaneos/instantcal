@@ -19,7 +19,11 @@ export default class RoomPreviewList extends Component {
                                 <RoomPreview room={room} main={room.name === mainRoomName} />
                             </li>
                         )) }
-                        <li className="center"></li>
+                        <li className="center" />
+                        <li className="toilet toilet1" />
+                        <li className="toilet toilet2" />
+                        <li className="kitchen" />
+                        <li className="shower" />
                     </ul>
                 </div>
             </div>

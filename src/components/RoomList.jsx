@@ -17,7 +17,7 @@ export default class RoomList extends Component {
         return (<div className="room-list-container">
             <ul className="room-list">
                 { !mainRoom ? '' :
-                <li style={{ width: `${!otherRoomsLength ? 100 : (otherRoomsLength === 1 ? 59 : 39)}%` }}
+                <li style={{ width: `${!otherRoomsLength ? 100 : (otherRoomsLength === 1 ? 49 : 39)}%` }}
                     key={mainRoom.name}>
                     <Room firstMainRoom={true} room={mainRoom} />
                 </li>}
@@ -26,7 +26,7 @@ export default class RoomList extends Component {
                     <li style={{ width: `${
                         (otherRoomsLength === 1 && !mainRoom ? 100 :
                             otherRoomsLength === 1 && mainRoom ? 49
-                            : (60/(otherRoomsLength-1)) -1
+                            : (100/(otherRoomsLength))
                         )
                     }%` }}
                         key={room.name}>
