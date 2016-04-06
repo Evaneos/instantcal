@@ -16,7 +16,7 @@
     "classnames": "^2.2.3",
     "google-auth-library": "^0.9.6",
     "googleapis": "^2.1.6",
-    "jspm": "^0.16.15",
+    "jspm": "^0.16.32",
     "koa": "^2.0.0-alpha.3",
     "koa-static": "^3.0.0",
     "minimist": "^1.1.3",
@@ -30,14 +30,14 @@
   },
   "devDependencies": {
     "browser-sync": "^2.8.2",
-    "gulp": "gulpjs/gulp#bbe3c56138a9ede627879d7e47daffd0a6d9b6db",
+    "gulp": "gulpjs/gulp#0bad3af69d481aea3f684d18644bfee4d9cf202a",
     "gulp-babel": "^5.2.0",
     "gulp-changed": "^1.3.0",
     "gulp-clip-empty-files": "^0.1.1",
     "gulp-grep": "^0.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp-sass": "^2.1.0",
+    "gulp-sass": "^2.2.0",
     "springbokjs-daemon": "^0.2.0"
   },
   "jspm": {
