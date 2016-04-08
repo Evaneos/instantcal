@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import CalendarCurrentEvent from './CalendarCurrentEvent'
 import CalendarNextEvents from './CalendarNextEvents'
 
 export default class Room extends Component {
