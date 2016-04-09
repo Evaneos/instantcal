@@ -23,3 +23,6 @@ build-prod: install build bundle-prod
 
 lint:
 	@node_modules/.bin/eslint --fix -c .eslintrc src/
+
+release: lint clean build
+	@node_modules/.bin/release

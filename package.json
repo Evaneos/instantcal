@@ -5,11 +5,16 @@
   "description": "See events from google calendar",
   "main": "lib/index.js",
   "scripts": {
-    "start": "node .",
+    "install": "npm install && jspm install",
+    "run": "make",
+    "lint": "make lint",
+    "build": "make clean build",
+    "release": "make release",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
   "license": "MIT",
+  "repository": "evaneos/instantcal",
   "dependencies": {
     "alouette": "^3.3.0",
     "babel-runtime": "^5.8.20",
@@ -40,6 +45,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.2.0",
     "gulp-sourcemaps": "^1.5.2",
+    "pob-release": "^1.0.0",
     "springbokjs-daemon": "^0.2.0"
   },
   "jspm": {
