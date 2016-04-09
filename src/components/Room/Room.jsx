@@ -15,6 +15,6 @@ export default function Room({ room, firstMainRoom }) {
         <div className="room-info">
             <div className="name">{room.name}</div>
         </div>
-        <CalendarNextEvents currentEvent={room.currentEvent} nextEvents={room.nextEvents} />
+        <CalendarNextEvents currentEvent={room.currentEvent} nextEvents={room.todayNextEvents} />
     </div>);
 }

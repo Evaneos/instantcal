@@ -43,6 +43,8 @@ export default class Room {
             }
         }
 
+        this._calcTodayEvents();
+
         if (checkIsDifferent(_currentEvent, this._currentEvent)) {
             return true;
         }
@@ -62,8 +64,31 @@ export default class Room {
         return false;
     }
 
+    _calcTodayEvents() {
+        const todayString = new Date().toDateString();
+        this._todayEvents = this._nextEvents && this._nextEvents.filter(e => e.startDate.toDateString() == todayString);
+        const nextEvent = this.nextEvent;
+        this._nextEventIsToday = nextEvent && nextEvent.startDate.toDateString() == todayString;
+    }
+
     _fromJson(json) {
-        Object.assign(this, json);
+        Object.assign(this, {
+            _name: json._name,
+            _slug: json._slug,
+            _busy: json._busy,
+            _busySoon: json._busySoon,
+            _currentEvent: json._currentEvent && this._eventFromJson(json._currentEvent),
+            _nextEvents: json._nextEvents && json._nextEvents.map(e => this._eventFromJson(e)),
+
+        });
+        this._calcTodayEvents();
+    }
+
+    _eventFromJson(event) {
+        return Object.assign({}, event, {
+            startDate: event.startDate && new Date(event.startDate),
+            endDate: event.endDate && new Date(event.endDate),
+        });
     }
 
     _toJson() {
@@ -99,6 +124,14 @@ export default class Room {
 
     get nextEvents() {
         return this._nextEvents;
+    }
+
+    get todayNextEvent() {
+        return this._nextEventIsToday ? this.nextEvent : null;
+    }
+
+    get todayNextEvents() {
+        return this._todayEvents;
     }
 
     get isBusy() {

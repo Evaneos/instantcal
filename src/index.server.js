@@ -6,6 +6,7 @@ import ErrorHtmlRenderer from 'alouette/lib/HtmlRenderer';
 const errorHtmlRenderer = new ErrorHtmlRenderer();
 import { watch as watchForNewEvents } from './server/rooms';
 import { ConsoleLogger, LogLevel } from 'nightingale';
+import './server/scheduledTasks';
 
 const app = new Koa();
 app.experimental = true;
