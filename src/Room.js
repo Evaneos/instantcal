@@ -29,17 +29,21 @@ export default class Room {
             this._busySoon = false;
             this._currentEvent = null;
             this._nextEvents = null;
+            this._availableSoon = false;
         } else {
             if (events[0].startDate.getTime() < Date.now()) {
                 this._currentEvent = events[0];
                 this._nextEvents = events.slice(1);
                 this._busy = true;
                 this._busySoon = null;
+                this._availableSoon = this.currentEvent.endDate.getTime() < (Date.now() + 600000)
+                    && (!this.nextEvents[0] || this.nextEvents[0].startDate.getTime() > (Date.now() + 600000));
             } else {
                 this._currentEvent = null;
                 this._nextEvents = events;
                 this._busy = false;
                 this._busySoon = this.nextEvent && this.nextEvent.startDate.getTime() < (Date.now() + 600000);
+                this._availableSoon = false;
             }
         }
 
@@ -66,7 +70,7 @@ export default class Room {
 
     _calcTodayEvents() {
         const todayString = new Date().toDateString();
-        this._todayEvents = this._nextEvents && this._nextEvents.filter(e => e.startDate.toDateString() == todayString);
+        this._todayNextEvents = this._nextEvents && this._nextEvents.filter(e => e.startDate.toDateString() == todayString);
         const nextEvent = this.nextEvent;
         this._nextEventIsToday = nextEvent && nextEvent.startDate.toDateString() == todayString;
     }
@@ -77,6 +81,7 @@ export default class Room {
             _slug: json._slug,
             _busy: json._busy,
             _busySoon: json._busySoon,
+            _availableSoon: json._availableSoon,
             _currentEvent: json._currentEvent && this._eventFromJson(json._currentEvent),
             _nextEvents: json._nextEvents && json._nextEvents.map(e => this._eventFromJson(e)),
 
@@ -97,6 +102,7 @@ export default class Room {
             _slug: this._slug,
             _busy: this._busy,
             _busySoon: this._busySoon,
+            _availableSoon: this._availableSoon,
             _currentEvent: this._currentEvent,
             _nextEvents: this._nextEvents,
         };
@@ -131,7 +137,7 @@ export default class Room {
     }
 
     get todayNextEvents() {
-        return this._todayEvents;
+        return this._todayNextEvents;
     }
 
     get isBusy() {
@@ -140,5 +146,9 @@ export default class Room {
 
     get isBusySoon() {
         return this._busySoon;
+    }
+
+    get isAvailableSoon() {
+        return this._availableSoon;
     }
 }

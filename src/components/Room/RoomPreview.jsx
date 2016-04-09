@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import calcRoomStatusClass from './calcRoomStatusClass';
 
 RoomPreview.propTypes = {
     room: PropTypes.object.isRequired,
@@ -6,8 +7,7 @@ RoomPreview.propTypes = {
 };
 
 export default function RoomPreview({ room }) {
-    let isBusy = room.isBusy ? 'busy' : (room.isBusySoon ? 'busy-soon' : 'available');
-    return (<div className={`${isBusy} room-preview-container`}>
+    return (<div className={`${calcRoomStatusClass(room)} room-preview-container`}>
         <div className="room">
             <div className="room-info">
                 <div className="name">{room.name}</div>

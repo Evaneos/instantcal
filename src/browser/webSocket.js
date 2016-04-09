@@ -59,10 +59,6 @@ export function create() {
             document.getElementById('disconnected').style.display = 'block';
         });
 
-        socket.on('hello', () => {
-            console.log('hi');
-        });
-
         socket.on('error', (err) => console.log(err.stack || err.message || err));
     });
 }

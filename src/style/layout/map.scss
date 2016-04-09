@@ -20,6 +20,24 @@
     }
 }
 
+@keyframes blinkAvailableSoon {
+    0% {
+        background: #f34235;
+    }
+
+    60% {
+        background: #f34235;
+    }
+
+    90% {
+        background: #33cc99;
+    }
+
+    100% {
+        background: #f34235;
+    }
+}
+
 .preview-rooms-container {
     display: table;
     width: 100%;
@@ -40,6 +58,15 @@
 
     .available {
         background-color: #33cc99
+    }
+
+
+    .available-soon {
+        animation-direction: normal;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-name: blinkAvailableSoon;
+        animation-timing-function: ease;
     }
 }
 
