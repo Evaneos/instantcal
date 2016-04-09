@@ -1,3 +1,25 @@
+@keyframes blinkBusySoon {
+    0% {
+        background: #33cc99;
+    }
+
+    40% {
+        background: #F79400;
+    }
+
+    60% {
+        background: #F79400;
+    }
+
+    90% {
+        background: #f34235;
+    }
+
+    100% {
+        background: #33cc99;
+    }
+}
+
 .preview-rooms-container {
     display: table;
     width: 100%;
@@ -9,7 +31,11 @@
     }
 
     .busy-soon {
-        background-color: #F79400;
+        animation-direction: normal;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+        animation-name: blinkBusySoon;
+        animation-timing-function: ease;
     }
 
     .available {
