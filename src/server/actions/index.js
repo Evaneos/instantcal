@@ -30,7 +30,7 @@ export default async function action(ctx) {
     };
 
     ctx.body = render({
-        Component: IndexPage,
+        View: IndexPage,
         data,
         htmlData: {
             hostname: ctx.hostname,

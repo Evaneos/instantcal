@@ -3,10 +3,9 @@
 
 install:
 	npm install
-	node_modules/.bin/jspm install
 	make clean
 
-default: install clean
+default: install
 	@node_modules/.bin/gulp
 watch:
 	@node_modules/.bin/gulp watch

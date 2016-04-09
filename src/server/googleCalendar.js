@@ -1,5 +1,6 @@
 /* Doc here: https://developers.google.com/google-apps/calendar/quickstart/nodejs */
 import { calendar as googleCalendar, auth as googleAuth } from 'googleapis';
+// import GoogleAuth from 'google-auth-library';
 
 const scopes = [
     'https://www.googleapis.com/auth/calendar.readonly',
