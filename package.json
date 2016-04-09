@@ -5,7 +5,6 @@
   "description": "See events from google calendar",
   "main": "lib/index.js",
   "scripts": {
-    "install": "jspm install",
     "run": "make",
     "lint": "make lint",
     "build": "make clean build",
