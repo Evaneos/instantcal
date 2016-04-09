@@ -1,18 +1,16 @@
 import Koa from 'koa';
 import serve from 'koa-static';
-import errorParser from 'alouette';
+import errorsParser from 'alouette';
 import argv from './server/argv';
-const errorsParser = require('alouette');
 import ErrorHtmlRenderer from 'alouette/lib/HtmlRenderer';
 const errorHtmlRenderer = new ErrorHtmlRenderer();
-const config = require('../config.js');
 import { watch as watchForNewEvents } from './server/rooms';
 import { ConsoleLogger, LogLevel } from 'nightingale';
 
 const app = new Koa();
 app.experimental = true;
 
-app.on('error', function(err) {
+app.on('error', err => {
     errorsParser.log(err);
 });
 
@@ -21,9 +19,8 @@ import indexAction from './server/actions/index';
 
 const logger = new ConsoleLogger('app', LogLevel.ALL);
 const port = argv.port || 3015;
-const webSocketPort = argv.webSocketPort || 3016;
 
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', (err) => {
     try {
         errorsParser.log(err);
     } catch (err2) {
@@ -34,7 +31,7 @@ process.on('uncaughtException', function(err) {
 
 watchForNewEvents();
 
-app.use(serve(__dirname + '/../public'));
+app.use(serve(`${__dirname}/../public`));
 
 app.use(async function(ctx, next) {
     try {
@@ -43,7 +40,7 @@ app.use(async function(ctx, next) {
         ctx.status = 500;
         errorsParser.log(err);
         if (argv.production) {
-            ctx.body = 'Error: ' + err.message;
+            ctx.body = `Error: ${err.message}`;
         } else {
             ctx.body = errorHtmlRenderer.render(err);
         }

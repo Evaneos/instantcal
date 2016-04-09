@@ -2,49 +2,48 @@
 
 let socket;
 
-export function on() {
-    return socket.on(...arguments);
+export function on(...args) {
+    return socket.on(...args);
 }
 
-export function off() {
-    return socket.off(...arguments);
+export function off(...args) {
+    return socket.off(...args);
 }
 
-export function emit() {
-    const args = arguments;
+export function emit(...args) {
     console.log('webSocket [emit]', args);
 
     return new Promise((resolve, reject) => {
         let resolved;
-        socket.emit(...args, function(err, result) {
+        socket.emit(...args, (err, result) => {
             clearTimeout(resolved);
-            console.log('webSocket [emit response]', arguments);
+            console.log('webSocket [emit response]', args);
             if (err !== null) {
                 reject(err);
             } else {
                 resolve(result);
             }
         });
-        resolved = setTimeout(function() {
+        resolved = setTimeout(() => {
             console.log('webSocket [emit timeout]', args);
             reject(new Error('Timeout'));
         }, 10000);
     });
 }
 
-export function send() {
-    return socket.send(...arguments);
+export function send(...args) {
+    return socket.send(...args);
 }
 
 export function create() {
     return new Promise((resolve, reject) => {
         socket = io(
-            '//' + window.location.hostname + ':' + webSocketPort,
+            `//${window.location.hostname}:${webSocketPort}`,
             {
                 transports: ['websocket', 'polling', 'flashsocket'],
                 reconnectionDelay: 500,
                 reconnectionDelayMax: 3000,
-                timeout: 2000
+                timeout: 2000,
             }
         );
 

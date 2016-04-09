@@ -1,6 +1,4 @@
 /* Doc here: https://developers.google.com/google-apps/calendar/quickstart/nodejs */
-import { calendars } from '../../config';
-
 import { calendar as googleCalendar, auth as googleAuth } from 'googleapis';
 
 const scopes = [
@@ -91,13 +89,14 @@ export function getEvents(calendarId) {
             updatedDate: new Date(item.updated),
         }));
     });
-    //.catch((err) => console.log(err.stack));
-};
+    // .catch((err) => console.log(err.stack));
+}
 
-const eventMap = new WeakMap();
+// const eventMap = new WeakMap();
 
 // https://developers.google.com/google-apps/calendar/v3/push
 export function registerWatch(calendar) {
+    let calendarId;
     return ask(calendarApi.events.watch, {
         // id:
         calendarId: calendarId,

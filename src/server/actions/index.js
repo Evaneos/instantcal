@@ -21,7 +21,7 @@ export default async function action(ctx) {
             })
         ));
 
-    ctx.assert(mainRooms.length < 2, 400, `only one main room is supported`);
+    ctx.assert(mainRooms.length < 2, 400, 'only one main room is supported');
 
     const data = {
         rooms,
@@ -36,6 +36,6 @@ export default async function action(ctx) {
             hostname: ctx.hostname,
             webSocketPort,
             ...data,
-        }
+        },
     });
 }

@@ -23,7 +23,7 @@ export default class Room {
     }
 
     _updateEvents(events) {
-        const _currentEvent = this._currentEvent, _nextEvents = this._nextEvents;
+        const { _currentEvent, _nextEvents } = this;
         if (!events.length) {
             this._busy = false;
             this._busySoon = false;
@@ -74,7 +74,7 @@ export default class Room {
             _busySoon: this._busySoon,
             _currentEvent: this._currentEvent,
             _nextEvents: this._nextEvents,
-        }
+        };
     }
 
     get name() {

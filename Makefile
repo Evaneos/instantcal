@@ -1,11 +1,12 @@
-.PHONY: all watch default
+.PHONY: all watch
+.DEFAULT_GOAL := default
 
 install:
 	npm install
 	node_modules/.bin/jspm install
 	make clean
 
-default:
+default: install clean
 	@node_modules/.bin/gulp
 watch:
 	@node_modules/.bin/gulp watch
@@ -19,3 +20,6 @@ bundle-prod:
 	@node_modules/.bin/jspm bundle-sfx --minify --no-mangle js/main.js public/main-sfx.js
 
 build-prod: install build bundle-prod
+
+lint:
+	@node_modules/.bin/eslint --fix -c .eslintrc src/

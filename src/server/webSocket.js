@@ -11,14 +11,14 @@ export const webSocketPort = argv.webSocketPort || 3016;
 const server = createServer();
 export const io = socketio(server, config.webSocket);
 
-io.use(function(socket, next) {
-    var handshakeData = socket.request;
+io.use((socket, next) => {
+    // const handshakeData = socket.request;
     next();
 });
 
 server.listen(webSocketPort);
 
-io.on('connection', function(socket) {
+io.on('connection', socket => {
     socket.emit('hello');
 });
 
