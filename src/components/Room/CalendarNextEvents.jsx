@@ -14,55 +14,29 @@ export default class CalendarNextEvents extends Component {
         const currentEvent = this.props.currentEvent;
         const nextEvents = this.props.nextEvents;
 
-        if (!nextEvents || !nextEvents.length) {
-            return <div className="no-events">
+        if (!currentEvent && (!nextEvents || !nextEvents.length)) {
+            return (<div className="no-events">
                 <div>{"Salle libre"}</div>
-            </div>
+            </div>);
         }
 
-        const nextEvent = nextEvents[0];
-        let startDate = nextEvent.startDate;
-        let startTime = startDate.getTime();
-        let timeRemaining = startTime - Date.now();
-
-        const eventList = [];
-        let lastDay;
-        const today = new Date();
-
-        nextEvents.forEach((nextEvent, index) => {
-            let startDate = new Date(nextEvent.startDate);
-            const currentDay = `${startDate.getFullYear()}_${startDate.getMonth()}_${startDate.getDate()}`;
-            //if (lastDay != currentDay) {
-            //    if (startDate.getFullYear() != today.getFullYear()
-            //            || startDate.getMonth() != today.getMonth()
-            //            || startDate.getDate() != today.getDate()) {
-            //        eventList.push(
-            //            <li key={ 'date' + startDate.getTime() } className="day">{`${startDate.getDate()}/${startDate.getMonth()+1}/${startDate.getFullYear()}`}</li>
-            //        );
-            //    }
-            //    lastDay = currentDay;
-            //}
-
-            eventList.push(
-                <li key={ 'nextEvent' + index } className="event">
-                    <Event event={nextEvent} currentEvent={false} />
-                </li>
-            )
-        });
         const currentEventClassname = cx('current-event', {
-            ['has-next-events'] : nextEvents,
-            ['no-events']: nextEvents === undefined,
+            'has-next-events': nextEvents && nextEvents.length ? true : false,
+            'no-events': !(currentEvent || nextEvents && nextEvents.length),
         });
-        return <div className="events">
+        return (<div className="events">
             <div className={currentEventClassname}>
-                <Event event={currentEvent} currentEvent={true} />
+                <Event event={currentEvent} currentEvent />
             </div>
-            <div className="next-events">
+            {!nextEvents ? '' : <div className="next-events">
                 <ul className="event-list">
-                    {eventList}
+                    {nextEvents.map((nextEvent, index) => {
+                        return (<li key={`nextEvent${index}`} className="event">
+                            <Event event={nextEvent} currentEvent={false} />
+                        </li>);
+                    })}
                 </ul>
-            </div>
-        </div>
-
+            </div>}
+        </div>);
     }
 }
