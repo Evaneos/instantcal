@@ -1,72 +1,19 @@
-@keyframes blinkBusySoon {
-    0% {
-        background: #33cc99;
-    }
-
-    40% {
-        background: #F79400;
-    }
-
-    60% {
-        background: #F79400;
-    }
-
-    90% {
-        background: #f34235;
-    }
-
-    100% {
-        background: #33cc99;
-    }
-}
-
-@keyframes blinkAvailableSoon {
-    0% {
-        background: #f34235;
-    }
-
-    60% {
-        background: #f34235;
-    }
-
-    90% {
-        background: #33cc99;
-    }
-
-    100% {
-        background: #f34235;
-    }
-}
-
 .preview-rooms-container {
     display: table;
     width: 100%;
     height: 60%;
     background: #FFF;
 
-    .busy {
+    .busy, .available-soon {
         background-color: #f34235;
     }
 
     .busy-soon {
-        animation-direction: normal;
-        animation-duration: 4s;
-        animation-iteration-count: infinite;
-        animation-name: blinkBusySoon;
-        animation-timing-function: ease;
+        background: #F79400;
     }
 
     .available {
         background-color: #33cc99
-    }
-
-
-    .available-soon {
-        animation-direction: normal;
-        animation-duration: 3s;
-        animation-iteration-count: infinite;
-        animation-name: blinkAvailableSoon;
-        animation-timing-function: ease;
     }
 }
 
