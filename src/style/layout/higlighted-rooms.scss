@@ -1,6 +1,8 @@
 .highlighted-rooms-container {
-    height: 40%;
-    position: relative;
+    height: 30%;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 
     > .room-list-container {
         display: table;
