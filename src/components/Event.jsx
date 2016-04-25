@@ -12,10 +12,8 @@ EventComponent.propTypes = {
 
 
 export default function EventComponent({ event, currentEvent }) {
-    if (!currentEvent && (!nextEvents || !nextEvents.length)) {
-        return (<div className="no-events">
-            <div>{"Salle libre"}</div>
-        </div>);
+    if (!event) {
+        return null;
     }
 
     const { startDate, endDate } = event;
