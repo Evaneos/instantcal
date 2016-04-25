@@ -9,7 +9,7 @@ make install
 ## dev
 
 ```
-DEBUG=app make clean build watch
+DEBUG=app make
 ```
 
 ## production
