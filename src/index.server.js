@@ -17,6 +17,7 @@ const port = argv.port || 3015;
 const app = new Koa();
 app.experimental = true;
 app.logger = logger;
+app.production = app.env === 'prod' || app.env === 'production';
 
 process.on('uncaughtException', err => logger.error('uncaughtException', { err }));
 app.on('error', err => logger.error('koa error', { err }));

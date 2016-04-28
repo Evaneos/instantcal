@@ -20,12 +20,12 @@ export function createEvent(calendarId, event) {
 // const eventMap = new WeakMap();
 
 // https://developers.google.com/google-apps/calendar/v3/push
-export function registerWatch(calendar) {
-    let calendarId;
-    return ask(calendarApi.events.watch, {
-        // id:
-        calendarId: calendarId,
-        type: 'web_hook',
-        address: '',
-    });
-}
+// export function registerWatch(calendar) {
+//    let calendarId;
+//    return ask(calendarApi.events.watch, {
+//        // id:
+//        calendarId: calendarId,
+//        type: 'web_hook',
+//        address: '',
+//    });
+// }
