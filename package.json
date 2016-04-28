@@ -1,7 +1,7 @@
 {
   "name": "instantcal",
   "private": true,
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "See events from google calendar",
   "main": "lib/index.js",
   "scripts": {
