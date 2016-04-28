@@ -140,6 +140,10 @@ export default class Room {
         return this._todayNextEvents;
     }
 
+    get isAvailable() {
+        return !this._busy;
+    }
+
     get isBusy() {
         return this._busy;
     }

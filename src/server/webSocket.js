@@ -1,11 +1,11 @@
 import socketio from 'socket.io';
 import { createServer } from 'http';
 import argv from './argv';
-import { ConsoleLogger } from 'nightingale';
+import Logger from 'nightingale';
 import errorParser from 'alouette';
 const config = require('../../config.js');
 
-const logger = new ConsoleLogger('app.webSocket');
+const logger = new Logger('app.webSocket');
 
 export const webSocketPort = argv.webSocketPort || 3016;
 const server = createServer();
