@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+'use strict';
 // https://gist.github.com/demisx/beef93591edc1521330a
 
 const gulp = require('gulp');
