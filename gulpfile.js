@@ -1,21 +1,23 @@
 // https://gist.github.com/demisx/beef93591edc1521330a
 
-var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var babel = require('gulp-babel');
-var changed = require('gulp-changed');
-var clip = require('gulp-clip-empty-files');
-var rename = require('gulp-rename');
-var sass = require('gulp-sass');
-var grep = require('gulp-grep');
-var browserSync = require('browser-sync');
-var bs;
+const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const babel = require('gulp-babel');
+const changed = require('gulp-changed');
+const clip = require('gulp-clip-empty-files');
+const rename = require('gulp-rename');
+const sass = require('gulp-sass');
+const grep = require('gulp-grep');
+const browserSync = require('browser-sync');
 
-gulp.task('sass', function() {
+const production = process.env.NODE_ENV === 'production';
+let bs;
+
+gulp.task('sass', () => {
     if (bs) {
-        bs.notify("Compiling, please wait!");
+        bs.notify('Compiling, please wait!');
     }
-    var stream = gulp.src('src/style/*.scss')
+    const stream = gulp.src('src/style/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(sourcemaps.write('.', {sourceRoot: '/'}))
@@ -28,12 +30,12 @@ gulp.task('sass', function() {
 });
 
 
-gulp.task('js', function() {
+gulp.task('js', () => {
     if (bs) {
         bs.notify("Compiling, please wait!");
     }
     var stream = gulp.src(['src/**/*.{js,jsx}', '!src/**/*.browser.{js,jsx}', '!src/browser/**/*.{js,jsx}'])
-        .pipe(rename(function(path) {
+        .pipe(rename((path) => {
             if (path.basename.endsWith('.server')) {
                 path.basename = path.basename.slice(0, -'.server'.length);
             }
@@ -42,29 +44,14 @@ gulp.task('js', function() {
         .pipe(sourcemaps.init())
         .pipe(clip())
         .pipe(babel({
-            blacklist: [
-                "es3.memberExpressionLiterals",
-                "es3.propertyLiterals",
-                "es5.properties.mutators",
-                "es6.blockScoping",
-                "es6.constants",
-                'es6.arrowFunctions',
-                "es6.properties.computed",
-                "es6.properties.shorthand",
-            ],
-            optional: [
-                "runtime",
-                "es7.classProperties",
-                "es7.decorators",
-                "es7.exportExtensions",
-                "asyncToGenerator",
-                "optimisation.flow.forOf"
-            ],
-            loose: [
-                "es6.spread",
-                "es6.destructuring",
-                "es6.forOf"
-            ],
+            presets: ['es2015-node5', 'react', 'stage-1'],
+            plugins: (!production ? ['typecheck'] : [])
+                .concat([
+                    ['defines', { PRODUCTION: production, BROWSER: false, SERVER: true }],
+                    'remove-dead-code',
+                    ['discard-module-references', { targets: [] }],
+                    'react-require',
+                ]),
         }))
         .pipe(sourcemaps.write('.', {sourceRoot: '/'}))
         .pipe(gulp.dest('lib/'));
@@ -75,7 +62,7 @@ gulp.task('js', function() {
 });
 
 
-gulp.task('js-browser', function() {
+gulp.task('js-browser', () => {
     if (bs) {
         bs.notify("Compiling, please wait!");
     }
@@ -88,18 +75,14 @@ gulp.task('js-browser', function() {
         .pipe(changed('public/js/', {extension: '.js'}))
         .pipe(sourcemaps.init())
         .pipe(babel({
-            optional: [
-                "runtime",
-                "es7.classProperties",
-                "optimisation.flow.forOf",
-                "es7.decorators",
-                "es7.exportExtensions",
-            ],
-            loose: [
-                "es6.spread",
-                "es6.destructuring",
-                "es6.forOf"
-            ],
+            presets: ['es2015', 'react', 'stage-1'],
+            plugins: (!production ? ['typecheck'] : [])
+                .concat([
+                    ['defines', { PRODUCTION: production, BROWSER: true, SERVER: false }],
+                    'remove-dead-code',
+                    ['discard-module-references', { targets: [] }],
+                    'react-require',
+                ]),
         }))
         .pipe(sourcemaps.write('.', {sourceRoot: '/'}))
         .pipe(gulp.dest('public/js/'));
@@ -113,11 +96,11 @@ gulp.task('js-browser', function() {
 gulp.task('all', gulp.parallel('sass', 'js', 'js-browser'));
 gulp.task('build', gulp.series('all'));
 
-gulp.task('watch:styles', function() {
+gulp.task('watch:styles', () => {
     gulp.watch('src/style/**/*.scss', gulp.series('sass'));
 });
 
-gulp.task('watch:js', function() {
+gulp.task('watch:js', () => {
     gulp.watch('src/**/*.{js,jsx}', gulp.parallel('js', 'js-browser'));
 });
 
@@ -125,12 +108,12 @@ var daemon = require('springbokjs-daemon').node(['--es_staging', 'lib/index.js' 
 process.on('exit', function(code) {
     daemon.stop();
 });
-gulp.task('runandwatch:server', function() {
+gulp.task('runandwatch:server', () => {
     daemon.start();
-    gulp.watch(['lib/**/*.{js,jsx}', '../lib/**/*.js']).on('change', function() {
+    gulp.watch(['lib/**/*.{js,jsx}', '../lib/**/*.js']).on('change', () => {
         daemon.restart();
         if (bs) {
-            setTimeout(function() {
+            setTimeout(() => {
                 bs.reload();
             }, 1000);
         }

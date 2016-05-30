@@ -29,10 +29,19 @@ export default async function action(ctx) {
         otherRoomNames: otherRooms.map(r => r.name),
     };
 
+    const kiosk = ctx.query.kiosk != null;
+    const noninteractive = ctx.query.noninteractive != null;
+
     ctx.body = render({
         View: IndexPage,
         data,
+        context: {
+            kiosk,
+            noninteractive,
+        },
         htmlData: {
+            kiosk,
+            noninteractive,
             hostname: ctx.hostname,
             webSocketPort,
             ...data,

@@ -3,8 +3,6 @@ import eventTransformer from './eventTransformer';
 
 export default function eventsList(params) {
     return authenticateAndFetch(calendar.events.list, params)
-        .then(({ items }) => {
-            return items.map(item => eventTransformer(item));
-        });
+        .then(({ items }) => items.map(item => eventTransformer(item)));
 }
 

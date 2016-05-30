@@ -14,7 +14,6 @@ function checkIsDifferent(event1, event2) {
     return false;
 }
 
-
 export default class Room {
     constructor(name, slug, calendarId) {
         this._name = name;
@@ -58,9 +57,9 @@ export default class Room {
                 return true;
             }
 
-            return _nextEvents.some((event, index) => {
-                return checkIsDifferent(event, this._nextEvents[index]);
-            });
+            return _nextEvents.some((event, index) => (
+                checkIsDifferent(event, this._nextEvents[index])
+            ));
         } else if (_nextEvents || this._nextEvents) {
             return true;
         }
@@ -70,9 +69,9 @@ export default class Room {
 
     _calcTodayEvents() {
         const todayString = new Date().toDateString();
-        this._todayNextEvents = this._nextEvents && this._nextEvents.filter(e => e.startDate.toDateString() == todayString);
+        this._todayNextEvents = this._nextEvents && this._nextEvents.filter(e => e.startDate.toDateString() === todayString);
         const nextEvent = this.nextEvent;
-        this._nextEventIsToday = nextEvent && nextEvent.startDate.toDateString() == todayString;
+        this._nextEventIsToday = nextEvent && nextEvent.startDate.toDateString() === todayString;
     }
 
     _fromJson(json) {

@@ -24,12 +24,12 @@ export function watch() {
 
     logger.debug('watch');
     watch.running = Array.from(rooms.values()).map(room => {
-        _updateRoom(room);
-        return setInterval(() => _updateRoom(room), 10000 * roomsConfig.length);
+        updateRoom(room);
+        return setInterval(() => updateRoom(room), 10000 * roomsConfig.length);
     });
 }
 
-async function _updateRoom(room: Room) {
+export async function updateRoom(room: Room) {
     logger.debug('updating', { roomName: room.name, calendarId: room.calendarId });
     try {
         const events = await getEvents(room.calendarId);
@@ -45,7 +45,7 @@ async function _updateRoom(room: Room) {
     }
 }
 
-export function getByNameOrSlug(nameOrSlug): Room {
+export function getByNameOrSlug(nameOrSlug): ?Room {
     return rooms.get(nameOrSlug) || roomsBySlug.get(nameOrSlug);
 }
 

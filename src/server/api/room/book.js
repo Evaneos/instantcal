@@ -1,31 +1,22 @@
 import getRoom from './_get';
 import roomTransformer from '../transformers/room';
-import { createEvent } from '../../googleCalendar';
+import { bookRoom } from '../../services/roomService';
 
 // TODO POST method
-export default async function bookRoom(ctx) {
+export default async function bookRoomPostMethod(ctx) {
     const room = getRoom(ctx.query.room);
     ctx.assert(room, 'Room not found', 404);
-    ctx.assert(room.isAvailable, 'Room not available', 400);
 
-    const timeInSeconds = ctx.query.timeInSeconds || 30;
-    // const startDate = new Date(ctx.query.startDate);
-    const startDate = new Date();
-    const endDate = new Date();
-    endDate.setMinutes(endDate.getMinutes() + timeInSeconds);
+    try {
+        bookRoom(room, {
+            timeInSeconds: ctx.query.timeInSeconds,
+            summary: ctx.query.summary,
+            description: ctx.query.description,
+        });
+    } catch (err) {
+        ctx.throw(err.message, 400);
+    }
 
-    const summary = ctx.query.summary;
-    const description = ctx.query.description;
-
-    // TODO check if the room is available
-
-    const event = await createEvent(room.calendarId, {
-        summary,
-        description,
-        startDate,
-        endDate,
-        attendees: [{ email: room.calendarId, responseStatus: 'accepted' }],
-    });
     // avoid waiting to block the booking
     // TODO webhook
     room._busy = true;

@@ -13,6 +13,8 @@ export default class Html extends Component {
         rooms: PropTypes.array.isRequired,
         mainRoomName: PropTypes.string,
         otherRoomNames: PropTypes.array.isRequired,
+        kiosk: PropTypes.bool,
+        noninteractive: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -53,6 +55,8 @@ export default class Html extends Component {
                 + "window.mainRoomName ="+ JSON.stringify(this.props.mainRoomName) + ";"
                 + "window.otherRoomNames ="+ JSON.stringify(this.props.otherRoomNames) + ";"
                 + "window.webSocketPort ="+ this.props.webSocketPort + ";"
+                + "window.KIOSK ="+ (this.props.kiosk ? 'true' : 'false') + ";"
+                + "window.NONINTERACTIVE ="+ (this.props.noninteractive ? 'true' : 'false') + ";"
 
             }}></script>
             <div dangerouslySetInnerHTML={{__html: '<script src="//'+this.props.hostname+':'+this.props.webSocketPort+'/socket.io/socket.io.js"></script>'  }} />

@@ -4,9 +4,16 @@
 @import "map/index";
 @import "event/event-list";
 
+// @lucas please make this button better !
+
+button {
+    padding: 1rem;
+    font-size: 20px;
+}
+
 #disconnected {
     background: rgba(247,148,0, .7);
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     right: 0;

@@ -9,7 +9,7 @@ const scopes = [
     'https://www.googleapis.com/auth/calendar',
 ];
 
-
+// eslint-disable-next-line import/no-unresolved
 const key = require('../../../local/instantcal.json');
 const jwtClient = new googleAuth.JWT(key.client_email, null, key.private_key, scopes, null);
 

@@ -3,6 +3,8 @@ import { createServer } from 'http';
 import argv from './argv';
 import Logger from 'nightingale';
 import errorParser from 'alouette';
+import { getByNameOrSlug } from './rooms';
+import { bookRoom } from './services/roomService';
 const config = require('../../config.js');
 
 const logger = new Logger('app.webSocket');
@@ -20,6 +22,18 @@ server.listen(webSocketPort);
 
 io.on('connection', socket => {
     socket.emit('hello');
+    socket.on('bookRoom', (roomName, callback) => {
+        const room = getByNameOrSlug(roomName);
+        logger.info('bookRoom', { roomName });
+        if (!room) return callback();
+        bookRoom(room).then(() => {
+            logger.info('room booked !', { roomName });
+            callback(room._toJson());
+        }).catch(err => {
+            logger.info('failed to book room', { err });
+            callback(room._toJson());
+        });
+    });
 });
 
 io.on('error', (err) => {

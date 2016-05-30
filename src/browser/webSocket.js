@@ -62,3 +62,11 @@ export function create() {
         socket.on('error', (err) => console.log(err.stack || err.message || err));
     });
 }
+
+export function bookRoom(room) {
+    return new Promise((resolve) => {
+        emit('bookRoom', room.name, (room) => {
+            resolve(room);
+        });
+    });
+}

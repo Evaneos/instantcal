@@ -4,6 +4,11 @@ import ReactDOM from 'react-dom';
 import IndexPage from '../components/IndexPage';
 
 class App extends Component {
+    static childContextTypes = {
+        kiosk: PropTypes.bool,
+        noninteractive: PropTypes.bool,
+    };
+
     constructor() {
         super();
         this.state = {
@@ -14,23 +19,30 @@ class App extends Component {
             }),
             mainRoomName: window.mainRoomName,
             otherRoomNames: window.otherRoomNames,
-        }
+        };
+    }
+
+    getChildContext() {
+        return {
+            kiosk: window.KIOSK,
+            noninteractive: window.NONINTERACTIVE,
+        };
     }
 
     render() {
-        return <IndexPage
+        return (<IndexPage
             rooms={this.state.rooms}
             mainRoomName={this.state.mainRoomName}
             otherRoomNames={this.state.otherRoomNames}
-        />;
+        />);
     }
 }
 
 const app = ReactDOM.render(<App />, document.getElementById('app'));
 
 export function update({ room }) {
-    const rooms = app.state.rooms.map(mainRoom => {
-        return mainRoom.name === room.name ? room : mainRoom;
-    });
+    const rooms = app.state.rooms.map(mainRoom => (
+        mainRoom.name === room.name ? room : mainRoom
+    ));
     app.setState({ rooms });
 }
