@@ -1,7 +1,7 @@
 import render from '../renderHtml';
 import IndexPage from '../../components/IndexPage';
 import { getByNameOrSlug, getAll } from '../rooms';
-import { webSocketPort } from '../webSocket';
+import config from '../config';
 
 function queryToRoomNames(queryPart) {
     return queryPart && queryPart.trim().split(',') || [];
@@ -43,7 +43,7 @@ export default async function action(ctx) {
             kiosk,
             noninteractive,
             hostname: ctx.hostname,
-            webSocketPort,
+            webSocketPort: config.get('webSocket').get('port'),
             ...data,
         },
     });
