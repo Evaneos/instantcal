@@ -9,7 +9,7 @@ const logger = new Logger('app.webSocket');
 let io;
 
 export function init(app) {
-    io = websocket(app, `${__dirname}/../../config/`);
+    io = websocket(app, `${__dirname}/../../config/cert`);
 
     io.on('connection', socket => {
         socket.on('bookRoom', (roomName, callback) => {
