@@ -15,7 +15,9 @@
   "license": "MIT",
   "repository": "evaneos/instantcal",
   "dependencies": {
+    "alp-config": "^2.1.1",
     "alp-errors-node": "^1.0.0",
+    "alp-websocket": "^1.3.0",
     "classnames": "^2.2.3",
     "fody": "^4.1.0",
     "fody-app": "^2.0.0",

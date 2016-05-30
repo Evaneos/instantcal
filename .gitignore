@@ -3,6 +3,7 @@ jspm_packages
 /config.js
 /local
 /fabfile.py
+/config/local.json
 
 /lib
 /local
