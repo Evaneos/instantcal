@@ -16,6 +16,7 @@ const logger = new Logger('app');
 const port = argv.port || 3015;
 const app = new Koa();
 app.experimental = true;
+app.proxy = true;
 app.logger = logger;
 app.production = app.env === 'prod' || app.env === 'production';
 

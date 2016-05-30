@@ -18,7 +18,9 @@ io.use((socket, next) => {
     next();
 });
 
-server.listen(webSocketPort);
+server.listen(webSocketPort, () => {
+    logger.success('listening', { port: webSocketPort });
+});
 
 io.on('connection', socket => {
     socket.emit('hello');
