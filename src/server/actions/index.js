@@ -31,6 +31,7 @@ export default async function action(ctx) {
 
     const kiosk = ctx.query.kiosk != null;
     const noninteractive = ctx.query.noninteractive != null;
+    const hideCursor = ctx.query.hideCursor != null;
 
     ctx.body = render({
         View: IndexPage,
@@ -38,10 +39,12 @@ export default async function action(ctx) {
         context: {
             kiosk,
             noninteractive,
+            hideCursor,
         },
         htmlData: {
             kiosk,
             noninteractive,
+            hideCursor,
             hostname: ctx.hostname,
             webSocketPort: config.get('webSocket').get('port'),
             ...data,
