@@ -7,8 +7,10 @@ export default async function bookRoomPostMethod(ctx) {
     const room = findRoom(ctx.query.room);
     ctx.assert(room, 'Room not found', 404);
 
+    let event;
+
     try {
-        bookRoom(room, {
+        event = bookRoom(room, {
             timeInSeconds: ctx.query.timeInSeconds,
             summary: ctx.query.summary,
             description: ctx.query.description,
