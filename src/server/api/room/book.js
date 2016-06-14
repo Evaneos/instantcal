@@ -1,5 +1,6 @@
 import findRoom from './_get';
-import roomTransformer from '../transformers/room';
+import roomTransformer from '../transformers/roomTransformer';
+import eventTransformer from '../transformers/eventTransformer';
 import { bookRoom } from '../../services/roomService';
 
 // TODO POST method
@@ -26,6 +27,6 @@ export default async function bookRoomPostMethod(ctx) {
     ctx.body = {
         room: roomTransformer(room),
         success: true,
-        event: event,
+        event: eventTransformer(event),
     };
 }
