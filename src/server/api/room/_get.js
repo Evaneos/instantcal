@@ -1,6 +1,6 @@
 import Room from '../../../Room';
-import { getByNameOrSlug } from '../../rooms';
+import { findRoomByName } from '../../rooms';
 
-export default function getRoom(roomName): Room {
-    return getByNameOrSlug(roomName);
+export default function findRoom(roomName): ?Room {
+    return findRoomByName(roomName);
 }

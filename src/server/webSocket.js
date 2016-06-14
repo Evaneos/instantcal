@@ -1,6 +1,6 @@
 import Logger from 'nightingale';
 import errorParser from 'alouette';
-import { getByNameOrSlug } from './rooms';
+import { getRoomByName } from './rooms';
 import { bookRoom } from './services/roomService';
 import websocket from 'alp-websocket';
 
@@ -13,7 +13,7 @@ export function init(app) {
 
     io.on('connection', socket => {
         socket.on('bookRoom', (roomName, callback) => {
-            const room = getByNameOrSlug(roomName);
+            const room = getRoomByName(roomName);
             logger.info('bookRoom', { roomName });
             if (!room) return callback();
             bookRoom(room).then(() => {

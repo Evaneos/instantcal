@@ -45,8 +45,12 @@ export async function updateRoom(room: Room) {
     }
 }
 
-export function getByNameOrSlug(nameOrSlug): ?Room {
-    return rooms.get(nameOrSlug) || roomsBySlug.get(nameOrSlug);
+export function findRoomByName(name): ?Room {
+    return roomsBySlug.get(slugify(name));
+}
+
+export function getRoomByName(name): ?Room {
+    return rooms.get(name);
 }
 
 export function getAll(): Array<Room> {

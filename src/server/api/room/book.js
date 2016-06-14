@@ -1,10 +1,10 @@
-import getRoom from './_get';
+import findRoom from './_get';
 import roomTransformer from '../transformers/room';
 import { bookRoom } from '../../services/roomService';
 
 // TODO POST method
 export default async function bookRoomPostMethod(ctx) {
-    const room = getRoom(ctx.query.room);
+    const room = findRoom(ctx.query.room);
     ctx.assert(room, 'Room not found', 404);
 
     try {

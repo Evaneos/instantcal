@@ -1,6 +1,6 @@
 import render from '../renderHtml';
 import IndexPage from '../../components/IndexPage';
-import { getByNameOrSlug, getAll } from '../rooms';
+import { findRoomByName, getAll } from '../rooms';
 import config from '../config';
 
 function queryToRoomNames(queryPart) {
@@ -15,7 +15,7 @@ export default async function action(ctx) {
     const [mainRooms, otherRooms] = [mainRoomNames, otherRoomNames]
         .map(roomNames => (
             roomNames.map(roomName => {
-                const room = getByNameOrSlug(roomName);
+                const room = findRoomByName(roomName);
                 ctx.assert(room, 404, `room ${roomName} not found`);
                 return room;
             })
