@@ -1,2 +1,10 @@
 {
+    "availableLanguages": ["en"],
+    "routeTranslations": {
+        "api": { "en": "api" },
+        "rooms": { "en": "rooms" },
+        "room": { "en": "room" },
+        "search": { "en": "search" },
+        "book": { "en": "book" }
+    }
 }

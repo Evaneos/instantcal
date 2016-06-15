@@ -45,12 +45,16 @@ export async function updateRoom(room: Room) {
     }
 }
 
-export function findRoomByName(name): ?Room {
+export function findRoomByName(name: string): ?Room {
     return roomsBySlug.get(slugify(name));
 }
 
-export function getRoomByName(name): ?Room {
+export function getRoomByName(name: string): ?Room {
     return rooms.get(name);
+}
+
+export function getRoomBySlug(name: string): ?Room {
+    return roomsBySlug.get(name);
 }
 
 export function getAll(): Array<Room> {

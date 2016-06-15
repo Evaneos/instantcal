@@ -1,17 +1,17 @@
-import findRoom from './_get';
+import { findRoomByName, getRoomBySlug } from '../../rooms';
 import roomTransformer from '../transformers/roomTransformer';
 import eventTransformer from '../transformers/eventTransformer';
 import { bookRoom } from '../../services/roomService';
 
 // TODO POST method
 export default async function bookRoomPostMethod(ctx) {
-    const room = findRoom(ctx.query.room);
+    const room = ctx.query.room ? findRoomByName(ctx.query.room) : getRoomBySlug(ctx.route.namedParams.get('roomName'));
     ctx.assert(room, 'Room not found', 404);
 
     let event;
 
     try {
-        event = bookRoom(room, {
+        event = await bookRoom(room, {
             timeInSeconds: ctx.query.timeInSeconds,
             summary: ctx.query.summary,
             description: ctx.query.description,

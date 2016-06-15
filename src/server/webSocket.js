@@ -38,5 +38,5 @@ export function init(app) {
 
 export function emit(...args) {
     logger.debug('webSocket [emit]', { args: args });
-    io.emit(...args);
+    if (io) io.emit(...args);
 }

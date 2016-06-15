@@ -2,6 +2,7 @@ import Koa from 'koa';
 import serve from 'koa-static';
 import argv from './server/argv';
 import errors from 'alp-errors-node';
+import router from 'alp-limosa';
 import { watch as watchForNewEvents } from './server/rooms';
 import Logger from 'nightingale';
 import './server/scheduledTasks';
@@ -10,8 +11,8 @@ import { init as websocket } from './server/webSocket';
 import config from './server/config';
 
 // actions
-import indexAction from './server/actions/index';
-import apiAction from './server/actions/api';
+import routerBuilder from './server/routerBuilder';
+import controllers from './server/controllers';
 
 const logger = new Logger('app');
 
@@ -30,18 +31,13 @@ watchForNewEvents();
 
 app.use(serve(`${__dirname}/../public`));
 
-app.use(async function (ctx, next) {
-    try {
-        await next();
-    } catch (err) {
-        logger.error(err);
-    }
-});
 app.use(errors);
-app.use(apiAction);
-app.use(indexAction);
+
+const routerHandler = router(routerBuilder, controllers)(app);
+app.use(routerHandler);
 
 app.listen(port, () => {
     logger.info('listening', { port: port });
 });
+
 websocket(app);
