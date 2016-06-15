@@ -2,7 +2,12 @@ import { getAll } from '../../rooms';
 import roomTransformer from '../transformers/roomTransformer';
 
 export default async function displayRoom(ctx) {
-    const rooms = getAll();
+    const onlyAvailable = ctx.query.available != null;
+    let rooms = getAll();
+
+    if (onlyAvailable) {
+        rooms = rooms.filter(room => room.isAvailable);
+    }
 
     ctx.body = {
         rooms: rooms.map(room => roomTransformer(room)),

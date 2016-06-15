@@ -7,6 +7,7 @@ export default function roomTransformer(room: Room) {
     return {
         name: room.name,
         slug: room.slug,
+        available: !room.isBusy,
         busy: room.isBusy,
         busySoon: room.isBusySoon,
         availableSoon: room.isAvailableSoon,
