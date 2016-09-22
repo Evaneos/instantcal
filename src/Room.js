@@ -22,6 +22,7 @@ export default class Room {
     }
 
     _updateEvents(events) {
+        events = events.filter(event => event.endDate);
         const { _currentEvent, _nextEvents } = this;
         if (!events.length) {
             this._busy = false;
