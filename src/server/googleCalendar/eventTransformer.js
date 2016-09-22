@@ -1,6 +1,20 @@
 const isResourceRegexp = /@resource.calendar.google.com$/;
 const ucfirst = s => s[0].toUpperCase() + s.substr(1);
 
+const toDate = (date, end) => {
+    if (date.dateTime) return new Date(date.dateTime);
+    else if (date.date) {
+        const res = new Date(date.date);
+        if (end) {
+            res.setDate(res.getDate() + 1);
+        }
+        return res;
+    }
+
+    console.log(date);
+    throw new Error('Invalid date');
+};
+
 export default function eventTransformer(item) {
     return {
         id: item.id,
@@ -25,8 +39,9 @@ export default function eventTransformer(item) {
             }))
             .sort((a, b) => a.name.localeCompare(b.name)),
         status: item.status,
-        startDate: new Date(item.start.dateTime),
-        endDate: new Date(item.end.dateTime),
+        startDate: toDate(item.start),
+        endDate: toDate(item.end, true),
+        allDay: !item.start.dateTime,
         updatedDate: new Date(item.updated),
     };
 }

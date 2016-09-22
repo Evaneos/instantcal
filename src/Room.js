@@ -22,7 +22,6 @@ export default class Room {
     }
 
     _updateEvents(events) {
-        events = events.filter(event => event.endDate);
         const { _currentEvent, _nextEvents } = this;
         if (!events.length) {
             this._busy = false;
@@ -69,10 +68,12 @@ export default class Room {
     }
 
     _calcTodayEvents() {
-        const todayString = new Date().toDateString();
-        this._todayNextEvents = this._nextEvents && this._nextEvents.filter(e => e.startDate.toDateString() === todayString);
+        const todayMidnight = new Date();
+        todayMidnight.setHours(23, 0, 0, 0);
+        const todayMidnightTime = todayMidnight.getTime();
+        this._todayNextEvents = this._nextEvents && this._nextEvents.filter(e => e.startDate.getTime() < todayMidnightTime);
         const nextEvent = this.nextEvent;
-        this._nextEventIsToday = nextEvent && nextEvent.startDate.toDateString() === todayString;
+        this._nextEventIsToday = nextEvent && nextEvent.startDate.getTime() < todayMidnightTime;
     }
 
     _fromJson(json) {
